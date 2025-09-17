@@ -1,0 +1,11 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ActivityController;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Our first project route
+Route::get('/activities', [ActivityController::class, 'index']);
