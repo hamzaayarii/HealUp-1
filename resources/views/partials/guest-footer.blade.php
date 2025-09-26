@@ -8,7 +8,7 @@
             <!-- Brand Section -->
             <div class="brand-section col-span-1 sm:col-span-2 lg:col-span-2">
                 <div class="flex items-center space-x-3 mb-4">
-                    <x-ui.logo class="h-8 w-auto" />
+                    <x-ui.logo variant="full" size="md" />
                     <span class="text-xl font-bold text-gray-900">{{ config('app.name') }}</span>
                 </div>
                 <p class="text-gray-600 mb-6 max-w-md">

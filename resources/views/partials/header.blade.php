@@ -6,7 +6,7 @@
             <!-- Logo Section -->
             <div class="header-logo flex items-center">
                 <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
-                    <x-ui.logo class="h-8 w-auto" />
+                    <x-ui.logo variant="full" size="md" />
                     <span class="text-xl font-bold text-gray-900">{{ config('app.name') }}</span>
                 </a>
             </div>
