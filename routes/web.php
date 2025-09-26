@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('pages.welcome');
+})->name('welcome');
 
 // Our first project route
 Route::get('/activities', [ActivityController::class, 'index']);
