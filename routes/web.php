@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ThemeController;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -9,6 +10,11 @@ Route::get('/', function () {
 
 // Our first project route
 Route::get('/activities', [ActivityController::class, 'index']);
+
+// Theme routes
+Route::post('/theme/toggle', [ThemeController::class, 'toggle'])->name('theme.toggle');
+Route::post('/theme/set', [ThemeController::class, 'setTheme'])->name('theme.set');
+Route::get('/theme/current', [ThemeController::class, 'getCurrentTheme'])->name('theme.current');
 
 Route::middleware([
     'auth:sanctum',

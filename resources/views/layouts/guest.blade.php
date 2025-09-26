@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full {{ $isDarkMode ? 'dark' : '' }}">
 
 <head>
     <meta charset="utf-8">
@@ -9,6 +9,9 @@
     <!-- SEO Meta Tags -->
     <title>{{ config('app.name', 'HealUp') }}</title>
     <meta name="description" content="HealUp - Your Health Management Platform">
+
+    <!-- Theme configuration -->
+    <meta name="theme-config" content="{{ json_encode(app('theme')->getThemeConfig()) }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
@@ -21,11 +24,25 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
+    <!-- Theme-aware styles -->
+    <style>
+        /* Smooth theme transitions */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Ensure proper theme switching */
+        .theme-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body class="font-sans text-gray-900 antialiased bg-gray-50 h-full">
+<body class="font-sans text-gray-900 dark:text-gray-100 antialiased bg-gray-50 dark:bg-gray-900 h-full theme-transition"
+    data-theme="{{ $currentTheme }}">
 
     <!-- Skip to main content for accessibility -->
     <a href="#main-content"

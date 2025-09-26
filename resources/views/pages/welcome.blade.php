@@ -1,15 +1,16 @@
 <x-guest-layout>
     {{-- Hero Section --}}
-    <section class="hero-section bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+    <section
+        class="hero-section bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 py-20 theme-transition">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 {{-- Hero Content --}}
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6 theme-transition">
                     Modern Healthcare
-                    <span class="text-blue-600">Made Simple</span>
+                    <span class="text-primary-600 dark:text-primary-400">Made Simple</span>
                 </h1>
 
-                <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto theme-transition">
                     Streamline your practice with our comprehensive healthcare platform.
                     Manage patients, appointments, and medical records with enterprise-grade security.
                 </p>
@@ -27,8 +28,9 @@
 
                 {{-- Trust Indicators --}}
                 <div class="mt-12 text-center">
-                    <p class="text-sm text-gray-500 mb-4">Trusted by healthcare professionals worldwide</p>
-                    <div class="flex items-center justify-center space-x-8 text-gray-400">
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 theme-transition">Trusted by healthcare
+                        professionals worldwide</p>
+                    <div class="flex items-center justify-center space-x-8 text-gray-400 dark:text-gray-500">
                         <div class="flex items-center space-x-2">
                             <x-ui.icon name="shield-check" class="w-5 h-5" />
                             <span class="text-sm">HIPAA Compliant</span>
@@ -48,14 +50,14 @@
     </section>
 
     {{-- Features Section --}}
-    <section id="features" class="features-section py-20 bg-white">
+    <section id="features" class="features-section py-20 bg-white dark:bg-gray-900 theme-transition">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {{-- Section Header --}}
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 theme-transition">
                     Everything you need to run your practice
                 </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto theme-transition">
                     Comprehensive tools designed specifically for healthcare professionals,
                     with the security and reliability you demand.
                 </p>

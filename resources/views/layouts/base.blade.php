@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full {{ $isDarkMode ? 'dark' : '' }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Theme configuration -->
+    <meta name="theme-config" content="{{ json_encode(app('theme')->getThemeConfig()) }}">
 
     <!-- SEO Meta Tags -->
     <title>@yield('title', config('app.name', 'HealUp'))</title>
@@ -39,12 +42,26 @@
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+    <!-- Theme-aware styles -->
+    <style>
+        /* Smooth theme transitions */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Ensure proper theme switching */
+        .theme-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+
     <!-- Additional Head Content -->
     @stack('head')
 </head>
 
-<body class="font-sans antialiased h-full @yield('body_class', 'bg-gray-50')" data-page="@yield('page_identifier')"
-    data-section="@yield('section_identifier')">
+<body
+    class="font-sans antialiased h-full theme-transition @yield('body_class', 'bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100')"
+    data-page="@yield('page_identifier')" data-section="@yield('section_identifier')" data-theme="{{ $currentTheme }}">
 
     <!-- Skip to main content for accessibility -->
     <a href="#main-content"

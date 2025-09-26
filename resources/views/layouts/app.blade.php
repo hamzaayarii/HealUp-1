@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('body_class', 'bg-gray-100')
+@section('body_class', 'bg-gray-100 dark:bg-gray-900')
 
 @section('header')
     <!-- Jetstream Banner -->
@@ -14,15 +14,17 @@
 @section('content')
     <!-- Page Header -->
     @if (isset($header))
-        <div class="page-header bg-white shadow">
+        <div class="page-header bg-white dark:bg-gray-800 shadow theme-transition">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {{ $header }}
+                <div class="text-gray-900 dark:text-gray-100 theme-transition">
+                    {{ $header }}
+                </div>
             </div>
         </div>
     @endif
 
     <!-- Main Content Container -->
-    <div class="main-content">
+    <div class="main-content theme-transition">
         {{ $slot }}
     </div>
 @endsection

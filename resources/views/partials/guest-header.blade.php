@@ -1,5 +1,7 @@
 <!-- Guest Header - Simpler version for non-authenticated pages -->
-<header class="guest-header bg-white shadow-sm" role="banner">
+<header
+    class="guest-header bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 theme-transition"
+    role="banner">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
 
@@ -7,40 +9,49 @@
             <div class="header-logo">
                 <a href="{{ route('welcome') }}" class="flex items-center space-x-3">
                     <x-ui.logo class="h-8 w-auto" />
-                    <span class="text-xl font-bold text-gray-900">{{ config('app.name') }}</span>
+                    <span class="text-xl font-bold text-gray-900 dark:text-gray-100">{{ config('app.name') }}</span>
                 </a>
             </div>
 
             <!-- Navigation Links -->
             <div class="header-nav hidden sm:flex items-center space-x-6">
-                <a href="{{ route('welcome') }}" class="text-gray-600 hover:text-gray-900 font-medium">
+                <a href="{{ route('welcome') }}"
+                    class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium theme-transition">
                     Home
                 </a>
-                <a href="#features" class="text-gray-600 hover:text-gray-900 font-medium">
+                <a href="#features"
+                    class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium theme-transition">
                     Features
                 </a>
-                <a href="#about" class="text-gray-600 hover:text-gray-900 font-medium">
+                <a href="#about"
+                    class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium theme-transition">
                     About
                 </a>
-                <a href="#contact" class="text-gray-600 hover:text-gray-900 font-medium">
+                <a href="#contact"
+                    class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium theme-transition">
                     Contact
                 </a>
             </div>
 
             <!-- Auth Actions -->
             <div class="header-actions flex items-center space-x-4">
-                <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900 font-medium">
+                <!-- Theme Toggle -->
+                <x-theme.toggle size="sm" />
+
+                <a href="{{ route('login') }}"
+                    class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium theme-transition">
                     Sign in
                 </a>
                 <a href="{{ route('register') }}"
-                    class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 transition-colors">
+                    class="bg-primary-600 text-white px-4 py-2 rounded-md font-medium hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 transition-colors">
                     Get started
                 </a>
 
                 <!-- Mobile Menu Toggle -->
                 <div class="mobile-menu-toggle sm:hidden">
                     <button type="button" data-mobile-menu-toggle aria-expanded="false"
-                        aria-controls="guest-mobile-menu" class="p-2 text-gray-400 hover:text-gray-600">
+                        aria-controls="guest-mobile-menu"
+                        class="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 theme-transition">
                         <span class="sr-only">Open main menu</span>
                         <x-ui.hamburger-icon />
                     </button>
