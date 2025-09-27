@@ -1,192 +1,469 @@
 <x-guest-layout>
-    {{-- Hero Section --}}
-    <section
-        class="hero-section bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 py-20 theme-transition">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                {{-- Hero Content --}}
-                <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-gray-100 mb-6 theme-transition">
-                    Modern Healthcare
-                    <span class="text-primary-600 dark:text-primary-400">Made Simple</span>
-                </h1>
+    <div class="scroll-smooth">
 
-                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto theme-transition">
-                    Streamline your practice with our comprehensive healthcare platform.
-                    Manage patients, appointments, and medical records with enterprise-grade security.
-                </p>
 
-                {{-- CTA Buttons --}}
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <x-ui.button variant="primary" size="lg" href="{{ route('register') }}" class="min-w-[200px]">
-                        Start Free Trial
-                    </x-ui.button>
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <!-- Background Elements -->
+            <div class="absolute inset-0 z-0">
+                <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-green-200 to-emerald-300 dark:from-green-800 dark:to-emerald-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
+                <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-br from-teal-200 to-cyan-300 dark:from-teal-800 dark:to-cyan-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+                <div class="absolute bottom-40 left-1/2 w-72 h-72 bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+            </div>
 
-                    <x-ui.button variant="outline" size="lg" href="{{ route('login') }}" class="min-w-[200px]">
-                        Sign In
-                    </x-ui.button>
+            <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-center lg:text-left animate-fade-in-up">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center space-x-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-4 py-2 rounded-full text-sm font-medium mb-8 theme-transition">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        <span>Wellness & Prevention Platform</span>
+                    </div>
+
+                    <!-- Main Heading -->
+                    <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight mb-8">
+                        <span class="bg-gradient-to-r from-green-600 to-teal-600 dark:from-green-400 dark:to-teal-400 bg-clip-text text-transparent">HealUp</span><br>
+                        <span class="text-gray-900 dark:text-gray-100 theme-transition">Your Wellness</span><br>
+                        <span class="text-gray-600 dark:text-gray-400 text-3xl lg:text-4xl font-medium theme-transition">Journey Companion</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-10 max-w-lg theme-transition">
+                        Track daily habits, join wellness challenges, and build lasting health practices. Designed for students and teachers to foster a culture of preventive wellness.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center gap-4 mb-8">
+                        <a href="{{ route('register') }}" class="group bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <span>Start as Student</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+
+                        <a href="{{ route('register') }}" class="group bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-green-700 dark:text-green-300 px-8 py-4 rounded-xl font-semibold transition-all duration-300 border-2 border-green-200 dark:border-green-700 hover:border-green-300 dark:hover:border-green-600 flex items-center space-x-2 theme-transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                            <span>Join as Teacher</span>
+                        </a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="flex items-center justify-center lg:justify-start space-x-8 text-sm text-gray-500 dark:text-gray-400 theme-transition">
+                        <div class="text-center">
+                            <div class="font-bold text-green-600 dark:text-green-400 text-lg">24/7</div>
+                            <div>Health Tracking</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-bold text-green-600 dark:text-green-400 text-lg">100%</div>
+                            <div>Privacy Focused</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-bold text-green-600 dark:text-green-400 text-lg">∞</div>
+                            <div>Habit Building</div>
+                        </div>
+                    </div>
                 </div>
 
-                {{-- Trust Indicators --}}
-                <div class="mt-12 text-center">
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 theme-transition">Trusted by healthcare
-                        professionals worldwide</p>
-                    <div class="flex items-center justify-center space-x-8 text-gray-400 dark:text-gray-500">
-                        <div class="flex items-center space-x-2">
-                            <x-ui.icon name="shield-check" class="w-5 h-5" />
-                            <span class="text-sm">HIPAA Compliant</span>
+                <!-- Right Content - Interactive Dashboard Preview -->
+                <div class="relative animate-fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-white dark:bg-gray-800 p-6 border border-gray-200 dark:border-gray-700 theme-transition">
+                        <!-- Mock Dashboard -->
+                        <div class="space-y-4">
+                            <!-- Header -->
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-gray-800 dark:text-gray-200 theme-transition">Today's Wellness Overview</h3>
+                                <div class="w-3 h-3 bg-green-400 dark:bg-green-500 rounded-full animate-pulse-slow"></div>
+                            </div>
+
+                            <!-- Progress Circles -->
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="w-16 h-16 mx-auto mb-2 relative">
+                                        <svg class="w-16 h-16 transform -rotate-90">
+                                            <circle cx="32" cy="32" r="28" stroke="#e5e7eb" class="dark:stroke-gray-600" stroke-width="4" fill="none"/>
+                                            <circle cx="32" cy="32" r="28" stroke="#10b981" class="dark:stroke-green-400" stroke-width="4" fill="none"
+                                                   stroke-dasharray="175.92" stroke-dashoffset="52.78" stroke-linecap="round"/>
+                                        </svg>
+                                        <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-green-600 dark:text-green-400">70%</div>
+                                    </div>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 theme-transition">Daily Steps</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 mx-auto mb-2 relative">
+                                        <svg class="w-16 h-16 transform -rotate-90">
+                                            <circle cx="32" cy="32" r="28" stroke="#e5e7eb" class="dark:stroke-gray-600" stroke-width="4" fill="none"/>
+                                            <circle cx="32" cy="32" r="28" stroke="#06b6d4" class="dark:stroke-cyan-400" stroke-width="4" fill="none"
+                                                   stroke-dasharray="175.92" stroke-dashoffset="79.16" stroke-linecap="round"/>
+                                        </svg>
+                                        <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-cyan-600 dark:text-cyan-400">55%</div>
+                                    </div>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 theme-transition">Habits</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-16 h-16 mx-auto mb-2 relative">
+                                        <svg class="w-16 h-16 transform -rotate-90">
+                                            <circle cx="32" cy="32" r="28" stroke="#e5e7eb" class="dark:stroke-gray-600" stroke-width="4" fill="none"/>
+                                            <circle cx="32" cy="32" r="28" stroke="#8b5cf6" class="dark:stroke-purple-400" stroke-width="4" fill="none"
+                                                   stroke-dasharray="175.92" stroke-dashoffset="35.18" stroke-linecap="round"/>
+                                        </svg>
+                                        <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-purple-600 dark:text-purple-400">80%</div>
+                                    </div>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 theme-transition">Challenges</p>
+                                </div>
+                            </div>
+
+                            <!-- Activity List -->
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded-lg theme-transition">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-full"></div>
+                                        <span class="text-sm text-gray-700 dark:text-gray-300">Morning Walk Challenge</span>
+                                    </div>
+                                    <span class="text-xs text-green-600 dark:text-green-400 font-medium">+50 pts</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg theme-transition">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full"></div>
+                                        <span class="text-sm text-gray-700 dark:text-gray-300">Hydration Habit</span>
+                                    </div>
+                                    <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">+30 pts</span>
+                                </div>
+                                <div class="flex items-center justify-between p-2 bg-purple-50 dark:bg-purple-900/20 rounded-lg theme-transition">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full"></div>
+                                        <span class="text-sm text-gray-700 dark:text-gray-300">Meditation Session</span>
+                                    </div>
+                                    <span class="text-xs text-purple-600 dark:text-purple-400 font-medium">+25 pts</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <x-ui.icon name="lock" class="w-5 h-5" />
-                            <span class="text-sm">Bank-Level Security</span>
+                    </div>
+
+                    <!-- Floating Elements -->
+                    <div class="absolute -top-4 -right-4 w-8 h-8 bg-green-400 dark:bg-green-500 rounded-full opacity-80 animate-float theme-transition"></div>
+                    <div class="absolute -bottom-4 -left-4 w-6 h-6 bg-teal-400 dark:bg-teal-500 rounded-full opacity-80 animate-float theme-transition" style="animation-delay: 1s;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-white dark:bg-gray-900 theme-transition">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 theme-transition">Comprehensive Wellness Platform</h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto theme-transition">
+                        Everything students and teachers need to build healthy habits, track progress, and create a culture of preventive wellness.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Habit Tracking -->
+                    <div class="group bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/30 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 border border-green-100 dark:border-green-800 theme-transition">
+                        <div class="w-12 h-12 bg-green-600 dark:bg-green-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <x-ui.icon name="globe" class="w-5 h-5" />
-                            <span class="text-sm">99.9% Uptime</span>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 theme-transition">Daily Habit Tracking</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 theme-transition">Build and maintain healthy habits with daily progress tracking, streaks, and personalized categories.</p>
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1 theme-transition">
+                            <li>• Custom habit categories</li>
+                            <li>• Daily progress logging</li>
+                            <li>• Streak counting & rewards</li>
+                        </ul>
+                    </div>
+
+                    <!-- Wellness Challenges -->
+                    <div class="group bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/30 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 border border-blue-100 dark:border-blue-800 theme-transition">
+                        <div class="w-12 h-12 bg-blue-600 dark:bg-blue-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 theme-transition">Wellness Challenges</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 theme-transition">Join group challenges with classmates and compete in healthy activities to stay motivated together.</p>
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1 theme-transition">
+                            <li>• Group challenges</li>
+                            <li>• Leaderboards & rankings</li>
+                            <li>• Team participation</li>
+                        </ul>
+                    </div>
+
+                    <!-- AI-Powered Advice -->
+                    <div class="group bg-gradient-to-br from-purple-50 to-indigo-100 dark:from-purple-900/20 dark:to-indigo-900/30 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 border border-purple-100 dark:border-purple-800 theme-transition">
+                        <div class="w-12 h-12 bg-purple-600 dark:bg-purple-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 theme-transition">Personalized Advice</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 theme-transition">Get personalized wellness advice from teachers or AI, with follow-up chat sessions for continuous support.</p>
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1 theme-transition">
+                            <li>• Teacher-generated advice</li>
+                            <li>• AI wellness insights</li>
+                            <li>• Follow-up chat sessions</li>
+                        </ul>
+                    </div>
+
+                    <!-- Social Community -->
+                    <div class="group bg-gradient-to-br from-amber-50 to-orange-100 dark:from-amber-900/20 dark:to-orange-900/30 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 border border-amber-100 dark:border-amber-800 theme-transition">
+                        <div class="w-12 h-12 bg-amber-600 dark:bg-amber-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 theme-transition">Social Community</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 theme-transition">Share wellness posts, comment on others' journeys, and build a supportive community around health.</p>
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1 theme-transition">
+                            <li>• Wellness posts & updates</li>
+                            <li>• Community discussions</li>
+                            <li>• Peer support network</li>
+                        </ul>
+                    </div>
+
+                    <!-- Progress Analytics -->
+                    <div class="group bg-gradient-to-br from-teal-50 to-green-100 dark:from-teal-900/20 dark:to-green-900/30 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 border border-teal-100 dark:border-teal-800 theme-transition">
+                        <div class="w-12 h-12 bg-teal-600 dark:bg-teal-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 theme-transition">Progress Analytics</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 theme-transition">Visualize your wellness journey with detailed analytics, trends, and achievement milestones.</p>
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1 theme-transition">
+                            <li>• Progress visualization</li>
+                            <li>• Habit trend analysis</li>
+                            <li>• Achievement tracking</li>
+                        </ul>
+                    </div>
+
+                    <!-- Privacy & Security -->
+                    <div class="group bg-gradient-to-br from-rose-50 to-pink-100 dark:from-rose-900/20 dark:to-pink-900/30 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 border border-rose-100 dark:border-rose-800 theme-transition">
+                        <div class="w-12 h-12 bg-rose-600 dark:bg-rose-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 theme-transition">Safe & Secure</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 theme-transition">Your wellness data is protected with role-based access, ensuring privacy between students and teachers.</p>
+                        <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1 theme-transition">
+                            <li>• Role-based permissions</li>
+                            <li>• Data privacy controls</li>
+                            <li>• Secure communication</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose HealUp Section -->
+        <section id="about" class="py-20 bg-gradient-to-br from-gray-50 to-green-50 dark:from-gray-900 dark:to-gray-800 theme-transition">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <!-- Left Content -->
+                    <div>
+                        <h2 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 theme-transition">Why HealUp Matters</h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 theme-transition">
+                            In today's fast-paced educational environment, fostering preventive wellness habits is essential. HealUp creates a supportive ecosystem where health becomes a shared journey.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0 theme-transition">
+                                    <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 theme-transition">Prevention-First Approach</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 theme-transition">Build sustainable wellness habits early through daily tracking and positive reinforcement.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0 theme-transition">
+                                    <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7-293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 theme-transition">Educational Community</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 theme-transition">Seamlessly integrate wellness into educational environments with teacher guidance and peer support.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0 theme-transition">
+                                    <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 theme-transition">Smart Insights & AI Support</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 theme-transition">Receive personalized wellness advice and insights powered by intelligent analytics.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0 theme-transition">
+                                    <svg class="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 theme-transition">Gamified Wellness Journey</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 theme-transition">Stay motivated through challenges, achievements, and friendly competition with peers.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Content - Stats -->
+                    <div class="relative">
+                        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl border border-gray-200 dark:border-gray-700 theme-transition">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8 text-center theme-transition">Platform Impact</h3>
+
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-green-600 dark:text-green-400 mb-2">85%</div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 theme-transition">Improved Wellness Habits</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">72%</div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 theme-transition">Active Daily Engagement</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">90%</div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 theme-transition">Challenge Completion Rate</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-teal-600 dark:text-teal-400 mb-2">95%</div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 theme-transition">User Satisfaction</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-8 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl theme-transition">
+                                <div class="flex items-center space-x-2 text-green-700 dark:text-green-300 theme-transition">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span class="font-medium">Trusted by educational institutions worldwide</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    {{-- Features Section --}}
-    <section id="features" class="features-section py-20 bg-white dark:bg-gray-900 theme-transition">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {{-- Section Header --}}
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 theme-transition">
-                    Everything you need to run your practice
+        <!-- CTA Section -->
+        <section class="py-20 bg-gradient-to-r from-green-600 to-teal-600 dark:from-green-700 dark:to-teal-700 theme-transition">
+            <div class="max-w-4xl mx-auto text-center px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-white mb-6">
+                    Ready to Start Your Wellness Journey?
                 </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto theme-transition">
-                    Comprehensive tools designed specifically for healthcare professionals,
-                    with the security and reliability you demand.
+                <p class="text-xl text-green-100 dark:text-green-200 mb-10 theme-transition">
+                    Join the HealUp community and build sustainable wellness habits with students and teachers who care about preventive health.
                 </p>
-            </div>
 
-            {{-- Features Grid --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {{-- Feature 1 --}}
-                <div
-                    class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-                    <div class="feature-icon w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                        <x-ui.icon name="users" class="w-6 h-6 text-blue-600" />
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Patient Management</h3>
-                    <p class="text-gray-600">
-                        Comprehensive patient profiles with medical history, appointments, and secure communication
-                        tools.
-                    </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="{{ route('register') }}" class="group bg-white dark:bg-gray-800 text-green-600 dark:text-green-400 px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center space-x-2 theme-transition">
+                        <span>Start Your Journey</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+
+                    <a href="{{ route('login') }}" class="text-white border-2 border-white hover:bg-white hover:text-green-600 dark:hover:bg-gray-800 dark:hover:text-green-400 px-8 py-4 rounded-xl font-semibold transition-all duration-300 theme-transition">
+                        Sign In
+                    </a>
                 </div>
 
-                {{-- Feature 2 --}}
-                <div
-                    class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-                    <div class="feature-icon w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                        <x-ui.icon name="calendar" class="w-6 h-6 text-green-600" />
+                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-green-100 dark:text-green-200 text-sm theme-transition">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Free to get started</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Smart Scheduling</h3>
-                    <p class="text-gray-600">
-                        Intelligent appointment scheduling with automated reminders and calendar synchronization.
-                    </p>
-                </div>
-
-                {{-- Feature 3 --}}
-                <div
-                    class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-                    <div class="feature-icon w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                        <x-ui.icon name="chart-bar" class="w-6 h-6 text-purple-600" />
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Privacy-focused platform</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Analytics & Reports</h3>
-                    <p class="text-gray-600">
-                        Detailed insights and customizable reports to help you make data-driven decisions.
-                    </p>
-                </div>
-
-                {{-- Feature 4 --}}
-                <div
-                    class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-                    <div class="feature-icon w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                        <x-ui.icon name="shield-check" class="w-6 h-6 text-red-600" />
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Quick 5-minute setup</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Enterprise Security</h3>
-                    <p class="text-gray-600">
-                        HIPAA-compliant platform with end-to-end encryption and advanced access controls.
-                    </p>
-                </div>
-
-                {{-- Feature 5 --}}
-                <div
-                    class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-                    <div class="feature-icon w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
-                        <x-ui.icon name="mobile" class="w-6 h-6 text-yellow-600" />
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Mobile Access</h3>
-                    <p class="text-gray-600">
-                        Access your practice data anywhere with our responsive web platform and mobile apps.
-                    </p>
-                </div>
-
-                {{-- Feature 6 --}}
-                <div
-                    class="feature-card bg-white p-6 rounded-lg border border-gray-200 hover:shadow-lg transition-shadow">
-                    <div class="feature-icon w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                        <x-ui.icon name="integration" class="w-6 h-6 text-indigo-600" />
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Seamless Integration</h3>
-                    <p class="text-gray-600">
-                        Connect with existing healthcare systems and third-party tools through our robust API.
-                    </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    {{-- CTA Section --}}
-    <section class="cta-section bg-blue-600 py-16">
-        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                Ready to transform your practice?
-            </h2>
-            <p class="text-xl text-blue-100 mb-8">
-                Join thousands of healthcare professionals who trust HealUp with their practice management.
-            </p>
+        <!-- Back to Top Button -->
+        <button id="backToTop" class="fixed bottom-8 right-8 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible theme-transition z-50">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+            </svg>
+        </button>
 
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <x-ui.button variant="white" size="lg" href="{{ route('register') }}"
-                    class="bg-white text-blue-600 hover:bg-gray-50">
-                    Start Your Free Trial
-                </x-ui.button>
+        @push('scripts')
+            <script>
+                // Back to top button functionality
+                const backToTop = document.getElementById('backToTop');
 
-                <x-ui.button variant="outline" size="lg" href="#contact"
-                    class="border-white text-white hover:bg-white hover:text-blue-600">
-                    Contact Sales
-                </x-ui.button>
-            </div>
+                // Show/hide back to top button based on scroll position
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTop.classList.remove('opacity-0', 'invisible');
+                    } else {
+                        backToTop.classList.add('opacity-0', 'invisible');
+                    }
+                });
 
-            <p class="text-sm text-blue-200 mt-6">
-                No credit card required • 30-day free trial • Cancel anytime
-            </p>
-        </div>
-    </section>
+                // Scroll to top when button is clicked
+                backToTop.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
 
-    @push('scripts')
-        <script>
-            // Smooth scrolling for anchor links
-            document.addEventListener('DOMContentLoaded', function () {
-                const links = document.querySelectorAll('a[href^="#"]');
-                links.forEach(link => {
-                    link.addEventListener('click', function (e) {
+                // Smooth scrolling for anchor links
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
                         e.preventDefault();
                         const target = document.querySelector(this.getAttribute('href'));
                         if (target) {
-                            target.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
                     });
                 });
-            });
-        </script>
-    @endpush
+
+                // Intersection Observer for animations
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animate-fade-in-up');
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all feature cards and sections
+                document.querySelectorAll('.group, [class*="animate-fade-in-up"]').forEach(element => {
+                    observer.observe(element);
+                });
+            </script>
+        @endpush
+    </div>
 </x-guest-layout>
