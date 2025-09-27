@@ -7,10 +7,10 @@
 
 @php
     $sizeClasses = [
-        'sm' => 'h-6 w-auto',
-        'md' => 'h-8 w-auto',
-        'lg' => 'h-12 w-auto',
-        'xl' => 'h-16 w-auto'
+        'sm' => 'h-8 w-auto',
+        'md' => 'h-12 w-auto',
+        'lg' => 'h-14 w-auto',
+        'xl' => 'h-20 w-auto'
     ];
     $baseClass = $sizeClasses[$size] ?? $sizeClasses['md'];
 @endphp
@@ -34,7 +34,7 @@
         @if(file_exists(public_path('images/logos/healup-logo-light.svg')) || file_exists(public_path('images/logos/healup-logo-light.png')))
             {{-- Use uploaded logo images --}}
             @if(file_exists(public_path('images/logos/healup-logo-light.svg')))
-                <img src="{{ asset('images/logos/healup-logo-light.svg') }}"
+                <img src="{{ asset('images/logos/healup.svg') }}"
                      alt="{{ config('app.name') }} Logo"
                      class="w-full h-full object-contain dark:hidden theme-transition">
             @elseif(file_exists(public_path('images/logos/healup-logo-light.png')))
@@ -44,7 +44,7 @@
             @endif
 
             @if(file_exists(public_path('images/logos/healup-logo-dark.svg')))
-                <img src="{{ asset('images/logos/healup-logo-dark.svg') }}"
+                <img src="{{ asset('images/logos/healup.svg') }}"
                      alt="{{ config('app.name') }} Logo"
                      class="w-full h-full object-contain hidden dark:block theme-transition">
             @elseif(file_exists(public_path('images/logos/healup-logo-dark.png')))
