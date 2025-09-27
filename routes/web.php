@@ -1,12 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\RepasController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
-    return view('pages.welcome');
+    return view('welcome');
 })->name('welcome');
 
 // Our first project route
@@ -28,4 +32,12 @@ Route::middleware([
 
     // Wellness Events resource routes
     Route::resource('events', EventController::class);
+    
+    // ✅ AJOUTER CES ROUTES NUTRITION
+    Route::resource('ingredients', IngredientController::class);
+    Route::resource('repas', RepasController::class);
+    
+    // Routes API internes pour recherche dynamique
+    Route::get('/api/internal/ingredients/search', [IngredientController::class, 'search'])->name('api.ingredients.search');
+    Route::get('/api/internal/ingredients/categories', [IngredientController::class, 'getCategories'])->name('api.ingredients.categories');
 });
