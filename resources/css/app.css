@@ -5,13 +5,6 @@
 [x-cloak] {
     display: none;
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-[x-cloak] {
-    display: none;
-}
 
 /* Custom animations and styles for the welcome page */
 @layer utilities {
