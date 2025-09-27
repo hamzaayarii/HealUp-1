@@ -16,7 +16,7 @@
                     <!-- Default Auth Header -->
                     <div class="auth-logo">
                         <a href="{{ route('welcome') }}" class="inline-block">
-                            <x-ui.logo class="h-12 w-auto" />
+                            <x-ui.logo variant="full" size="lg" />
                         </a>
                     </div>
                     <h2 class="mt-6 text-3xl font-extrabold text-gray-900">

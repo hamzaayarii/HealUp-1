@@ -8,7 +8,7 @@
             <!-- Company Info -->
             <div class="footer-company col-span-1 md:col-span-2">
                 <div class="flex items-center space-x-3 mb-4">
-                    <x-ui.logo class="h-8 w-auto" />
+                    <x-ui.logo variant="full" size="md" />
                     <span class="text-xl font-bold text-gray-900">{{ config('app.name') }}</span>
                 </div>
                 <p class="text-gray-600 mb-4">

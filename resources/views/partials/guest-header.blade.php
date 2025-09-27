@@ -8,7 +8,7 @@
             <!-- Logo Section -->
             <div class="header-logo">
                 <a href="{{ route('welcome') }}" class="flex items-center space-x-3">
-                    <x-ui.logo class="h-8 w-auto" />
+                    <x-ui.logo variant="full" size="md" />
                     <span class="text-xl font-bold text-gray-900 dark:text-gray-100">{{ config('app.name') }}</span>
                 </a>
             </div>

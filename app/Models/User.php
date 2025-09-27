@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -63,5 +64,71 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Role check methods
+    public function isStudent(): bool
+    {
+        return $this->role === 'student';
+    }
+
+    public function isProfessor(): bool
+    {
+        return $this->role === 'professor';
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    // Relationships
+    public function habits()
+    {
+        return $this->belongsToMany(Habit::class, 'user_habits')
+            ->withPivot('current_streak', 'longest_streak', 'started_at', 'is_active')
+            ->withTimestamps();
+    }
+
+    public function userHabits()
+    {
+        return $this->hasMany(UserHabit::class);
+    }
+
+    public function challenges()
+    {
+        return $this->belongsToMany(Challenge::class, 'participations')
+            ->withPivot('joined_at', 'current_progress', 'completed', 'completed_at', 'points_earned')
+            ->withTimestamps();
+    }
+
+    public function participations()
+    {
+        return $this->hasMany(Participation::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function advices()
+    {
+        return $this->hasMany(Advice::class);
+    }
+
+    public function givenAdvices()
+    {
+        return $this->hasMany(Advice::class, 'advisor_id');
+    }
+
+    public function chatSessions()
+    {
+        return $this->hasMany(ChatSession::class);
     }
 }
