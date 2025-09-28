@@ -150,11 +150,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Repas::class);
     }
 
-    public function dailyProgress()
-    {
-        return $this->hasMany(DailyProgress::class);
-    }
-
     // ===== MÉTHODES NUTRITION =====
     public function calculateBMR()
     {

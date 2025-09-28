@@ -11,7 +11,7 @@ class ChallengeController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Challenge::with(['category', 'user']);
+        $query = Challenge::with(['category']);
 
         // Search functionality
         if ($request->has('search') && $request->search) {
@@ -49,14 +49,14 @@ class ChallengeController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'duration_days' => 'required|integer|min:1|max:365',
-            'difficulty_level' => 'required|in:easy,medium,hard',
-            'points_reward' => 'required|integer|min:0',
+            'objectif' => 'nullable|string',
+            'duration' => 'required|integer|min:1|max:365',
+            'reward' => 'required|integer|min:0',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after:start_date',
             'is_active' => 'boolean',
         ]);
 
-        $validated['user_id'] = auth()->id();
         $validated['is_active'] = $request->has('is_active');
 
         Challenge::create($validated);
@@ -67,7 +67,7 @@ class ChallengeController extends Controller
 
     public function show(Challenge $challenge)
     {
-        $challenge->load(['category', 'user', 'participations.user']);
+        $challenge->load(['category', 'participations.user']);
 
         return view('admin.challenges.show', compact('challenge'));
     }
@@ -83,10 +83,11 @@ class ChallengeController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'duration_days' => 'required|integer|min:1|max:365',
-            'difficulty_level' => 'required|in:easy,medium,hard',
-            'points_reward' => 'required|integer|min:0',
+            'objectif' => 'nullable|string',
+            'duration' => 'required|integer|min:1|max:365',
+            'reward' => 'required|integer|min:0',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after:start_date',
             'is_active' => 'boolean',
         ]);
 

@@ -21,7 +21,7 @@ class ReportController extends Controller
         // Overview stats
         $stats = [
             'total_users' => User::count(),
-            'active_users' => User::whereHas('dailyProgress', function ($q) {
+            'active_users' => User::whereHas('userHabits.dailyProgress', function ($q) {
                 $q->where('date', '>=', Carbon::now()->subDays(7));
             })->count(),
             'total_habits' => Habit::count(),

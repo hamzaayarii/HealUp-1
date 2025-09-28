@@ -84,26 +84,17 @@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <h6 class="text-muted">Creator Information</h6>
-                            <div class="d-flex align-items-center">
-                                @if($challenge->user->profile_photo_url)
-                                    <img src="{{ $challenge->user->profile_photo_url }}"
-                                         alt="{{ $challenge->user->name }}"
-                                         class="rounded-circle me-3" width="50" height="50">
-                                @else
-                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold me-3"
-                                         style="width: 50px; height: 50px;">
-                                        {{ strtoupper(substr($challenge->user->name, 0, 1)) }}
-                                    </div>
+                            <h6 class="text-muted">Challenge Timeline</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Created:</strong> {{ $challenge->created_at->format('M d, Y') }}</li>
+                                <li class="mt-2"><strong>Updated:</strong> {{ $challenge->updated_at->format('M d, Y') }}</li>
+                                @if($challenge->start_date)
+                                    <li class="mt-2"><strong>Start Date:</strong> {{ $challenge->start_date->format('M d, Y') }}</li>
                                 @endif
-                                <div>
-                                    <div class="fw-medium">{{ $challenge->user->name }}</div>
-                                    <small class="text-muted">{{ $challenge->user->email }}</small>
-                                    <div class="mt-1">
-                                        <small class="text-muted">Created: {{ $challenge->created_at->format('M d, Y') }}</small>
-                                    </div>
-                                </div>
-                            </div>
+                                @if($challenge->end_date)
+                                    <li class="mt-2"><strong>End Date:</strong> {{ $challenge->end_date->format('M d, Y') }}</li>
+                                @endif
+                            </ul>
                         </div>
                     </div>
                 </div>
