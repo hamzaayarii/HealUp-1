@@ -244,5 +244,56 @@ function deleteUser(userId, userName) {
     document.getElementById('deleteForm').action = `/admin/users/${userId}`;
     new bootstrap.Modal(document.getElementById('deleteModal')).show();
 }
+
+// Dynamic filtering
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('input[name="search"]');
+    const roleSelect = document.querySelector('select[name="role"]');
+    const sortSelect = document.querySelector('select[name="sort"]');
+    const filterForm = document.querySelector('form');
+
+    let filterTimeout;
+
+    function applyFilters() {
+        clearTimeout(filterTimeout);
+        filterTimeout = setTimeout(() => {
+            filterForm.submit();
+        }, 500); // Wait 500ms after user stops typing
+    }
+
+    // Auto-submit on input change
+    searchInput.addEventListener('input', applyFilters);
+    roleSelect.addEventListener('change', function() {
+        filterForm.submit();
+    });
+    sortSelect.addEventListener('change', function() {
+        filterForm.submit();
+    });
+
+    // Real-time search highlighting
+    const searchTerm = searchInput.value.toLowerCase();
+    if (searchTerm.length > 0) {
+        const tableRows = document.querySelectorAll('.admin-table tbody tr');
+        tableRows.forEach(row => {
+            const nameCell = row.querySelector('td:first-child');
+            const emailCell = row.querySelector('td:nth-child(2)');
+
+            if (nameCell && emailCell) {
+                highlightText(nameCell, searchTerm);
+                highlightText(emailCell, searchTerm);
+            }
+        });
+    }
+});
+
+function highlightText(element, searchTerm) {
+    const text = element.textContent;
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    const highlightedText = text.replace(regex, '<mark>$1</mark>');
+
+    if (text !== highlightedText) {
+        element.innerHTML = highlightedText;
+    }
+}
 </script>
 @endpush

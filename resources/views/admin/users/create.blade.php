@@ -105,19 +105,23 @@
                         Quick Tips
                     </h5>
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-info">
-                        <h6 class="alert-heading">User Roles</h6>
-                        <ul class="mb-0 small">
-                            <li><strong>Students</strong> can track habits, join challenges, and view their progress</li>
-                            <li><strong>Professors</strong> can create and manage content, challenges, and view student progress</li>
-                            <li><strong>Admins</strong> have full access to all system features and user management</li>
+                                <div class="card-body">
+                    <div class="bg-light p-3 rounded mb-3">
+                        <h6 class="fw-bold text-primary mb-2">
+                            <i class="fas fa-users me-2"></i>User Roles
+                        </h6>
+                        <ul class="mb-0 small text-muted">
+                            <li class="mb-1"><strong>Students</strong> can track habits, join challenges, and view their progress</li>
+                            <li class="mb-1"><strong>Professors</strong> can create and manage content, challenges, and view student progress</li>
+                            <li class="mb-0"><strong>Admins</strong> have full access to all system features and user management</li>
                         </ul>
                     </div>
 
-                    <div class="alert alert-success">
-                        <h6 class="alert-heading">Account Setup</h6>
-                        <p class="mb-0 small">
+                    <div class="bg-success bg-opacity-10 p-3 rounded">
+                        <h6 class="fw-bold text-success mb-2">
+                            <i class="fas fa-check-circle me-2"></i>Account Setup
+                        </h6>
+                        <p class="mb-0 small text-muted">
                             New accounts are automatically verified and the user will receive login credentials via email.
                         </p>
                     </div>

@@ -12,11 +12,11 @@ class Challenge extends Model
     protected $fillable = [
         'title',
         'description',
-        'objectif',
-        'duration',
-        'reward',
-        'start_date',
-        'end_date',
+        'category_id',
+        'duration_days',
+        'difficulty_level',
+        'points_reward',
+        'user_id',
         'is_active'
     ];
 
@@ -27,6 +27,16 @@ class Challenge extends Model
     ];
 
     // Relationships
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'participations')

@@ -11,11 +11,14 @@ class Habit extends Model
 
     protected $fillable = [
         'category_id',
+        'user_id',
         'name',
         'description',
         'frequency',
-        'target_value',
-        'unit',
+        'difficulty_level',
+        'points_per_completion',
+        'icon',
+        'color',
         'is_active'
     ];
 
@@ -27,6 +30,11 @@ class Habit extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function users()
