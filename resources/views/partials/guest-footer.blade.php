@@ -15,14 +15,14 @@
 				</div>
 				<p class="text-gray-600 dark:text-gray-300 mb-6 max-w-md">
 					Transform your healthcare practice with our comprehensive platform designed
-										                    for modern medical professionals.
+															                    for modern medical professionals.
 				</p>
 
 				<!-- CTA Section -->
 				<div class="cta-section">
 					<h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Ready to get started?</h4>
 					<div class="flex flex-col sm:flex-row gap-3">
-						<a href="{{ route('register') }}" class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white font-medium rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors">
+						<a href="{{ route('register') }}" class="inline-flex items-center justify-center px-4 py-2 bg-green-600 dark:bg-green-500 text-white font-medium rounded-md hover:bg-green-700 dark:hover:bg-green-600 transition-colors">
 							Start Free Trial
 						</a>
 						<a href="{{ route('login') }}" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
@@ -101,8 +101,8 @@
 					Get the latest healthcare technology insights and product updates.
 				</p>
 				<form class="flex flex-col sm:flex-row gap-2">
-					<input type="email" placeholder="Enter your email" class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 rounded-md text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required>
-					<button type="submit" class="px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white text-sm font-medium rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors">
+					<input type="email" placeholder="Enter your email" class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 rounded-md text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors" required>
+					<button type="submit" class="px-4 py-2 bg-green-600 dark:bg-green-500 text-white text-sm font-medium rounded-md hover:bg-green-700 dark:hover:bg-green-600 transition-colors">
 						Subscribe
 					</button>
 				</form>

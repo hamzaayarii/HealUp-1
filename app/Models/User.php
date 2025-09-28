@@ -30,6 +30,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
+        'age',
+        'poids',
+        'taille',
+        'sexe',
     ];
 
     /**
@@ -63,6 +67,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'age' => 'integer',
+            'poids' => 'float',
+            'taille' => 'float',
         ];
     }
 
@@ -82,7 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role === 'admin';
     }
 
-    // Relationships
+    // ===== RELATIONS WELLNESS =====
     public function habits()
     {
         return $this->belongsToMany(Habit::class, 'user_habits')
@@ -130,5 +137,65 @@ class User extends Authenticatable implements MustVerifyEmail
     public function chatSessions()
     {
         return $this->hasMany(ChatSession::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    // ===== RELATIONS NUTRITION =====
+    public function repas()
+    {
+        return $this->hasMany(Repas::class);
+    }
+
+    // ===== MÉTHODES NUTRITION =====
+    public function calculateBMR()
+    {
+        // Vérifier que les données nécessaires existent
+        if (!$this->age || !$this->poids || !$this->taille || !$this->sexe) {
+            return 2000; // Valeur par défaut
+        }
+
+        // Formule Harris-Benedict révisée
+        if ($this->sexe === 'homme' || $this->sexe === 'male' || $this->sexe === 'M') {
+            return 88.362 + (13.397 * $this->poids) + (4.799 * $this->taille) - (5.677 * $this->age);
+        } else {
+            return 447.593 + (9.247 * $this->poids) + (3.098 * $this->taille) - (4.330 * $this->age);
+        }
+    }
+
+    public function getCaloriesGoal()
+    {
+        return $this->calculateBMR() * 1.6; // Facteur d'activité modérée
+    }
+
+    public function getTodayRepas()
+    {
+        return $this->repas()->whereDate('date_consommation', today())->get();
+    }
+
+    public function getTodayCalories()
+    {
+        return $this->repas()
+                   ->whereDate('date_consommation', today())
+                   ->sum('calories_total') ?? 0;
+    }
+
+    public function getNutritionStats($days = 7)
+    {
+        $startDate = today()->subDays($days - 1);
+        
+        return $this->repas()
+                   ->where('date_consommation', '>=', $startDate)
+                   ->selectRaw('
+                       AVG(calories_total) as avg_calories,
+                       AVG(proteines_total) as avg_proteines,
+                       AVG(glucides_total) as avg_glucides,
+                       AVG(lipides_total) as avg_lipides,
+                       COUNT(*) as total_repas
+                   ')
+                   ->first();
     }
 }

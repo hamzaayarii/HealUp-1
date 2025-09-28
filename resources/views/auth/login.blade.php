@@ -1,53 +1,65 @@
 <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+    <x-auth.modern-card title="Welcome back" subtitle="Sign in to your HealUp account">
+        <!-- Validation Errors -->
+        <x-validation-errors class="mb-6" />
 
-        <x-validation-errors class="mb-4" />
-
+        <!-- Status Message -->
         @session('status')
-            <div
-                class="mb-4 font-medium text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md p-3 theme-transition">
-                {{ $value }}
+            <div class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg theme-transition">
+                <p class="text-sm font-medium text-green-600 dark:text-green-400">{{ $value }}</p>
             </div>
         @endsession
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
             @csrf
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                    autofocus autocomplete="username" />
-            </div>
+            <!-- Email Field -->
+            <x-auth.form-input
+                label="Email Address"
+                name="email"
+                type="email"
+                icon="email"
+                :value="old('email')"
+                required
+                autofocus
+                autocomplete="username"
+                placeholder="Enter your email"
+            />
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                    autocomplete="current-password" />
-            </div>
+            <!-- Password Field -->
+            <x-auth.form-input
+                label="Password"
+                name="password"
+                type="password"
+                icon="password"
+                required
+                autocomplete="current-password"
+                placeholder="Enter your password"
+            />
 
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span
-                        class="ms-2 text-sm text-gray-600 dark:text-gray-400 theme-transition">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+            <!-- Remember Me -->
+            <x-auth.checkbox
+                name="remember"
+                label="Remember me for 30 days"
+            />
 
-            <div class="flex items-center justify-end mt-4">
+            <!-- Submit Button -->
+            <x-auth.button full-width>
+                Sign In
+            </x-auth.button>
+
+            <!-- Additional Links -->
+            <div class="flex items-center justify-between text-sm">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-primary-400 dark:focus:ring-offset-gray-800 theme-transition"
-                        href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
+                    <x-auth.link href="{{ route('password.request') }}">
+                        Forgot your password?
+                    </x-auth.link>
                 @endif
 
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
+                <x-auth.link href="{{ route('register') }}" variant="muted">
+                    Don't have an account? <span class="text-green-600 dark:text-green-400">Sign up</span>
+                </x-auth.link>
             </div>
         </form>
-    </x-authentication-card>
+    </x-auth.modern-card>
 </x-guest-layout>

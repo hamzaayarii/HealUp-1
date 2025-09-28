@@ -25,6 +25,6 @@
 
     <!-- Main Content Container -->
     <div class="main-content theme-transition">
-        {{ $slot }}
+        @yield('content')
     </div>
 @endsection
