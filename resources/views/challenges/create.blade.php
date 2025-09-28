@@ -1,6 +1,6 @@
 @vite('resources/css/challenges.css')
 
-<x-app-layout>
+
     <div class="bg-animated"></div>
     <div class="challenge-form-container">
         <div class="form-hero">
@@ -178,4 +178,3 @@
             </form>
         </div>
     </div>
-</x-app-layout>

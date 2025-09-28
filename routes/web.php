@@ -3,6 +3,9 @@
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\RepasController;
+use App\Http\Controllers\ChallengeController;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -38,9 +41,13 @@ Route::middleware([
 });
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('challenges', [ChallengeController::class, 'index'])->name('challenges.index');
+    Route::get('challenges/index', [ChallengeController::class, 'index'])->name('challenges.index');
     Route::get('challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
+    Route::get('challenges/{id}/edit', [ChallengeController::class, 'edit'])->name('challenges.edit');
+    Route::put('challenges/{id}', [ChallengeController::class, 'update'])->name('challenges.update');
+    Route::delete('challenges/{id}', [ChallengeController::class, 'destroy'])->name('challenges.destroy');
     Route::post('challenges', [ChallengeController::class, 'store'])->name('challenges.store');
+
 });
 
 

@@ -1,4 +1,4 @@
-<x-app-layout>
+
     <div class="container">
         <h1>Liste des Défis</h1>
         @if(auth()->user()->isAdmin())
@@ -41,4 +41,3 @@
         </table>
         {{ $challenges->links() }}
     </div>
-</x-app-layout>
