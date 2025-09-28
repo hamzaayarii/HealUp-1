@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\ChallengeController;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -25,3 +26,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('challenges', [ChallengeController::class, 'index'])->name('challenges.index');
+    Route::get('challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
+    Route::post('challenges', [ChallengeController::class, 'store'])->name('challenges.store');
+});
+
+
+
