@@ -79,3 +79,63 @@ Route::middleware([
     Route::get('/api/internal/ingredients/search', [IngredientController::class, 'search'])->name('api.ingredients.search');
     Route::get('/api/internal/ingredients/categories', [IngredientController::class, 'getCategories'])->name('api.ingredients.categories');
 });
+
+// Admin Routes - Protected by auth and admin middleware
+Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Admin Dashboard
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+    Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profile', [App\Http\Controllers\Admin\AdminController::class, 'profile'])->name('profile');
+
+    // Admin API Routes
+    Route::get('/api/stats', [App\Http\Controllers\Admin\AdminController::class, 'getStats'])->name('api.stats');
+    Route::get('/api/chart-data', [App\Http\Controllers\Admin\AdminController::class, 'getChartData'])->name('api.chart-data');
+    Route::get('/api/system-info', [App\Http\Controllers\Admin\AdminController::class, 'systemInfo'])->name('api.system-info');
+
+    // System Management
+    Route::post('/cache/clear', [App\Http\Controllers\Admin\AdminController::class, 'clearCache'])->name('cache.clear');
+    Route::post('/migrations/run', [App\Http\Controllers\Admin\AdminController::class, 'runMigrations'])->name('migrations.run');
+    Route::post('/optimize', [App\Http\Controllers\Admin\AdminController::class, 'optimize'])->name('optimize');
+
+    // User Management (TODO: Create UserController)
+    // Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+
+    // Health Data Management (TODO: Create HealthController)
+    // Route::get('/health', [App\Http\Controllers\Admin\HealthController::class, 'index'])->name('health.index');
+    // Route::get('/health/{user}', [App\Http\Controllers\Admin\HealthController::class, 'show'])->name('health.show');
+    // Route::delete('/health/{progress}', [App\Http\Controllers\Admin\HealthController::class, 'destroyProgress'])->name('health.destroy-progress');
+
+    // Habits Management (TODO: Create HabitController)
+    // Route::resource('habits', App\Http\Controllers\Admin\HabitController::class);
+    // Route::post('/habits/{habit}/toggle-status', [App\Http\Controllers\Admin\HabitController::class, 'toggleStatus'])->name('habits.toggle-status');
+
+    // Challenges Management (TODO: Create ChallengeController)
+    // Route::resource('challenges', App\Http\Controllers\Admin\ChallengeController::class);
+    // Route::post('/challenges/{challenge}/toggle-status', [App\Http\Controllers\Admin\ChallengeController::class, 'toggleStatus'])->name('challenges.toggle-status');
+    // Route::get('/challenges/{challenge}/participants', [App\Http\Controllers\Admin\ChallengeController::class, 'participants'])->name('challenges.participants');
+
+    // Teams Management (TODO: Create TeamController)
+    // Route::resource('teams', App\Http\Controllers\Admin\TeamController::class);
+    // Route::post('/teams/{team}/toggle-status', [App\Http\Controllers\Admin\TeamController::class, 'toggleStatus'])->name('teams.toggle-status');
+    // Route::get('/teams/{team}/members', [App\Http\Controllers\Admin\TeamController::class, 'members'])->name('teams.members');
+
+    // Nutrition Management (TODO: Create NutritionController)
+    // Route::get('/nutrition', [App\Http\Controllers\Admin\NutritionController::class, 'index'])->name('nutrition.index');
+    // Route::resource('nutrition/ingredients', App\Http\Controllers\Admin\IngredientController::class, ['as' => 'nutrition']);
+    // Route::resource('nutrition/repas', App\Http\Controllers\Admin\RepasController::class, ['as' => 'nutrition']);
+
+    // Reports (TODO: Create ReportController)
+    // Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
+    // Route::get('/reports/users', [App\Http\Controllers\Admin\ReportController::class, 'users'])->name('reports.users');
+    // Route::get('/reports/habits', [App\Http\Controllers\Admin\ReportController::class, 'habits'])->name('reports.habits');
+    // Route::get('/reports/challenges', [App\Http\Controllers\Admin\ReportController::class, 'challenges'])->name('reports.challenges');
+    // Route::get('/reports/export/{type}', [App\Http\Controllers\Admin\ReportController::class, 'export'])->name('reports.export');
+
+    // Settings (TODO: Create SettingController)
+    // Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    // Route::put('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
+    // Route::post('/settings/backup', [App\Http\Controllers\Admin\SettingController::class, 'backup'])->name('settings.backup');
+    // Route::post('/settings/restore', [App\Http\Controllers\Admin\SettingController::class, 'restore'])->name('settings.restore');
+});

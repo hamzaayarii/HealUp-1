@@ -236,9 +236,21 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
-                            </x-dropdown-link>
+                            @if (Auth::user()->isAdmin())
+                                <x-dropdown-link href="{{ route('admin.profile') }}">
+                                    {{ __('Profile') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link href="{{ route('admin.dashboard') }}" class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    {{ __('Admin Dashboard') }}
+                                </x-dropdown-link>
+                            @else
+                                <x-dropdown-link href="{{ route('profile.show') }}">
+                                    {{ __('Profile') }}
+                                </x-dropdown-link>
+                            @endif
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -356,9 +368,21 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+                @if (Auth::user()->isAdmin())
+                    <x-responsive-nav-link href="{{ route('admin.profile') }}" :active="request()->routeIs('admin.profile')">
+                        {{ __('Profile') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('admin.dashboard')" class="flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        {{ __('Admin Dashboard') }}
+                    </x-responsive-nav-link>
+                @else
+                    <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                        {{ __('Profile') }}
+                    </x-responsive-nav-link>
+                @endif
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">

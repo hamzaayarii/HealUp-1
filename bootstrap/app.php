@@ -15,6 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
         // Add theme middleware to web group
         $middleware->web(append: [
             \App\Http\Middleware\ThemeMiddleware::class,
+            \App\Http\Middleware\RedirectAdminMiddleware::class,
+        ]);
+
+        // Register custom middleware aliases
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
