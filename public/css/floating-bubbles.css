@@ -1,0 +1,254 @@
+/* Floating Bubbles CSS - Enhanced Version */
+
+.bubbles-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: auto;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 1;
+    will-change: transform, opacity;
+}
+
+/* Light theme bubbles */
+.bubble.light-theme {
+    background: linear-gradient(135deg,
+        rgba(16, 185, 129, 0.12),
+        rgba(20, 184, 166, 0.18),
+        rgba(59, 130, 246, 0.12),
+        rgba(139, 92, 246, 0.08)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+        0 8px 32px rgba(16, 185, 129, 0.08),
+        0 4px 16px rgba(20, 184, 166, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Dark theme bubbles */
+.bubble.dark-theme {
+    background: linear-gradient(135deg,
+        rgba(16, 185, 129, 0.08),
+        rgba(20, 184, 166, 0.12),
+        rgba(139, 92, 246, 0.08),
+        rgba(59, 130, 246, 0.06)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 8px 32px rgba(16, 185, 129, 0.04),
+        0 4px 16px rgba(139, 92, 246, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Animated floating state */
+.bubble.animate-float-up {
+    animation: floatUp linear infinite;
+    opacity: 1;
+}
+
+/* Mouse interaction state */
+.bubble.mouse-repel {
+    transform: scale(0.85) !important;
+    opacity: 0.4;
+    filter: blur(1px);
+}
+
+/* Bubble shimmer effect */
+.bubble::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    width: 35%;
+    height: 35%;
+    background: radial-gradient(circle,
+        rgba(255, 255, 255, 0.6) 0%,
+        rgba(255, 255, 255, 0.2) 40%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    filter: blur(2px);
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Additional highlight for larger bubbles */
+.bubble.large::after {
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    width: 20%;
+    height: 20%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    filter: blur(1px);
+}
+
+/* Main floating animation */
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    5% {
+        opacity: 0.6;
+        transform: translateY(-5vh) rotate(18deg) scale(0.9);
+    }
+    15% {
+        opacity: 0.8;
+        transform: translateY(-15vh) rotate(45deg) scale(1);
+    }
+    85% {
+        opacity: 0.7;
+        transform: translateY(-85vh) rotate(315deg) scale(1);
+    }
+    95% {
+        opacity: 0.3;
+        transform: translateY(-95vh) rotate(342deg) scale(0.9);
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* Shimmer animation for highlight */
+@keyframes shimmer {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.9;
+        transform: scale(1.1);
+    }
+}
+
+/* Pulse effect for larger bubbles */
+.bubble.large {
+    animation: floatUp linear infinite, gentlePulse 6s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+    0%, 100% {
+        filter: blur(0px);
+    }
+    50% {
+        filter: blur(1px);
+    }
+}
+
+/* Special glow effect for premium bubbles */
+.bubble.glow {
+    box-shadow:
+        0 0 20px rgba(16, 185, 129, 0.3),
+        0 0 40px rgba(20, 184, 166, 0.2),
+        0 0 60px rgba(139, 92, 246, 0.1);
+    animation: floatUp linear infinite, glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow:
+            0 0 20px rgba(16, 185, 129, 0.2),
+            0 0 40px rgba(20, 184, 166, 0.1),
+            0 0 60px rgba(139, 92, 246, 0.05);
+    }
+    50% {
+        box-shadow:
+            0 0 30px rgba(16, 185, 129, 0.4),
+            0 0 60px rgba(20, 184, 166, 0.3),
+            0 0 80px rgba(139, 92, 246, 0.2);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .bubble {
+        filter: blur(0.5px);
+    }
+
+    .bubble.mouse-repel {
+        filter: blur(1.5px);
+    }
+}
+
+@media (max-width: 768px) {
+    .bubble {
+        filter: blur(1px);
+    }
+
+    .bubble.mouse-repel {
+        filter: blur(2px);
+    }
+
+    .bubble::before {
+        opacity: 0.7;
+    }
+}
+
+@media (max-width: 480px) {
+    .bubble {
+        filter: blur(1.5px);
+        opacity: 0.8;
+    }
+
+    .bubble.mouse-repel {
+        filter: blur(2.5px);
+    }
+
+    .bubble::before {
+        opacity: 0.5;
+    }
+
+    .bubble.large::after {
+        display: none;
+    }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+    .bubble {
+        animation-duration: 20s !important;
+    }
+
+    .bubble::before {
+        animation: none;
+    }
+
+    .bubble.large {
+        animation: floatUp linear infinite;
+    }
+
+    .bubble.glow {
+        animation: floatUp linear infinite;
+    }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+    .bubble.light-theme {
+        border: 2px solid rgba(0, 0, 0, 0.3);
+        background: rgba(16, 185, 129, 0.2);
+    }
+
+    .bubble.dark-theme {
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: rgba(16, 185, 129, 0.15);
+    }
+}
