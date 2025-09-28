@@ -1,53 +1,98 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Health Reports') }}
-            </h2>
-            <div class="flex space-x-3">
-                <a href="{{ route('health.dashboard') }}"
-                   class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                    Back to Dashboard
-                </a>
+    <!-- Health Reports Hero Section -->
+    <div class="relative min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-amber-900/20 theme-transition overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-amber-200 to-orange-300 dark:from-amber-800 dark:to-orange-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-br from-orange-200 to-red-300 dark:from-orange-800 dark:to-red-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-40 left-1/2 w-72 h-72 bg-gradient-to-br from-red-200 to-pink-300 dark:from-red-800 dark:to-pink-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+        </div>
+
+        <!-- Header Section -->
+        <div class="relative z-20 pt-20 pb-10">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center space-x-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-6 py-3 rounded-full text-sm font-medium mb-6 theme-transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        <span>Analytics & Insights</span>
+                    </div>
+
+                    <h1 class="text-4xl lg:text-6xl font-bold mb-6">
+                        <span class="bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400 bg-clip-text text-transparent">Health Reports</span><br>
+                        <span class="text-gray-900 dark:text-gray-100 theme-transition">& Analytics</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-10 max-w-3xl mx-auto theme-transition">
+                        Get comprehensive insights into your wellness journey with detailed analytics and progress reports.
+                    </p>
+
+                    <!-- Back Button -->
+                    <div class="mb-8">
+                        <a href="{{ route('health.dashboard') }}"
+                           class="inline-flex items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-amber-700 dark:text-amber-300 px-6 py-3 rounded-xl font-semibold transition-all duration-300 border-2 border-amber-200 dark:border-amber-700 hover:border-amber-300 dark:hover:border-amber-600 theme-transition">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            Back to Dashboard
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </x-slot>
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <!-- Main Content -->
+        <div class="relative z-20 pb-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-8">
 
-            @if(!$hasEnoughData)
-                <!-- Not Enough Data Notice -->
-                <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-xl p-6">
-                    <div class="flex items-center">
-                        <div class="text-4xl mr-4">📊</div>
-                        <div>
-                            <h3 class="text-lg font-medium text-yellow-800 dark:text-yellow-200 mb-2">Building Your Reports</h3>
-                            <p class="text-yellow-700 dark:text-yellow-300 mb-4">
-                                Keep tracking your habits! Reports become more insightful with at least a week of consistent data.
-                            </p>
-                            <div class="flex space-x-4">
-                                <a href="{{ route('progress.index') }}"
-                                   class="bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-                                    Log Today's Progress
-                                </a>
-                                <a href="{{ route('habits.index') }}"
-                                   class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-                                    Manage Habits
-                                </a>
+                @if(!$hasEnoughData)
+                    <!-- Not Enough Data Notice -->
+                    <div class="bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 border border-yellow-200 dark:border-yellow-700 rounded-2xl p-8 theme-transition">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-2xl flex items-center justify-center mr-6">
+                                <div class="text-2xl">📊</div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-yellow-800 dark:text-yellow-200 mb-3">Building Your Reports</h3>
+                                <p class="text-yellow-700 dark:text-yellow-300 mb-6">
+                                    Keep tracking your habits! Reports become more insightful with at least a week of consistent data.
+                                </p>
+                                <div class="flex flex-col sm:flex-row gap-4">
+                                    <a href="{{ route('progress.index') }}"
+                                       class="inline-flex items-center bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                        </svg>
+                                        Log Today's Progress
+                                    </a>
+                                    <a href="{{ route('habits.index') }}"
+                                       class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        Manage Habits
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
-            <!-- Overview Stats -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl rounded-xl">
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-6">Overall Performance</h3>
+                <!-- Overview Stats -->
+                <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
+                    <div class="p-8">
+                        <div class="flex items-center mb-8">
+                            <div class="w-12 h-12 bg-gradient-to-br from-amber-600 to-orange-600 rounded-xl flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 theme-transition">Overall Performance</h3>
+                        </div>
 
-                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                        <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                            <div class="text-center bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 theme-transition">
                             <div class="text-2xl font-bold text-blue-600">{{ $overviewStats['total_habits'] }}</div>
                             <div class="text-sm text-gray-600 dark:text-gray-400">Active Habits</div>
                         </div>
@@ -273,6 +318,7 @@
                         </button>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
