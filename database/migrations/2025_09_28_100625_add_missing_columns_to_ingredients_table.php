@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('ingredients', function (Blueprint $table) {
+            $table->string('nom')->after('id');
+            $table->string('categorie', 100)->after('nom');
+            $table->decimal('calories_pour_100g', 8, 2)->after('categorie');
+            $table->decimal('proteines_pour_100g', 8, 2)->after('calories_pour_100g');
+            $table->decimal('glucides_pour_100g', 8, 2)->after('proteines_pour_100g');
+            $table->decimal('lipides_pour_100g', 8, 2)->after('glucides_pour_100g');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('ingredients', function (Blueprint $table) {
+            $table->dropColumn([
+                'nom',
+                'categorie',
+                'calories_pour_100g',
+                'proteines_pour_100g',
+                'glucides_pour_100g',
+                'lipides_pour_100g'
+            ]);
+        });
+    }
+};
