@@ -113,7 +113,7 @@ class ReportController extends Controller
                     $q->where('habit_id', $habit->id);
                 })
                     ->where('date', '>=', $startDate)
-                    ->where('is_completed', true)
+                    ->where('completed', true)
                     ->count();
 
                 $habit->completion_rate = $totalProgress > 0 ? ($completedProgress / $totalProgress) * 100 : 0;
@@ -138,7 +138,7 @@ class ReportController extends Controller
             ->get()
             ->map(function ($challenge) use ($startDate) {
                 $completedParticipations = $challenge->participations()
-                    ->where('is_completed', true)
+                    ->where('completed', true)
                     ->where('created_at', '>=', $startDate)
                     ->count();
 

@@ -47,7 +47,7 @@
             <div class="stats-card" style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);">
                 <div class="d-flex align-items-center">
                     <div class="flex-grow-1">
-                        <div class="stats-number">{{ \App\Models\DailyProgress::where('is_completed', true)->count() }}</div>
+                        <div class="stats-number">{{ \App\Models\DailyProgress::where('completed', true)->count() }}</div>
                         <div class="stats-label">Completions</div>
                     </div>
                     <div class="stats-icon">
