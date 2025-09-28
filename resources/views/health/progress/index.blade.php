@@ -1,53 +1,86 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Daily Progress') }}
-            </h2>
-            <div class="flex space-x-3">
-                <span class="text-sm text-gray-600 dark:text-gray-400">
-                    {{ now()->format('l, F j, Y') }}
-                </span>
+    <!-- Daily Progress Hero Section -->
+    <div class="relative min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-purple-900/20 theme-transition overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-purple-200 to-indigo-300 dark:from-purple-800 dark:to-indigo-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-br from-indigo-200 to-blue-300 dark:from-indigo-800 dark:to-blue-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-40 left-1/2 w-72 h-72 bg-gradient-to-br from-blue-200 to-purple-300 dark:from-blue-800 dark:to-purple-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+        </div>
+
+        <!-- Header Section -->
+        <div class="relative z-20 pt-20 pb-10">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center space-x-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-6 py-3 rounded-full text-sm font-medium mb-6 theme-transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        <span>{{ now()->format('l, F j, Y') }}</span>
+                    </div>
+
+                    <h1 class="text-4xl lg:text-6xl font-bold mb-6">
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">Daily Progress</span><br>
+                        <span class="text-gray-900 dark:text-gray-100 theme-transition">Tracker</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-10 max-w-3xl mx-auto theme-transition">
+                        Track your daily habit progress and stay motivated on your wellness journey.
+                    </p>
+                </div>
             </div>
         </div>
-    </x-slot>
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <!-- Main Content -->
+        <div class="relative z-20 pb-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-8">
 
-            <!-- Today's Summary -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl rounded-xl">
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Today's Summary</h3>
+                <!-- Today's Summary -->
+                <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
+                    <div class="p-8">
+                        <div class="flex items-center mb-8">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 theme-transition">Today's Summary</h3>
+                        </div>
 
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                        <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                            <div class="text-2xl font-bold text-blue-600">{{ $todayStats['total_habits'] }}</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Total Habits</div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                            <div class="text-center bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 theme-transition">
+                                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">{{ $todayStats['total_habits'] }}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">Total Habits</div>
+                            </div>
+                            <div class="text-center bg-green-50 dark:bg-green-900/20 rounded-xl p-6 theme-transition">
+                                <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">{{ $todayStats['completed'] }}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">Completed</div>
+                            </div>
+                            <div class="text-center bg-orange-50 dark:bg-orange-900/20 rounded-xl p-6 theme-transition">
+                                <div class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">{{ $todayStats['pending'] }}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">Pending</div>
+                            </div>
+                            <div class="text-center bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 theme-transition">
+                                <div class="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">{{ $todayStats['completion_rate'] }}%</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">Completion Rate</div>
+                            </div>
                         </div>
-                        <div class="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                            <div class="text-2xl font-bold text-green-600">{{ $todayStats['completed'] }}</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Completed</div>
-                        </div>
-                        <div class="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-                            <div class="text-2xl font-bold text-orange-600">{{ $todayStats['pending'] }}</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Pending</div>
-                        </div>
-                        <div class="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                            <div class="text-2xl font-bold text-purple-600">{{ $todayStats['completion_rate'] }}%</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Completion Rate</div>
-                        </div>
-                    </div>
 
-                    <!-- Progress Bar -->
-                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-6 mb-4">
-                        <div class="bg-gradient-to-r from-blue-500 to-green-500 h-6 rounded-full flex items-center justify-center transition-all duration-500"
-                             style="width: {{ $todayStats['completion_rate'] }}%">
-                            @if($todayStats['completion_rate'] > 15)
-                                <span class="text-white text-sm font-medium">{{ $todayStats['completion_rate'] }}%</span>
-                            @endif
+                        <!-- Progress Bar -->
+                        <div class="mb-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-lg font-semibold text-gray-700 dark:text-gray-300">Overall Progress</span>
+                                <span class="text-lg font-bold text-gray-900 dark:text-gray-100">{{ $todayStats['completion_rate'] }}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                                <div class="bg-gradient-to-r from-purple-500 to-indigo-500 h-4 rounded-full flex items-center justify-center transition-all duration-1000 shadow-lg"
+                                     style="width: {{ $todayStats['completion_rate'] }}%">
+                                    @if($todayStats['completion_rate'] > 15)
+                                        <span class="text-white text-xs font-semibold">{{ $todayStats['completion_rate'] }}%</span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
                     @if($todayStats['completion_rate'] == 100)
                         <div class="text-center">
@@ -194,6 +227,7 @@
                     </div>
                 </div>
             @endif
+            </div>
         </div>
     </div>
 

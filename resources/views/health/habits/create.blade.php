@@ -1,54 +1,103 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Create New Habit') }}
-            </h2>
-            <a href="{{ route('habits.index') }}"
-               class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                Back to Habits
-            </a>
+    <!-- Create New Habit Hero Section -->
+    <div class="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900/20 theme-transition overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-200 to-purple-300 dark:from-blue-800 dark:to-purple-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-br from-purple-200 to-indigo-300 dark:from-purple-800 dark:to-indigo-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-40 left-1/2 w-72 h-72 bg-gradient-to-br from-indigo-200 to-blue-300 dark:from-indigo-800 dark:to-blue-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
         </div>
-    </x-slot>
 
-    <div class="py-6">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl rounded-xl">
-                <div class="p-8">
-                    <div class="text-center mb-8">
-                        <div class="text-6xl mb-4">🎯</div>
-                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Create a New Habit</h3>
-                        <p class="text-gray-600 dark:text-gray-400">Define a new wellness habit to track your progress and build consistency.</p>
+        <!-- Header Section -->
+        <div class="relative z-20 pt-20 pb-10">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-6 py-3 rounded-full text-sm font-medium mb-6 theme-transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                        <span>Create New Wellness Habit</span>
                     </div>
 
-                    <form method="POST" action="{{ route('habits.store') }}" class="space-y-6">
-                        @csrf
+                    <h1 class="text-4xl lg:text-5xl font-bold mb-6">
+                        <span class="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">Create Your</span><br>
+                        <span class="text-gray-900 dark:text-gray-100 theme-transition">New Habit</span>
+                    </h1>
 
-                        <!-- Habit Name -->
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Habit Name *
-                            </label>
-                            <input type="text"
-                                   id="name"
-                                   name="name"
-                                   value="{{ old('name') }}"
-                                   class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100"
-                                   placeholder="e.g., Drink water, Morning exercise, Read books"
-                                   required>
-                            @error('name')
-                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                            @enderror
+                    <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto theme-transition">
+                        Define a new wellness habit to track your progress and build consistency in your daily routine.
+                    </p>
+
+                    <!-- Back Button -->
+                    <div class="mb-8">
+                        <a href="{{ route('habits.index') }}"
+                           class="inline-flex items-center bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 px-6 py-3 rounded-xl font-semibold transition-all duration-300 border-2 border-blue-200 dark:border-blue-700 hover:border-blue-300 dark:hover:border-blue-600 theme-transition">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            Back to Habits
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="relative z-20 pb-20">
+            <div class="max-w-2xl mx-auto px-6 lg:px-8">
+                <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
+                    <div class="p-10">
+                        <div class="text-center mb-10">
+                            <div class="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <div class="text-3xl">🎯</div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">Habit Details</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Fill in the information below to create your personalized habit.</p>
                         </div>
 
-                        <!-- Category -->
-                        <div>
-                            <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Category *
-                            </label>
-                            <select id="category_id"
-                                    name="category_id"
-                                    class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100"
+                        <form method="POST" action="{{ route('habits.store') }}" class="space-y-8">
+                            @csrf
+
+                            <!-- Habit Name -->
+                            <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-6 theme-transition">
+                                <label for="name" class="block text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                                    <span class="flex items-center">
+                                        <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        Habit Name *
+                                    </span>
+                                </label>
+                                <input type="text"
+                                       id="name"
+                                       name="name"
+                                       value="{{ old('name') }}"
+                                       class="w-full px-4 py-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 dark:text-gray-100 text-lg transition-all theme-transition"
+                                       placeholder="e.g., Drink water, Morning exercise, Read books"
+                                       required>
+                                @error('name')
+                                    <p class="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center">
+                                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                        </svg>
+                                        {{ $message }}
+                                    </p>
+                                @enderror
+                            </div>
+
+                            <!-- Category -->
+                            <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-6 theme-transition">
+                                <label for="category_id" class="block text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">
+                                    <span class="flex items-center">
+                                        <svg class="w-5 h-5 mr-2 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                                        </svg>
+                                        Category *
+                                    </span>
+                                </label>
+                                <select id="category_id"
+                                        name="category_id"
+                                        class="w-full px-4 py-4 border border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white dark:bg-gray-700 dark:text-gray-100 text-lg transition-all theme-transition"
                                     required>
                                 <option value="">Select a category</option>
                                 @foreach($categories as $category)
@@ -200,7 +249,8 @@
                                 Cancel
                             </a>
                         </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,50 +1,86 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('My Habits') }}
-            </h2>
-            <div class="flex space-x-3">
-                <a href="{{ route('habits.available') }}"
-                   class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                    Browse Habits
-                </a>
-                <a href="{{ route('habits.create') }}"
-                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                    Create New Habit
-                </a>
-            </div>
+    <!-- My Habits Hero Section -->
+    <div class="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-900/20 theme-transition overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-br from-purple-200 to-blue-300 dark:from-purple-800 dark:to-blue-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-40 left-1/2 w-72 h-72 bg-gradient-to-br from-indigo-200 to-cyan-300 dark:from-indigo-800 dark:to-cyan-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
         </div>
-    </x-slot>
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <!-- Header Section -->
+        <div class="relative z-20 pt-20 pb-10">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-6 py-3 rounded-full text-sm font-medium mb-6 theme-transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span>Habit Management Center</span>
+                    </div>
 
-            <!-- Today's Stats Overview -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl rounded-xl">
-                <div class="p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Today's Overview</h3>
+                    <h1 class="text-4xl lg:text-6xl font-bold mb-6">
+                        <span class="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">My Habits</span><br>
+                        <span class="text-gray-900 dark:text-gray-100 theme-transition">Journey</span>
+                    </h1>
 
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                            <div class="text-2xl font-bold text-blue-600">{{ $todayStats['total_habits'] }}</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Total Habits</div>
-                        </div>
-                        <div class="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                            <div class="text-2xl font-bold text-green-600">{{ $todayStats['completed_today'] }}</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Completed Today</div>
-                        </div>
-                        <div class="text-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-                            <div class="text-2xl font-bold text-orange-600">{{ $todayStats['total_habits'] - $todayStats['completed_today'] }}</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Remaining</div>
-                        </div>
-                        <div class="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                            <div class="text-2xl font-bold text-purple-600">{{ $todayStats['completion_rate'] }}%</div>
-                            <div class="text-sm text-gray-600 dark:text-gray-400">Completion Rate</div>
-                        </div>
+                    <!-- Quick Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                        <a href="{{ route('habits.available') }}"
+                           class="group bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                            <span>Browse Habits</span>
+                        </a>
+                        <a href="{{ route('habits.create') }}"
+                           class="group bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-blue-700 dark:text-blue-300 px-8 py-4 rounded-xl font-semibold transition-all duration-300 border-2 border-blue-200 dark:border-blue-700 hover:border-blue-300 dark:hover:border-blue-600 flex items-center space-x-2 theme-transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                            <span>Create New Habit</span>
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="relative z-20 pb-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-8">
+
+                <!-- Today's Stats Overview -->
+                <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
+                    <div class="p-8">
+                        <div class="flex items-center mb-8">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 theme-transition">Today's Overview</h3>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                            <div class="text-center bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 theme-transition">
+                                <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">{{ $todayStats['total_habits'] }}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">Total Habits</div>
+                            </div>
+                            <div class="text-center bg-green-50 dark:bg-green-900/20 rounded-xl p-6 theme-transition">
+                                <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">{{ $todayStats['completed_today'] }}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">Completed Today</div>
+                            </div>
+                            <div class="text-center bg-orange-50 dark:bg-orange-900/20 rounded-xl p-6 theme-transition">
+                                <div class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">{{ $todayStats['total_habits'] - $todayStats['completed_today'] }}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">Remaining</div>
+                            </div>
+                            <div class="text-center bg-purple-50 dark:bg-purple-900/20 rounded-xl p-6 theme-transition">
+                                <div class="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">{{ $todayStats['completion_rate'] }}%</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400 font-medium">Completion Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             <!-- Habits List -->
             @if($userHabits->count() > 0)
@@ -173,6 +209,7 @@
                     </div>
                 </div>
             @endif
+            </div>
         </div>
     </div>
 

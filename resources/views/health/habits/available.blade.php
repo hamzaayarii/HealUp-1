@@ -1,80 +1,108 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Browse Available Habits') }}
-            </h2>
-            <div class="flex space-x-3">
-                <a href="{{ route('habits.create') }}"
-                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                    Create Custom Habit
-                </a>
-                <a href="{{ route('habits.index') }}"
-                   class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                    Back to My Habits
-                </a>
-            </div>
+    <!-- Browse Available Habits Hero Section -->
+    <div class="relative min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 dark:from-gray-900 dark:via-gray-900 dark:to-green-900/20 theme-transition overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-green-200 to-emerald-300 dark:from-green-800 dark:to-emerald-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-br from-teal-200 to-cyan-300 dark:from-teal-800 dark:to-cyan-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-40 left-1/2 w-72 h-72 bg-gradient-to-br from-emerald-200 to-green-300 dark:from-emerald-800 dark:to-green-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
         </div>
-    </x-slot>
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <!-- Header Section -->
+        <div class="relative z-20 pt-20 pb-10">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center space-x-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-6 py-3 rounded-full text-sm font-medium mb-6 theme-transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <span>Discover Wellness Habits</span>
+                    </div>
 
-            <!-- Introduction -->
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl rounded-xl">
-                <div class="p-6">
-                    <div class="text-center">
-                        <div class="text-6xl mb-4">🌟</div>
-                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Discover New Wellness Habits</h3>
-                        <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                            Browse popular wellness habits created by our community and health experts.
-                            Add them to your routine with personalized targets that fit your lifestyle.
-                        </p>
+                    <h1 class="text-4xl lg:text-6xl font-bold mb-6">
+                        <span class="bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">Browse Available</span><br>
+                        <span class="text-gray-900 dark:text-gray-100 theme-transition">Habits</span>
+                    </h1>
+
+                    <p class="text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-10 max-w-3xl mx-auto theme-transition">
+                        Browse popular wellness habits created by our community and health experts. Add them to your routine with personalized targets that fit your lifestyle.
+                    </p>
+
+                    <!-- Quick Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+                        <a href="{{ route('habits.create') }}"
+                           class="group bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-600 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                            <span>Create Custom Habit</span>
+                        </a>
+                        <a href="{{ route('habits.index') }}"
+                           class="group bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-green-700 dark:text-green-300 px-8 py-4 rounded-xl font-semibold transition-all duration-300 border-2 border-green-200 dark:border-green-700 hover:border-green-300 dark:hover:border-green-600 flex items-center space-x-2 theme-transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            </svg>
+                            <span>Back to My Habits</span>
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            @if($availableHabits->count() > 0)
-                @foreach($availableHabits as $categoryName => $habits)
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl rounded-xl">
-                        <div class="p-6">
-                            <div class="flex items-center mb-6">
-                                <span class="text-3xl mr-3">
-                                    {{ $categoryName === 'Fitness' ? '💪' : ($categoryName === 'Mental Health' ? '🧠' : ($categoryName === 'Nutrition' ? '🥗' : ($categoryName === 'Sleep' ? '😴' : ($categoryName === 'Productivity' ? '⚡' : ($categoryName === 'Learning' ? '📚' : ($categoryName === 'Social' ? '👥' : '⭐')))))) }}
-                                </span>
-                                <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ $categoryName }}</h3>
-                                <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                    {{ $habits->count() }} habits
-                                </span>
-                            </div>
+        <!-- Main Content -->
+        <div class="relative z-20 pb-20">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-8">
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                @foreach($habits as $habit)
-                                    <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-200">
+                @if($availableHabits->count() > 0)
+                    @foreach($availableHabits as $categoryName => $habits)
+                        <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
+                            <div class="p-8">
+                                <div class="flex items-center mb-8">
+                                    <div class="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl flex items-center justify-center mr-4">
+                                        <span class="text-2xl">
+                                            {{ $categoryName === 'Fitness' ? '💪' : ($categoryName === 'Mental Health' ? '🧠' : ($categoryName === 'Nutrition' ? '🥗' : ($categoryName === 'Sleep' ? '😴' : ($categoryName === 'Productivity' ? '⚡' : ($categoryName === 'Learning' ? '📚' : ($categoryName === 'Social' ? '👥' : '⭐')))))) }}
+                                        </span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 theme-transition">{{ $categoryName }}</h3>
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 mt-2">
+                                            {{ $habits->count() }} habits available
+                                        </span>
+                                    </div>
+                                </div>
 
-                                        <!-- Habit Header -->
-                                        <div class="mb-4">
-                                            <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ $habit->name }}</h4>
-                                            @if($habit->description)
-                                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ $habit->description }}</p>
-                                            @endif
-                                        </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    @foreach($habits as $habit)
+                                        <div class="group bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/30 border border-green-100 dark:border-green-700 rounded-2xl p-6 hover:shadow-xl transition-all duration-300 theme-transition">
 
-                                        <!-- Habit Details -->
-                                        <div class="space-y-2 mb-4 text-sm">
-                                            <div class="flex justify-between">
-                                                <span class="text-gray-600 dark:text-gray-400">Frequency:</span>
-                                                <span class="font-medium text-gray-900 dark:text-gray-100">{{ ucfirst($habit->frequency) }}</span>
+                                            <!-- Habit Header -->
+                                            <div class="mb-6">
+                                                <div class="w-12 h-12 bg-green-600 dark:bg-green-700 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                    </svg>
+                                                </div>
+                                                <h4 class="font-bold text-gray-900 dark:text-gray-100 mb-3 text-lg">{{ $habit->name }}</h4>
+                                                @if($habit->description)
+                                                    <p class="text-sm text-gray-600 dark:text-gray-300">{{ $habit->description }}</p>
+                                                @endif
                                             </div>
-                                            <div class="flex justify-between">
-                                                <span class="text-gray-600 dark:text-gray-400">Suggested Target:</span>
-                                                <span class="font-medium text-gray-900 dark:text-gray-100">{{ $habit->target_value }} {{ $habit->unit }}</span>
-                                            </div>
-                                        </div>
 
-                                        <!-- Add Habit Button -->
-                                        <button class="add-habit-btn w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition duration-200"
-                                                data-habit-id="{{ $habit->id }}"
+                                            <!-- Habit Details -->
+                                            <div class="space-y-3 mb-6">
+                                                <div class="bg-white dark:bg-gray-800 rounded-lg p-3 flex justify-between items-center">
+                                                    <span class="text-gray-600 dark:text-gray-400 text-sm font-medium">Frequency:</span>
+                                                    <span class="font-semibold text-gray-900 dark:text-gray-100 text-sm">{{ ucfirst($habit->frequency) }}</span>
+                                                </div>
+                                                <div class="bg-white dark:bg-gray-800 rounded-lg p-3 flex justify-between items-center">
+                                                    <span class="text-gray-600 dark:text-gray-400 text-sm font-medium">Suggested Target:</span>
+                                                    <span class="font-semibold text-gray-900 dark:text-gray-100 text-sm">{{ $habit->target_value }} {{ $habit->unit }}</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Add Habit Button -->
+                                            <button class="add-habit-btn w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                                                    data-habit-id="{{ $habit->id }}"
                                                 data-habit-name="{{ $habit->name }}"
                                                 data-suggested-target="{{ $habit->target_value }}"
                                                 data-unit="{{ $habit->unit }}"
@@ -87,22 +115,28 @@
                         </div>
                     </div>
                 @endforeach
-            @else
-                <!-- Empty State -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl rounded-xl">
-                    <div class="p-12 text-center">
-                        <div class="text-8xl mb-6">🔍</div>
-                        <h3 class="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">No Available Habits</h3>
-                        <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
-                            Looks like you've already added all available habits or there are none created yet.
-                        </p>
-                        <a href="{{ route('habits.create') }}"
-                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200">
-                            Create Your Own Habit
-                        </a>
+                @else
+                    <!-- Empty State -->
+                    <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
+                        <div class="p-16 text-center">
+                            <div class="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                                <div class="text-4xl">🔍</div>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">No Available Habits</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
+                                Looks like you've already added all available habits or there are none created yet.
+                            </p>
+                            <a href="{{ route('habits.create') }}"
+                               class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                </svg>
+                                Create Your Own Habit
+                            </a>
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 
