@@ -36,7 +36,7 @@
                         <a href="{{ route('login') }}" class="text-gray-600 hover:text-gray-900 font-medium">
                             Sign in
                         </a>
-                        <a href="{{ route('register') }}" class="bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700">
+                        <a href="{{ route('register') }}" class="bg-green-600 text-white px-4 py-2 rounded-md font-medium hover:bg-green-700">
                             Get started
                         </a>
                     </div>
@@ -81,7 +81,7 @@
 
 <!-- Add mobile menu toggle functionality -->
 @push
-    ('scripts')
+                ('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.querySelector('[data-mobile-menu-toggle]');
