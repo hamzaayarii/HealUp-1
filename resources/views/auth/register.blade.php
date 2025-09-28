@@ -16,8 +16,8 @@
             </div>
 
             <!-- Main Content -->
-            <div class="relative z-10 flex flex-col justify-center px-16 py-12">
-                <div class="max-w-lg">
+            <div class="relative z-10 flex flex-col justify-center items-center px-8 py-12 w-full">
+                <div class="max-w-lg w-full text-center">
                     <!-- Brand Logo Area -->
                     <div class="mb-8 text-center">
                         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl mb-6 shadow-lg">
@@ -42,7 +42,7 @@
                     </div>
 
                     <!-- Feature Highlights -->
-                    <div class="space-y-6 mb-10">
+                    <div class="space-y-6 mb-10 text-left max-w-md mx-auto">
                         <div class="flex items-start space-x-4">
                             <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-md">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

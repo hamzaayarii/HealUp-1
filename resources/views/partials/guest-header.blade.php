@@ -79,8 +79,7 @@
 	</div>
 </header>
 
-@push
-    ('scripts')
+@push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.querySelector('[data-mobile-menu-toggle]');
