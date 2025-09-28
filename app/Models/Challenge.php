@@ -27,11 +27,6 @@ class Challenge extends Model
     ];
 
     // Relationships
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     public function users()
     {
         return $this->belongsToMany(User::class, 'participations')

@@ -11,7 +11,7 @@ class ChallengeController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Challenge::with(['category']);
+        $query = Challenge::withCount('participations');
 
         // Search functionality
         if ($request->has('search') && $request->search) {
@@ -22,26 +22,19 @@ class ChallengeController extends Controller
             });
         }
 
-        // Filter by category
-        if ($request->has('category') && $request->category) {
-            $query->where('category_id', $request->category);
-        }
-
         // Filter by status
         if ($request->has('status') && $request->status !== '') {
             $query->where('is_active', $request->status);
         }
 
         $challenges = $query->orderBy('created_at', 'desc')->paginate(12);
-        $categories = Category::all();
 
-        return view('admin.challenges.index', compact('challenges', 'categories'));
+        return view('admin.challenges.index', compact('challenges'));
     }
 
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.challenges.create', compact('categories'));
+        return view('admin.challenges.create');
     }
 
     public function store(Request $request)
@@ -67,15 +60,14 @@ class ChallengeController extends Controller
 
     public function show(Challenge $challenge)
     {
-        $challenge->load(['category', 'participations.user']);
+        $challenge->load(['participations.user']);
 
         return view('admin.challenges.show', compact('challenge'));
     }
 
     public function edit(Challenge $challenge)
     {
-        $categories = Category::all();
-        return view('admin.challenges.edit', compact('challenge', 'categories'));
+        return view('admin.challenges.edit', compact('challenge'));
     }
 
     public function update(Request $request, Challenge $challenge)

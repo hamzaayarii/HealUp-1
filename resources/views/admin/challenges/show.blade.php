@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.back')
 
 @section('title', 'Challenge Details - ' . $challenge->title)
 
@@ -53,32 +53,13 @@
                         <div class="col-md-6">
                             <h6 class="text-muted">Challenge Details</h6>
                             <ul class="list-unstyled">
-                                <li><strong>Category:</strong>
-                                    @if($challenge->category)
-                                        <span class="badge bg-primary">{{ $challenge->category->name }}</span>
-                                    @else
-                                        <span class="text-muted">No category</span>
-                                    @endif
-                                </li>
-                                <li class="mt-2"><strong>Duration:</strong> {{ $challenge->duration_days }} days</li>
-                                <li class="mt-2"><strong>Difficulty:</strong>
-                                    @switch($challenge->difficulty_level)
-                                        @case('easy')
-                                            <span class="badge bg-success">Easy</span>
-                                            @break
-                                        @case('medium')
-                                            <span class="badge bg-warning">Medium</span>
-                                            @break
-                                        @case('hard')
-                                            <span class="badge bg-danger">Hard</span>
-                                            @break
-                                        @default
-                                            <span class="badge bg-secondary">{{ ucfirst($challenge->difficulty_level) }}</span>
-                                    @endswitch
-                                </li>
-                                <li class="mt-2"><strong>Points Reward:</strong>
+                                <li><strong>Duration:</strong> {{ $challenge->duration }} days</li>
+                                @if($challenge->objectif)
+                                    <li class="mt-2"><strong>Objective:</strong> {{ $challenge->objectif }}</li>
+                                @endif
+                                <li class="mt-2"><strong>Reward:</strong>
                                     <span class="badge bg-success">
-                                        <i class="fas fa-star me-1"></i>{{ $challenge->points_reward }}
+                                        <i class="fas fa-star me-1"></i>{{ $challenge->reward }}
                                     </span>
                                 </li>
                             </ul>

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.back')
 
 @section('title', 'Edit Challenge - ' . $challenge->title)
 

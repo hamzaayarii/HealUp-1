@@ -25,17 +25,6 @@
                            placeholder="Search by title or description...">
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label">Filter by Category</label>
-                    <select class="form-select" name="category">
-                        <option value="">All Categories</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-3">
                     <label class="form-label">Status</label>
                     <select class="form-select" name="status">
                         <option value="">All Status</option>
@@ -119,7 +108,7 @@
                 <div class="card-header d-flex justify-content-between align-items-start">
                     <div class="flex-grow-1">
                         <h6 class="card-title mb-1">{{ $challenge->title }}</h6>
-                        <small class="text-muted">{{ $challenge->category->name ?? 'Uncategorized' }}</small>
+                        <small class="text-muted">Created {{ $challenge->created_at->format('M d, Y') }}</small>
                     </div>
                     <div class="dropdown">
                         <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="dropdown">
@@ -148,14 +137,14 @@
                     <div class="row g-2 mb-3">
                         <div class="col-6">
                             <div class="text-center p-2 bg-light rounded">
-                                <div class="fw-bold text-primary">{{ $challenge->duration_days }}</div>
+                                <div class="fw-bold text-primary">{{ $challenge->duration ?? 'N/A' }}</div>
                                 <small class="text-muted">Days</small>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="text-center p-2 bg-light rounded">
-                                <div class="fw-bold text-success">{{ $challenge->points_reward }}</div>
-                                <small class="text-muted">Points</small>
+                                <div class="fw-bold text-success">{{ $challenge->reward ?? 0 }}</div>
+                                <small class="text-muted">Reward</small>
                             </div>
                         </div>
                     </div>
@@ -164,9 +153,13 @@
                         <span class="status-badge {{ $challenge->is_active ? 'status-active' : 'status-inactive' }}">
                             {{ $challenge->is_active ? 'Active' : 'Inactive' }}
                         </span>
-                        <span class="badge bg-{{ $challenge->difficulty_level === 'easy' ? 'success' : ($challenge->difficulty_level === 'medium' ? 'warning' : 'danger') }}">
-                            {{ ucfirst($challenge->difficulty_level) }}
-                        </span>
+                        @if($challenge->start_date)
+                            <span class="badge bg-info">
+                                Starts {{ $challenge->start_date->format('M d') }}
+                            </span>
+                        @else
+                            <span class="badge bg-secondary">No start date</span>
+                        @endif
                     </div>
                 </div>
                 <div class="card-footer">
