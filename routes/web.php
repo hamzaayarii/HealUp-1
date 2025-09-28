@@ -32,11 +32,11 @@ Route::middleware([
 
     // Wellness Events resource routes
     Route::resource('events', EventController::class);
-    
+
     // ✅ AJOUTER CES ROUTES NUTRITION
     Route::resource('ingredients', IngredientController::class);
     Route::resource('repas', RepasController::class);
-    
+
     // Routes API internes pour recherche dynamique
     Route::get('/api/internal/ingredients/search', [IngredientController::class, 'search'])->name('api.ingredients.search');
     Route::get('/api/internal/ingredients/categories', [IngredientController::class, 'getCategories'])->name('api.ingredients.categories');
