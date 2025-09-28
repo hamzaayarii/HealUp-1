@@ -24,6 +24,10 @@
                             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Location</h3>
                             <p class="mt-1 text-lg text-gray-900 dark:text-gray-100">{{ $event->location }}</p>
                         </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Category</h3>
+                                <p class="mt-1 text-lg text-gray-900 dark:text-gray-100">{{ $event->category ? $event->category->name : '-' }}</p>
+                            </div>
                         <div class="md:col-span-2">
                             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Description</h3>
                             <p class="mt-1 text-gray-900 dark:text-gray-100">{{ $event->description ?: 'No description provided.' }}</p>

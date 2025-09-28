@@ -14,5 +14,11 @@ class Event extends Model
         'max_participants',
         'current_participants',
         'is_active',
+        'category_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

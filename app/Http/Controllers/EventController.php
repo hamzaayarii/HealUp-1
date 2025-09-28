@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -21,7 +22,8 @@ class EventController extends Controller
      */
     public function create()
     {
-    return view('events.create');
+        $categories = Category::where('is_active', true)->orderBy('name')->get();
+        return view('events.create', compact('categories'));
     }
 
     /**
@@ -35,6 +37,7 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'description' => 'nullable|string',
             'max_participants' => 'required|integer|min:1',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $validated['current_participants'] = 0;
@@ -57,7 +60,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-    return view('events.edit', compact('event'));
+        $categories = Category::where('is_active', true)->orderBy('name')->get();
+        return view('events.edit', compact('event', 'categories'));
     }
 
     /**
@@ -71,6 +75,7 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'description' => 'nullable|string',
             'max_participants' => 'required|integer|min:1',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $event->update($validated);
