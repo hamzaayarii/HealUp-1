@@ -122,9 +122,9 @@
                         <i class="fas fa-clock me-2"></i>
                         Recent Users
                     </h5>
-                    <button class="btn btn-healup btn-sm" disabled title="Coming Soon">
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-healup btn-sm">
                         View All <i class="fas fa-arrow-right ms-1"></i>
-                    </button>
+                    </a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -157,15 +157,12 @@
                                     </td>
                                     <td>
                                         <div class="btn-group btn-group-sm">
-                                            <button class="btn btn-outline-primary" title="View">
+                                            <a href="{{ route('admin.users.show', $user) }}" class="btn btn-outline-primary" title="View">
                                                 <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn btn-outline-secondary" title="Edit">
+                                            </a>
+                                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-outline-secondary" title="Edit">
                                                 <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-outline-danger" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -194,18 +191,18 @@
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-                        <button class="btn btn-healup" disabled title="Coming Soon">
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-healup">
                             <i class="fas fa-user-plus me-2"></i>Add New User
-                        </button>
-                        <button class="btn btn-outline-primary" disabled title="Coming Soon">
+                        </a>
+                        <a href="{{ route('admin.challenges.create') }}" class="btn btn-outline-primary">
                             <i class="fas fa-trophy me-2"></i>Create Challenge
-                        </button>
-                        <button class="btn btn-outline-secondary" disabled title="Coming Soon">
+                        </a>
+                        <a href="{{ route('admin.habits.create') }}" class="btn btn-outline-secondary">
                             <i class="fas fa-plus me-2"></i>Add Habit Template
-                        </button>
-                        <button class="btn btn-outline-info" disabled title="Coming Soon">
+                        </a>
+                        <a href="{{ route('admin.reports.index') }}" class="btn btn-outline-info">
                             <i class="fas fa-chart-bar me-2"></i>View Reports
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

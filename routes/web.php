@@ -99,22 +99,25 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
     Route::post('/migrations/run', [App\Http\Controllers\Admin\AdminController::class, 'runMigrations'])->name('migrations.run');
     Route::post('/optimize', [App\Http\Controllers\Admin\AdminController::class, 'optimize'])->name('optimize');
 
-    // User Management (TODO: Create UserController)
-    // Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    // User Management
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    Route::post('/users/{user}/toggle-status', [App\Http\Controllers\Admin\UserController::class, 'toggleStatus'])->name('users.toggle-status');
 
-    // Health Data Management (TODO: Create HealthController)
-    // Route::get('/health', [App\Http\Controllers\Admin\HealthController::class, 'index'])->name('health.index');
-    // Route::get('/health/{user}', [App\Http\Controllers\Admin\HealthController::class, 'show'])->name('health.show');
-    // Route::delete('/health/{progress}', [App\Http\Controllers\Admin\HealthController::class, 'destroyProgress'])->name('health.destroy-progress');
+    // Habits Management
+    Route::resource('habits', App\Http\Controllers\Admin\HabitController::class);
+    Route::get('/habits/{habit}/users', [App\Http\Controllers\Admin\HabitController::class, 'users'])->name('habits.users');
 
-    // Habits Management (TODO: Create HabitController)
-    // Route::resource('habits', App\Http\Controllers\Admin\HabitController::class);
-    // Route::post('/habits/{habit}/toggle-status', [App\Http\Controllers\Admin\HabitController::class, 'toggleStatus'])->name('habits.toggle-status');
+    // Challenges Management
+    Route::resource('challenges', App\Http\Controllers\Admin\ChallengeController::class);
+    Route::post('/challenges/{challenge}/toggle-status', [App\Http\Controllers\Admin\ChallengeController::class, 'toggleStatus'])->name('challenges.toggle-status');
+    Route::get('/challenges/{challenge}/participants', [App\Http\Controllers\Admin\ChallengeController::class, 'participants'])->name('challenges.participants');
 
-    // Challenges Management (TODO: Create ChallengeController)
-    // Route::resource('challenges', App\Http\Controllers\Admin\ChallengeController::class);
-    // Route::post('/challenges/{challenge}/toggle-status', [App\Http\Controllers\Admin\ChallengeController::class, 'toggleStatus'])->name('challenges.toggle-status');
-    // Route::get('/challenges/{challenge}/participants', [App\Http\Controllers\Admin\ChallengeController::class, 'participants'])->name('challenges.participants');
+    // Reports Management
+    Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/users', [App\Http\Controllers\Admin\ReportController::class, 'users'])->name('reports.users');
+    Route::get('/reports/habits', [App\Http\Controllers\Admin\ReportController::class, 'habits'])->name('reports.habits');
+    Route::get('/reports/challenges', [App\Http\Controllers\Admin\ReportController::class, 'challenges'])->name('reports.challenges');
+    Route::get('/reports/export', [App\Http\Controllers\Admin\ReportController::class, 'export'])->name('reports.export');
 
     // Teams Management (TODO: Create TeamController)
     // Route::resource('teams', App\Http\Controllers\Admin\TeamController::class);

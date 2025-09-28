@@ -62,13 +62,12 @@
                 </li>
 
                 <!-- Users Management -->
-                                    <!-- Users Management -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-tooltip="Users">
-                            <i class="fas fa-users"></i>
-                            <span>Users</span>
-                        </a>
-                    </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" data-tooltip="Users">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
 
                 <!-- Health Data -->
                 <li class="nav-item">
@@ -80,7 +79,7 @@
 
                 <!-- Habits -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-tooltip="Habits (Coming Soon)">
+                    <a class="nav-link {{ request()->routeIs('admin.habits.*') ? 'active' : '' }}" href="{{ route('admin.habits.index') }}" data-tooltip="Habits">
                         <i class="fas fa-calendar-check"></i>
                         <span>Habits</span>
                     </a>
@@ -88,7 +87,7 @@
 
                 <!-- Challenges -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-tooltip="Challenges (Coming Soon)">
+                    <a class="nav-link {{ request()->routeIs('admin.challenges.*') ? 'active' : '' }}" href="{{ route('admin.challenges.index') }}" data-tooltip="Challenges">
                         <i class="fas fa-trophy"></i>
                         <span>Challenges</span>
                     </a>
@@ -112,7 +111,7 @@
 
                 <!-- Reports -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-tooltip="Reports (Coming Soon)">
+                    <a class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}" href="{{ route('admin.reports.index') }}" data-tooltip="Reports">
                         <i class="fas fa-chart-bar"></i>
                         <span>Reports</span>
                     </a>
