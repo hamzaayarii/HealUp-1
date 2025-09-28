@@ -8,7 +8,7 @@
 @endsection
 
 @section('navigation')
-    @livewire('navigation-menu')
+    @include('navigation-menu')
 @endsection
 
 @section('content')
@@ -25,6 +25,10 @@
 
     <!-- Main Content Container -->
     <div class="main-content theme-transition">
-        @yield('content')
+        @if(isset($slot))
+            {{ $slot }}
+        @else
+            @yield('content')
+        @endif
     </div>
 @endsection

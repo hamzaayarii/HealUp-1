@@ -9,7 +9,11 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'icon', 'color'];
+    protected $fillable = ['name', 'description', 'icon', 'color', 'is_active'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 
     // Relationships
     public function habits()

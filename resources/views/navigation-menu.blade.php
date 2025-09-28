@@ -1,27 +1,151 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-200 shadow-sm">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
+        <div class="flex justify-between items-center h-16">
+            <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                    <a href="{{ route('dashboard') }}" class="flex items-center">
+                        <x-application-mark class="block h-8 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                <div class="hidden sm:ml-10 sm:flex sm:items-center sm:space-x-4">
+                    <!-- Dashboard Link -->
+                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard') || request()->routeIs('health.dashboard')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v14l-5-3-5 3V5z"></path>
+                        </svg>
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <!-- Health Tracking Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                                {{ request()->routeIs('habits.*') || request()->routeIs('progress.*') || request()->routeIs('health.reports.*')
+                                   ? 'border-indigo-400 text-gray-900 focus:border-indigo-700'
+                                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300' }}">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                            <span>Health Tracker</span>
+                            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <div x-show="open"
+                             @click.away="open = false"
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 transform scale-95"
+                             x-transition:enter-end="opacity-100 transform scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="opacity-100 transform scale-100"
+                             x-transition:leave-end="opacity-0 transform scale-95"
+                             class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
+                            <div class="py-1">
+                                <a href="{{ route('habits.index') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('habits.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                    <span class="mr-3">🎯</span>
+                                    My Habits
+                                </a>
+                                <a href="{{ route('progress.index') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('progress.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                    <span class="mr-3">📊</span>
+                                    Daily Progress
+                                </a>
+                                <a href="{{ route('health.reports.index') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('health.reports.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                    <span class="mr-3">📈</span>
+                                    Health Reports
+                                </a>
+                            </div>
+                            <div class="py-1">
+                                <a href="{{ route('habits.create') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="mr-3">➕</span>
+                                    Create New Habit
+                                </a>
+                                <a href="{{ route('habits.available') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="mr-3">🌟</span>
+                                    Browse Habits
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Events Link -->
+                    <x-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.*')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a1 1 0 011-1h6a1 1 0 011 1v4h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1h4z"></path>
+                        </svg>
+                        {{ __('Events') }}
+                    </x-nav-link>
+
+                    <!-- Nutrition Dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                                {{ request()->routeIs('ingredients.*') || request()->routeIs('repas.*')
+                                   ? 'border-indigo-400 text-gray-900 focus:border-indigo-700'
+                                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300' }}">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.699 2.699 0 00-1.5-.454v-.546c0-9.405 7.595-17 17-17s17 7.595 17 17v.546z"></path>
+                            </svg>
+                            <span>Nutrition</span>
+                            <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <div x-show="open"
+                             @click.away="open = false"
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 transform scale-95"
+                             x-transition:enter-end="opacity-100 transform scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="opacity-100 transform scale-100"
+                             x-transition:leave-end="opacity-0 transform scale-95"
+                             class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
+                            <div class="py-1">
+                                <a href="{{ route('ingredients.index') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('ingredients.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                    <span class="mr-3">🥕</span>
+                                    Ingredients
+                                </a>
+                                <a href="{{ route('repas.index') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('repas.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                    <span class="mr-3">🍽️</span>
+                                    Meals (Repas)
+                                </a>
+                            </div>
+                            <div class="py-1">
+                                <a href="{{ route('ingredients.create') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="mr-3">➕</span>
+                                    Add Ingredient
+                                </a>
+                                <a href="{{ route('repas.create') }}"
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <span class="mr-3">🍳</span>
+                                    Create Meal
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:space-x-4 sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="ms-3 relative">
+                    <div class="relative">
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
@@ -72,7 +196,7 @@
                 @endif
 
                 <!-- Settings Dropdown -->
-                <div class="ms-3 relative">
+                <div class="relative">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -142,6 +266,52 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <!-- Health Tracker Mobile Navigation -->
+            <div class="border-t border-gray-200 mt-2 pt-2">
+                <div class="block px-4 py-2 text-xs text-gray-400 uppercase tracking-wide">
+                    Health Tracker
+                </div>
+                <x-responsive-nav-link href="{{ route('habits.index') }}" :active="request()->routeIs('habits.*')">
+                    🎯 My Habits
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('progress.index') }}" :active="request()->routeIs('progress.*')">
+                    📊 Daily Progress
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('health.reports.index') }}" :active="request()->routeIs('health.reports.*')">
+                    📈 Health Reports
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('habits.create') }}">
+                    ➕ Create New Habit
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('habits.available') }}">
+                    🌟 Browse Habits
+                </x-responsive-nav-link>
+            </div>
+
+            <!-- Events Navigation -->
+            <x-responsive-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.*')">
+                {{ __('Events') }}
+            </x-responsive-nav-link>
+
+            <!-- Nutrition Mobile Navigation -->
+            <div class="border-t border-gray-200 mt-2 pt-2">
+                <div class="block px-4 py-2 text-xs text-gray-400 uppercase tracking-wide">
+                    Nutrition
+                </div>
+                <x-responsive-nav-link href="{{ route('ingredients.index') }}" :active="request()->routeIs('ingredients.*')">
+                    🥕 Ingredients
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('repas.index') }}" :active="request()->routeIs('repas.*')">
+                    🍽️ Meals (Repas)
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('ingredients.create') }}">
+                    ➕ Add Ingredient
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('repas.create') }}">
+                    🍳 Create Meal
+                </x-responsive-nav-link>
+            </div>
         </div>
 
         <!-- Responsive Settings Options -->
