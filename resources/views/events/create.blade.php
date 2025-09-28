@@ -6,13 +6,25 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6">
         <form action="{{ route('events.store') }}" method="POST">
             @csrf
             <div class="mb-4">
                         <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category</label>
+                            <select name="category_id" required
+                                    class="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">Select a category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')<span class="text-red-600 text-sm mt-1">{{ $message }}</span>@enderror
+                        </div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title</label>
                             <input type="text" name="title"
                                    class="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"

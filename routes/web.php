@@ -64,8 +64,12 @@ Route::middleware([
     Route::get('/health/reports/habit-comparison', [App\Http\Controllers\HealthReportController::class, 'habitComparison'])->name('health.reports.habit-comparison');
     Route::get('/health/reports/export-pdf', [App\Http\Controllers\HealthReportController::class, 'exportPdf'])->name('health.reports.export-pdf');
 
+
     // Wellness Events resource routes
     Route::resource('events', EventController::class);
+
+    // Categories resource routes
+    Route::resource('categories', App\Http\Controllers\CategoryController::class);
 
     // ✅ AJOUTER CES ROUTES NUTRITION
     Route::resource('ingredients', IngredientController::class);

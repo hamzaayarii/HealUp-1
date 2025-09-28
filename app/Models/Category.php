@@ -20,4 +20,9 @@ class Category extends Model
     {
         return $this->hasMany(Habit::class);
     }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

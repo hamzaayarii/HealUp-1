@@ -87,6 +87,15 @@
                         </svg>
                         {{ __('Events') }}
                     </x-nav-link>
+                    <!-- Categories Link -->
+                    <x-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.*')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h8" />
+                        </svg>
+                        {{ __('Categories') }}
+                    </x-nav-link>
 
                     <!-- Nutrition Dropdown -->
                     <div class="relative" x-data="{ open: false }">
@@ -303,6 +312,10 @@
             <!-- Events Navigation -->
             <x-responsive-nav-link href="{{ route('events.index') }}" :active="request()->routeIs('events.*')">
                 {{ __('Events') }}
+            </x-responsive-nav-link>
+            <!-- Categories Navigation -->
+            <x-responsive-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.*')">
+                {{ __('Categories') }}
             </x-responsive-nav-link>
 
             <!-- Nutrition Mobile Navigation -->
