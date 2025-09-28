@@ -1,12 +1,12 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-200 shadow-sm">
+<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 theme-transition">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-            <div class="flex items-center">
+        <div class="flex justify-between h-16">
+            <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" class="flex items-center">
-                        <img src="{{ asset('images/logos/healup.svg') }}" alt="HealUp" class="block h-8 w-auto" />
+                    <a href="{{ route('dashboard') }}">
+                        <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
@@ -25,10 +25,10 @@
                     <!-- Health Tracking Dropdown -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none theme-transition
                                 {{ request()->routeIs('habits.*') || request()->routeIs('progress.*') || request()->routeIs('health.reports.*')
-                                   ? 'border-indigo-400 text-gray-900 focus:border-indigo-700'
-                                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300' }}">
+                                   ? 'border-indigo-400 text-gray-900 dark:text-gray-100 focus:border-indigo-700'
+                                   : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-600' }}">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                             </svg>
@@ -46,32 +46,32 @@
                              x-transition:leave="transition ease-in duration-75"
                              x-transition:leave-start="opacity-100 transform scale-100"
                              x-transition:leave-end="opacity-0 transform scale-95"
-                             class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
+                             class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black dark:ring-gray-600 ring-opacity-5 divide-y divide-gray-100 dark:divide-gray-700 z-50 theme-transition">
                             <div class="py-1">
                                 <a href="{{ route('habits.index') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('habits.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition {{ request()->routeIs('habits.*') ? 'bg-gray-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400' : '' }}">
                                     <span class="mr-3">🎯</span>
                                     My Habits
                                 </a>
                                 <a href="{{ route('progress.index') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('progress.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition {{ request()->routeIs('progress.*') ? 'bg-gray-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400' : '' }}">
                                     <span class="mr-3">📊</span>
                                     Daily Progress
                                 </a>
                                 <a href="{{ route('health.reports.index') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('health.reports.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition {{ request()->routeIs('health.reports.*') ? 'bg-gray-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400' : '' }}">
                                     <span class="mr-3">📈</span>
                                     Health Reports
                                 </a>
                             </div>
                             <div class="py-1">
                                 <a href="{{ route('habits.create') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition">
                                     <span class="mr-3">➕</span>
                                     Create New Habit
                                 </a>
                                 <a href="{{ route('habits.available') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition">
                                     <span class="mr-3">🌟</span>
                                     Browse Habits
                                 </a>
@@ -91,10 +91,10 @@
                     <!-- Nutrition Dropdown -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
-                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out focus:outline-none theme-transition
                                 {{ request()->routeIs('ingredients.*') || request()->routeIs('repas.*')
-                                   ? 'border-indigo-400 text-gray-900 focus:border-indigo-700'
-                                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:text-gray-700 focus:border-gray-300' }}">
+                                   ? 'border-indigo-400 text-gray-900 dark:text-gray-100 focus:border-indigo-700'
+                                   : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600 focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-600' }}">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.699 2.699 0 00-1.5-.454v-.546c0-9.405 7.595-17 17-17s17 7.595 17 17v.546z"></path>
                             </svg>
@@ -112,27 +112,27 @@
                              x-transition:leave="transition ease-in duration-75"
                              x-transition:leave-start="opacity-100 transform scale-100"
                              x-transition:leave-end="opacity-0 transform scale-95"
-                             class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-50">
+                             class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black dark:ring-gray-600 ring-opacity-5 divide-y divide-gray-100 dark:divide-gray-700 z-50 theme-transition">
                             <div class="py-1">
                                 <a href="{{ route('ingredients.index') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('ingredients.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition {{ request()->routeIs('ingredients.*') ? 'bg-gray-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400' : '' }}">
                                     <span class="mr-3">🥕</span>
                                     Ingredients
                                 </a>
                                 <a href="{{ route('repas.index') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 {{ request()->routeIs('repas.*') ? 'bg-gray-50 text-indigo-600' : '' }}">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition {{ request()->routeIs('repas.*') ? 'bg-gray-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400' : '' }}">
                                     <span class="mr-3">🍽️</span>
                                     Meals (Repas)
                                 </a>
                             </div>
                             <div class="py-1">
                                 <a href="{{ route('ingredients.create') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition">
                                     <span class="mr-3">➕</span>
                                     Add Ingredient
                                 </a>
                                 <a href="{{ route('repas.create') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition">
                                     <span class="mr-3">🍳</span>
                                     Create Meal
                                 </a>
@@ -143,13 +143,18 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:space-x-4 sm:ml-6">
+                <!-- Theme Toggle -->
+                <div class="theme-toggle-container">
+                    <x-theme.toggle size="sm"/>
+                </div>
+
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="relative">
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150 theme-transition">
                                         {{ Auth::user()->currentTeam->name }}
 
                                         <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -161,12 +166,12 @@
 
                             <x-slot name="content">
                                 <div class="w-60">
-                                    <!-- Team Management -->
-                                    <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
-                                    </div>
+                    <!-- Team Management -->
+                    <div class="border-t border-gray-200 dark:border-gray-700 theme-transition"></div>
 
-                                    <!-- Team Settings -->
+                    <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-500 theme-transition">
+                        {{ __('Manage Team') }}
+                    </div>                                    <!-- Team Settings -->
                                     <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
                                         {{ __('Team Settings') }}
                                     </x-dropdown-link>
@@ -200,12 +205,12 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 dark:focus:border-gray-600 transition theme-transition">
                                     <img class="size-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-700 active:bg-gray-50 dark:active:bg-gray-700 transition ease-in-out duration-150 theme-transition">
                                         {{ Auth::user()->name }}
 
                                         <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -248,9 +253,15 @@
                 </div>
             </div>
 
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+            <!-- Mobile Theme Toggle and Hamburger -->
+            <div class="-me-2 flex items-center space-x-2 sm:hidden">
+                <!-- Mobile Theme Toggle -->
+                <div class="theme-toggle-container">
+                    <x-theme.toggle size="sm"/>
+                </div>
+
+                <!-- Hamburger -->
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-700 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out theme-transition">
                     <svg class="size-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -261,15 +272,15 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-white dark:bg-gray-800 theme-transition">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
             <!-- Health Tracker Mobile Navigation -->
-            <div class="border-t border-gray-200 mt-2 pt-2">
-                <div class="block px-4 py-2 text-xs text-gray-400 uppercase tracking-wide">
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2 theme-transition">
+                <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide theme-transition">
                     Health Tracker
                 </div>
                 <x-responsive-nav-link href="{{ route('habits.index') }}" :active="request()->routeIs('habits.*')">
@@ -295,8 +306,9 @@
             </x-responsive-nav-link>
 
             <!-- Nutrition Mobile Navigation -->
-            <div class="border-t border-gray-200 mt-2 pt-2">
-                <div class="block px-4 py-2 text-xs text-gray-400 uppercase tracking-wide">
+                        <!-- Nutrition Mobile Navigation -->
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2 theme-transition">
+                <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide theme-transition">
                     Nutrition
                 </div>
                 <x-responsive-nav-link href="{{ route('ingredients.index') }}" :active="request()->routeIs('ingredients.*')">
@@ -315,7 +327,7 @@
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-700 theme-transition">
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div class="shrink-0 me-3">
@@ -324,8 +336,8 @@
                 @endif
 
                 <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="font-medium text-base text-gray-800 dark:text-gray-200 theme-transition">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-500 dark:text-gray-400 theme-transition">{{ Auth::user()->email }}</div>
                 </div>
             </div>
 
@@ -372,9 +384,9 @@
 
                     <!-- Team Switcher -->
                     @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200"></div>
+                        <div class="border-t border-gray-200 dark:border-gray-700 theme-transition"></div>
 
-                        <div class="block px-4 py-2 text-xs text-gray-400">
+                        <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-500 theme-transition">
                             {{ __('Switch Teams') }}
                         </div>
 
