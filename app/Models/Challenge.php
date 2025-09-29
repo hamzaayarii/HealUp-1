@@ -17,7 +17,8 @@ class Challenge extends Model
         'reward',
         'start_date',
         'end_date',
-        'is_active'
+        'is_active',
+        'category_id'
     ];
 
     protected $casts = [
@@ -37,5 +38,10 @@ class Challenge extends Model
     public function participations()
     {
         return $this->hasMany(Participation::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
