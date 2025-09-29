@@ -82,26 +82,115 @@ function initThemeToggle() {
     const html = document.documentElement;
 
     if (themeToggle) {
-        // Get saved theme or default to light
-        const savedTheme = localStorage.getItem('healup_admin_theme') || 'light';
-        html.classList.toggle('dark', savedTheme === 'dark');
-        updateThemeToggleIcon(savedTheme);
+        // Initialize theme from cookie or server
+        initializeTheme();
 
         themeToggle.addEventListener('click', function() {
-            const isDark = html.classList.contains('dark');
-            const newTheme = isDark ? 'light' : 'dark';
+            toggleTheme();
+        });
 
-            html.classList.toggle('dark', newTheme === 'dark');
-            localStorage.setItem('healup_admin_theme', newTheme);
-            updateThemeToggleIcon(newTheme);
-
-            // Animate the toggle
-            themeToggle.style.transform = 'rotate(180deg)';
-            setTimeout(() => {
-                themeToggle.style.transform = 'rotate(0deg)';
-            }, 300);
+        // Listen for theme changes from other components (e.g., welcome page theme toggle)
+        window.addEventListener('theme-changed', function(event) {
+            if (event.detail && event.detail.theme) {
+                applyTheme(event.detail.theme);
+            }
         });
     }
+}
+
+// Initialize theme from cookie or server
+function initializeTheme() {
+    // Clean up old localStorage theme system
+    if (localStorage.getItem('healup_admin_theme')) {
+        localStorage.removeItem('healup_admin_theme');
+    }
+
+    // Get theme from cookie or body data attribute or HTML class
+    let savedTheme = getCookie('healup_theme') || document.body.getAttribute('data-theme');
+
+    // Fallback: check if HTML has dark class
+    if (!savedTheme) {
+        savedTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    }
+
+    // Default to light if still not found
+    savedTheme = savedTheme || 'light';
+
+    applyTheme(savedTheme);
+}
+
+// Toggle theme using Laravel backend
+function toggleTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+
+    // Animate the toggle
+    if (themeToggle) {
+        themeToggle.style.transform = 'rotate(180deg)';
+        setTimeout(() => {
+            themeToggle.style.transform = 'rotate(0deg)';
+        }, 300);
+    }
+
+    // Call Laravel backend to toggle theme
+    fetch('/theme/toggle', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            applyTheme(data.theme);
+        } else {
+            console.error('Failed to toggle theme:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error toggling theme:', error);
+        // Fallback to local toggle if server fails
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+        applyTheme(newTheme);
+        setCookie('healup_theme', newTheme, 365);
+    });
+}
+
+// Apply theme to the page
+function applyTheme(theme) {
+    const html = document.documentElement;
+    const body = document.body;
+
+    // Apply theme class
+    html.classList.toggle('dark', theme === 'dark');
+
+    // Update body data attribute
+    body.setAttribute('data-theme', theme);
+
+    // Update toggle icon
+    updateThemeToggleIcon(theme);
+
+    // Dispatch custom event for other components
+    window.dispatchEvent(new CustomEvent('theme-changed', {
+        detail: { theme: theme, isDarkMode: theme === 'dark' }
+    }));
+}
+
+// Utility function to get cookie value
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+// Utility function to set cookie
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
 }
 
 function updateThemeToggleIcon(theme) {
