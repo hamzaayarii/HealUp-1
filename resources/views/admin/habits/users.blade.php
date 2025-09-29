@@ -103,10 +103,10 @@
     </div>
 
     <!-- Users List -->
-    <div class="card shadow-sm">
+    <div class="admin-card shadow-sm">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
-                <h6 class="mb-0">
+                <h6 class="card-title mb-0">
                     <i class="fas fa-users me-2"></i>User Progress List
                 </h6>
                 <div class="btn-group btn-group-sm">
@@ -127,7 +127,7 @@
         <div class="card-body p-0">
             @if($userHabits->count() > 0)
                 <div class="table-responsive">
-                    <table class="table table-hover mb-0">
+                    <table class="admin-table table table-hover mb-0">
                         <thead class="table-light">
                             <tr>
                                 <th>User</th>

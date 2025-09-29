@@ -34,9 +34,9 @@
                 @csrf
                 @method('PUT')
 
-                <div class="card shadow-sm">
+                <div class="admin-card shadow-sm">
                     <div class="card-header">
-                        <h6 class="mb-0">
+                        <h6 class="card-title mb-0">
                             <i class="fas fa-edit me-2"></i>Habit Information
                         </h6>
                     </div>
@@ -168,7 +168,7 @@
                 </div>
 
                 <!-- Form Actions -->
-                <div class="card shadow-sm mt-4">
+                <div class="admin-card shadow-sm mt-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -191,9 +191,9 @@
         <!-- Sidebar -->
         <div class="col-md-4">
             <!-- Usage Stats -->
-            <div class="card shadow-sm mb-4">
+            <div class="admin-card shadow-sm mb-4">
                 <div class="card-header">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-chart-bar me-2"></i>Usage Statistics
                     </h6>
                 </div>
@@ -212,9 +212,9 @@
             </div>
 
             <!-- Help -->
-            <div class="card shadow-sm">
+            <div class="admin-card shadow-sm">
                 <div class="card-header">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-question-circle me-2"></i>Help
                     </h6>
                 </div>

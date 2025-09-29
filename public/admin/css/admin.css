@@ -426,3 +426,75 @@ body {
     background: rgba(245, 158, 11, 0.1);
     color: #D97706;
 }
+
+/* Dark Mode Enhancements */
+.dark .form-control,
+.dark .form-select {
+    background-color: #334155;
+    border-color: #475569;
+    color: #F1F5F9;
+}
+
+.dark .form-control:focus,
+.dark .form-select:focus {
+    background-color: #374151;
+    border-color: var(--healup-primary);
+    color: #F1F5F9;
+    box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
+}
+
+.dark .form-label {
+    color: #CBD5E1;
+}
+
+.dark .modal-content {
+    background-color: #1E293B;
+    border-color: #334155;
+}
+
+.dark .modal-header {
+    border-bottom-color: #334155;
+}
+
+.dark .modal-footer {
+    border-top-color: #334155;
+}
+
+.dark .dropdown-menu {
+    background-color: #1E293B;
+    border-color: #334155;
+}
+
+.dark .dropdown-item {
+    color: #CBD5E1;
+}
+
+.dark .dropdown-item:hover {
+    background-color: #374151;
+    color: #F1F5F9;
+}
+
+.dark .breadcrumb-item a {
+    color: var(--healup-primary);
+}
+
+.dark .text-muted {
+    color: #94A3B8 !important;
+}
+
+.dark .border {
+    border-color: #334155 !important;
+}
+
+.dark .table-light {
+    background-color: #334155;
+    color: #F1F5F9;
+}
+
+.dark .progress {
+    background-color: #374151;
+}
+
+.dark .badge {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}

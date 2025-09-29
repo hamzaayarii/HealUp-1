@@ -32,9 +32,9 @@
     <div class="row">
         <!-- Habit Information -->
         <div class="col-md-8">
-            <div class="card shadow-sm mb-4">
+            <div class="admin-card shadow-sm mb-4">
                 <div class="card-header">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-info-circle me-2"></i>Habit Information
                     </h6>
                 </div>
@@ -102,9 +102,9 @@
             </div>
 
             <!-- User Habits Stats -->
-            <div class="card shadow-sm">
+            <div class="admin-card shadow-sm">
                 <div class="card-header">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-chart-bar me-2"></i>Usage Statistics
                     </h6>
                 </div>
@@ -155,9 +155,9 @@
         <!-- Sidebar -->
         <div class="col-md-4">
             <!-- Quick Actions -->
-            <div class="card shadow-sm mb-4">
+            <div class="admin-card shadow-sm mb-4">
                 <div class="card-header">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-bolt me-2"></i>Quick Actions
                     </h6>
                 </div>
@@ -177,9 +177,9 @@
             </div>
 
             <!-- Recent Users -->
-            <div class="card shadow-sm">
+            <div class="admin-card shadow-sm">
                 <div class="card-header">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-users me-2"></i>Recent Users
                     </h6>
                 </div>

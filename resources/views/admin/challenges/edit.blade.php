@@ -5,7 +5,17 @@
 @section('content')
 <div class="container-fluid">
     <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <                <div class="admin-card shadow-sm">
+                        <div class="admin-card shadow-sm mt-3">
+                    <div class="card-header">
+                        <h6 class="card-title mb-0">
+                            <i class="fas fa-info-circle me-2"></i>Challenge Tips
+                        </h6>
+                    </div>      <div class="card-header">
+                        <h6 class="card-title mb-0">
+                            <i class="fas fa-eye me-2"></i>Preview
+                        </h6>
+                    </div>ass="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="h4 mb-0">Edit Challenge</h2>
             <nav aria-label="breadcrumb">
@@ -34,9 +44,9 @@
                 @csrf
                 @method('PUT')
 
-                <div class="card shadow-sm">
+                <div class="admin-card shadow-sm">
                     <div class="card-header">
-                        <h6 class="mb-0">
+                        <h6 class="card-title mb-0">
                             <i class="fas fa-edit me-2"></i>Challenge Information
                         </h6>
                     </div>

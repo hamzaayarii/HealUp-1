@@ -29,7 +29,7 @@
     </div>
 
     <!-- Filters -->
-    <div class="card shadow-sm mb-4">
+    <div class="admin-card shadow-sm mb-4">
         <div class="card-body">
             <form method="GET" class="row g-3">
                 <div class="col-md-3">
@@ -137,15 +137,15 @@
     </div>
 
     <!-- Challenge Performance Table -->
-    <div class="card shadow-sm">
+    <div class="admin-card shadow-sm">
         <div class="card-header">
-            <h6 class="mb-0">
+            <h6 class="card-title mb-0">
                 <i class="fas fa-chart-bar me-2"></i>Challenge Performance Analysis
             </h6>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="admin-table table table-hover mb-0">
                     <thead class="table-light">
                         <tr>
                             <th>Challenge</th>
@@ -251,9 +251,9 @@
     <!-- Top Performing Challenges -->
     <div class="row mt-4">
         <div class="col-md-6">
-            <div class="card shadow-sm">
+            <div class="admin-card shadow-sm">
                 <div class="card-header">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-medal me-2"></i>Top Performing Challenges
                     </h6>
                 </div>
@@ -284,9 +284,9 @@
         </div>
 
         <div class="col-md-6">
-            <div class="card shadow-sm">
+            <div class="admin-card shadow-sm">
                 <div class="card-header">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-fire me-2"></i>Most Popular Challenges
                     </h6>
                 </div>
