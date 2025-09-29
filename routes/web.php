@@ -1,4 +1,3 @@
-
 <?php
 
 // Professor: View event participants

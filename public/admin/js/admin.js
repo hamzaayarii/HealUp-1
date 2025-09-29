@@ -105,7 +105,22 @@ function initializeTheme() {
         localStorage.removeItem('healup_admin_theme');
     }
 
-    // Get theme from cookie or body data attribute or HTML class
+    // First priority: Check meta tag theme config (same as front office)
+    const metaTheme = document.querySelector('meta[name="theme-config"]');
+    if (metaTheme) {
+        try {
+            const config = JSON.parse(metaTheme.content);
+            if (config.current) {
+                // Server has already set the theme correctly, just update the toggle icon
+                updateThemeToggleIcon(config.current);
+                return;
+            }
+        } catch (e) {
+            console.warn('Failed to parse theme config from meta tag');
+        }
+    }
+
+    // Fallback: Get theme from other sources
     let savedTheme = getCookie('healup_theme') || document.body.getAttribute('data-theme');
 
     // Fallback: check if HTML has dark class

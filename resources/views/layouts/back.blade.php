@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Theme configuration -->
+    <meta name="theme-config" content="{{ json_encode(app('theme')->getThemeConfig()) }}">
+
     <title>{{ config('app.name', 'HealUp') }} - Admin Dashboard</title>
 
     <!-- Favicon -->
