@@ -163,6 +163,11 @@
             <footer role="contentinfo" class="@yield('footer_class', 'mt-auto')">
                 @yield('footer')
             </footer>
+        @else
+            {{-- Default Footer for authenticated users --}}
+            @auth
+                <x-footer />
+            @endauth
         @endif
     </div>
 
