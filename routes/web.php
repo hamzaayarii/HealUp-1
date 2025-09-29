@@ -1,10 +1,17 @@
+
 <?php
+
+// Professor: View event participants
+Route::get('/events/{event}/participants', [App\Http\Controllers\EventController::class, 'participants'])->name('events.participants');
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RepasController;
+use App\Http\Controllers\AdviceController;
+use App\Http\Controllers\ChatSessionController;
+use App\Http\Controllers\ChatMessageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -65,6 +72,14 @@ Route::middleware([
     Route::get('/health/reports/export-pdf', [App\Http\Controllers\HealthReportController::class, 'exportPdf'])->name('health.reports.export-pdf');
 
 
+
+
+    // Front office wellness events page
+    Route::get('/wellness-events', [EventController::class, 'frontoffice'])->name('events.frontoffice');
+
+    // Event registration (student)
+    Route::post('/events/{event}/register', [EventController::class, 'register'])->name('events.register');
+
     // Wellness Events resource routes
     Route::resource('events', EventController::class);
 
@@ -78,6 +93,19 @@ Route::middleware([
     // Routes API internes pour recherche dynamique
     Route::get('/api/internal/ingredients/search', [IngredientController::class, 'search'])->name('api.ingredients.search');
     Route::get('/api/internal/ingredients/categories', [IngredientController::class, 'getCategories'])->name('api.ingredients.categories');
+
+    // Advice routes
+    Route::get('/advices', [AdviceController::class, 'index'])->name('advices.index');
+    Route::get('/advices/{id}', [AdviceController::class, 'show'])->name('advices.show');
+
+    // Chat session routes
+    Route::get('/chat-sessions/start/{advice}', [ChatSessionController::class, 'start'])->name('chat.sessions.start');
+    Route::get('/chat-sessions/{id}', [ChatSessionController::class, 'show'])->name('chat.sessions.show');
+    Route::delete('/chat-sessions/{id}', [ChatSessionController::class, 'destroy'])->name('chat.sessions.destroy');
+
+
+    // Chat messages
+    Route::post('/chat-sessions/{id}/messages', [ChatMessageController::class, 'store'])->name('chat.messages.store');
 });
 
 // Admin Routes - Protected by auth and admin middleware
