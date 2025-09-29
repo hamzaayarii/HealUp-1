@@ -97,6 +97,16 @@
                         {{ __('Categories') }}
                     </x-nav-link>
 
+                    <!-- Advices Link --> 
+                    <x-nav-link href="{{ route('advices.index') }}" :active="request()->routeIs('advices.*')"
+                                class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M12 20l9-16H3l9 16z" />
+                        </svg>
+                        {{ __('Advices') }}
+                    </x-nav-link>
+
                     <!-- Nutrition Dropdown -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open"
