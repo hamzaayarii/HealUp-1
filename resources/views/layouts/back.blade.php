@@ -42,7 +42,7 @@
         <!-- Sidebar Header -->
         <div class="sidebar-header">
             <div class="sidebar-logo">
-                <img src="{{ asset('images/logos/healup.svg') }}" alt="HealUp" class="w-8 h-8">
+                <img src="{{ asset('images/logos/flavicon.png') }}" alt="HealUp" class="w-8 h-8">
             </div>
             <a href="{{ route('admin.dashboard') }}" class="sidebar-brand">
                 HealUp Admin
@@ -206,12 +206,10 @@
                         <i class="fas fa-chevron-down ms-2"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{ route('profile.show') }}">
+                        <li><a class="dropdown-item" href="{{ route('admin.profile') }}">
                             <i class="fas fa-user me-2"></i>Profile
                         </a></li>
-                        <li><a class="dropdown-item" href="{{ route('dashboard') }}">
-                            <i class="fas fa-home me-2"></i>Main Site
-                        </a></li>
+
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
