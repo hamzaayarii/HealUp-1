@@ -133,8 +133,7 @@ class ReportController extends Controller
         $startDate = Carbon::now()->subDays($period);
 
         // Challenge participation stats
-        $challengeStats = Challenge::with('category')
-            ->withCount('participations')
+        $challengeStats = Challenge::withCount('participations')
             ->get()
             ->map(function ($challenge) use ($startDate) {
                 $completedParticipations = $challenge->participations()

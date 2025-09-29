@@ -34,7 +34,8 @@ class ChallengeController extends Controller
 
     public function create()
     {
-        return view('admin.challenges.create');
+        $categories = Category::all();
+        return view('admin.challenges.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -48,6 +49,7 @@ class ChallengeController extends Controller
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
             'is_active' => 'boolean',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $validated['is_active'] = $request->has('is_active');
@@ -67,7 +69,8 @@ class ChallengeController extends Controller
 
     public function edit(Challenge $challenge)
     {
-        return view('admin.challenges.edit', compact('challenge'));
+        $categories = Category::all();
+        return view('admin.challenges.edit', compact('challenge', 'categories'));
     }
 
     public function update(Request $request, Challenge $challenge)
@@ -81,6 +84,7 @@ class ChallengeController extends Controller
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date|after:start_date',
             'is_active' => 'boolean',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $validated['is_active'] = $request->has('is_active');

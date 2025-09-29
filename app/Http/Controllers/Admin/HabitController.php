@@ -67,7 +67,8 @@ class HabitController extends Controller
 
     public function show(Habit $habit)
     {
-        $habit->load(['category', 'user', 'userHabits.user']);
+        $habit->load(['category', 'user', 'userHabits.user', 'userHabits.dailyProgress']);
+        $habit->loadCount('userHabits');
 
         return view('admin.habits.show', compact('habit'));
     }
@@ -108,7 +109,7 @@ class HabitController extends Controller
     public function users(Habit $habit)
     {
         $userHabits = $habit->userHabits()
-            ->with('user')
+            ->with(['user', 'dailyProgress'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 

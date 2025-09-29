@@ -170,3 +170,26 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
     // Route::post('/settings/backup', [App\Http\Controllers\Admin\SettingController::class, 'backup'])->name('settings.backup');
     // Route::post('/settings/restore', [App\Http\Controllers\Admin\SettingController::class, 'restore'])->name('settings.restore');
 });
+
+// Debug route (remove in production)
+Route::get('/debug-habits', function () {
+    $habit = App\Models\Habit::with(['userHabits.user'])->first();
+
+    if (!$habit) {
+        return 'No habits found';
+    }
+
+    return [
+        'habit_id' => $habit->id,
+        'habit_name' => $habit->name,
+        'userHabits_count' => $habit->userHabits->count(),
+        'userHabits_details' => $habit->userHabits->map(function ($uh) {
+            return [
+                'id' => $uh->id,
+                'user_name' => $uh->user->name,
+                'is_active' => $uh->is_active,
+                'created_at' => $uh->created_at
+            ];
+        })
+    ];
+});

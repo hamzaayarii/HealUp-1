@@ -1,6 +1,20 @@
 @extends('layouts.back')
 
-@section('title', 'Challenge Details - ' . $challenge->title)
+@section            <div class="admin-card shadow-sm mb-4">
+                <div class="card-header d-flex justify-content-between align-items-ce            <div class="admin-card shadow-sm">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>Statistics
+                    </h6>
+                </div>
+                    <h6 cla            <div class="admin-card shadow-sm mb-4">
+                <div class="card-header">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-cogs me-2"></i>Quick Actions
+                    </h6>
+                </div>rd-title mb-0">
+                        <i class="fas fa-trophy me-2"></i>Challenge Details
+                    </h6>le', 'Challenge Details - ' . $challenge->title)
 
 @section('content')
 <div class="container-fluid">
@@ -82,9 +96,9 @@
             </div>
 
             <!-- Participants Overview -->
-            <div class="card shadow-sm">
+            <div class="admin-card shadow-sm">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="mb-0">
+                    <h6 class="card-title mb-0">
                         <i class="fas fa-users me-2"></i>Recent Participants
                     </h6>
                     <a href="{{ route('admin.challenges.participants', $challenge) }}" class="btn btn-sm btn-outline-primary">
