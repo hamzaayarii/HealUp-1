@@ -12,6 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
+            // Drop the old foreign key if it exists
+            try {
+                $table->dropForeign(['category_id']);
+            } catch (\Exception $e) {}
             $table->unsignedBigInteger('category_id')->nullable()->change();
             $table->foreign('category_id')
                 ->references('id')->on('categories')
