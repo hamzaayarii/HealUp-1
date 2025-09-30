@@ -47,20 +47,8 @@ class EventController extends Controller
             ->whereDate('date', '>=', now())
             ->orderBy('date', 'asc')
             ->with('category')
-            ->get();
-        return view('events.frontoffice', compact('events'));
-    }
-    /**
-     * Display a listing of events for users (browse available events).
-     */
-    public function index()
-    {
-        $events = Event::where('is_active', true)
-            ->whereDate('date', '>=', now())
-            ->orderBy('date', 'asc')
-            ->with('category')
             ->paginate(10);
-        return view('events.index', compact('events'));
+        return view('events.frontoffice', compact('events'));
     }
 
     /**
