@@ -141,19 +141,7 @@
 
                     <div class="h-6 border-l border-gray-200 dark:border-gray-700 mx-3"></div>
 
-                    <!-- Categories Link -->
-                          <a href="{{ route('categories.index') }}"
-                              class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900
-                              {{ request()->routeIs('categories.*')
-                                 ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
-                                 : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100' }}">
-                        <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path>
-                        </svg>
-                        {{ __('Categories') }}
-                    </a>
-
-                    <div class="h-6 border-l border-gray-200 dark:border-gray-700 mx-3"></div>
+                    <!-- Categories Link removed for non-admins -->
 
                     <!-- Advices Link -->
                           <a href="{{ route('advices.index') }}"
@@ -379,9 +367,7 @@
                 {{ __('Wellness Events') }}
             </x-responsive-nav-link>
             <!-- Categories Navigation -->
-            <x-responsive-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.*')">
-                {{ __('Categories') }}
-            </x-responsive-nav-link>
+            <!-- Categories navigation removed for non-admins -->
 
             <!-- Nutrition Mobile Navigation -->
                         <!-- Nutrition Mobile Navigation -->

@@ -87,6 +87,21 @@
                     </a>
                 </li>
 
+                <!-- Events Management -->
+                <li class="nav-item">
+                    <a href="{{ route('admin.events.index') }}" class="nav-link {{ request()->routeIs('admin.events.*') ? 'active' : '' }}" data-tooltip="Events">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+
+                <!-- Categories Management -->
+                <li class="nav-item">
+                    <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" data-tooltip="Categories">
+                        <i class="fas fa-list-alt"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
                 <!-- Users Management -->
                 <li class="nav-item">
                     <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" data-tooltip="Users">

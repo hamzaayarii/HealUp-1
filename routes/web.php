@@ -11,6 +11,7 @@ use App\Http\Controllers\RepasController;
 use App\Http\Controllers\AdviceController;
 use App\Http\Controllers\ChatSessionController;
 use App\Http\Controllers\ChatMessageController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -82,9 +83,6 @@ Route::middleware([
     // Wellness Events resource routes
     Route::resource('events', EventController::class);
 
-    // Categories resource routes
-    Route::resource('categories', App\Http\Controllers\CategoryController::class);
-
     // ✅ AJOUTER CES ROUTES NUTRITION
     Route::resource('ingredients', IngredientController::class);
     Route::resource('repas', RepasController::class);
@@ -109,6 +107,8 @@ Route::middleware([
 
 // Admin Routes - Protected by auth and admin middleware
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    // View participants for an event (admin)
+    Route::get('events/{event}/participants', [App\Http\Controllers\Admin\EventController::class, 'participants'])->name('events.participants');
     // Admin Dashboard
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
@@ -146,6 +146,9 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
     Route::get('/reports/challenges', [App\Http\Controllers\Admin\ReportController::class, 'challenges'])->name('reports.challenges');
     Route::get('/reports/export', [App\Http\Controllers\Admin\ReportController::class, 'export'])->name('reports.export');
 
+    // Admin-only Categories Management
+    Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
+
     // Teams Management (TODO: Create TeamController)
     // Route::resource('teams', App\Http\Controllers\Admin\TeamController::class);
     // Route::post('/teams/{team}/toggle-status', [App\Http\Controllers\Admin\TeamController::class, 'toggleStatus'])->name('teams.toggle-status');
@@ -168,6 +171,9 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
     // Route::put('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
     // Route::post('/settings/backup', [App\Http\Controllers\Admin\SettingController::class, 'backup'])->name('settings.backup');
     // Route::post('/settings/restore', [App\Http\Controllers\Admin\SettingController::class, 'restore'])->name('settings.restore');
+
+    // Event Management
+    Route::resource('events', App\Http\Controllers\Admin\EventController::class);
 });
 
 // Debug route (remove in production)
