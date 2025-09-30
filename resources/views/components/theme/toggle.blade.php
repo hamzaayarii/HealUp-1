@@ -34,7 +34,7 @@ $positionClasses = [
     >
         <!-- Toggle Knob -->
         <span
-            class="inline-block w-5 h-5 bg-white rounded-full shadow-lg transition-all duration-300 ease-in-out transform flex items-center justify-center"
+            class="inline-block w-5 h-5 rounded-full shadow-lg transition-all duration-300 ease-in-out transform flex items-center justify-center"
             :class="{
                 'translate-x-7': isDarkMode && '{{ $size }}' === 'md',
                 'translate-x-6': isDarkMode && '{{ $size }}' === 'sm',
@@ -51,7 +51,7 @@ $positionClasses = [
                 x-transition:leave="transition-all duration-200 ease-in-out"
                 x-transition:leave-start="opacity-100 rotate-0 scale-100"
                 x-transition:leave-end="opacity-0 rotate-180 scale-0"
-                class="w-3 h-3 text-yellow-500"
+                class="w-5 h-5 text-yellow-500"
                 fill="currentColor"
                 viewBox="0 0 20 20"
             >
@@ -67,7 +67,7 @@ $positionClasses = [
                 x-transition:leave="transition-all duration-200 ease-in-out"
                 x-transition:leave-start="opacity-100 rotate-0 scale-100"
                 x-transition:leave-end="opacity-0 rotate-180 scale-0"
-                class="w-3 h-3 text-blue-200"
+                class="w-5 h-5 text-blue-200"
                 fill="currentColor"
                 viewBox="0 0 20 20"
             >
