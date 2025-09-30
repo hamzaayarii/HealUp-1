@@ -158,6 +158,15 @@
                     </a>
                 </li>
 
+                <!-- Advices -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('admin.advices.*') ? 'active' : '' }}" href="{{ route('admin.advices.index') }}" data-tooltip="Advices">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Advices</span>
+                    </a>
+                </li>
+
+
                 <!-- Settings -->
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-tooltip="Settings (Coming Soon)">
