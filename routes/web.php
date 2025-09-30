@@ -75,14 +75,15 @@ Route::middleware([
 
 
 
-    // Front office wellness events page
+    // Front office wellness events page (main events listing)
     Route::get('/wellness-events', [EventController::class, 'frontoffice'])->name('events.frontoffice');
+    Route::get('/events', [EventController::class, 'frontoffice'])->name('events.index'); // Alias for backward compatibility
 
     // Event registration (student)
     Route::post('/events/{event}/register', [EventController::class, 'register'])->name('events.register');
 
-    // Wellness Events resource routes
-    Route::resource('events', EventController::class);
+    // User event routes (view single event only)
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
     // ✅ AJOUTER CES ROUTES NUTRITION
     Route::resource('ingredients', IngredientController::class);
