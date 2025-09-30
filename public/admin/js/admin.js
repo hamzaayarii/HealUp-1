@@ -8,8 +8,13 @@ function initializeAdmin() {
     // Initialize sidebar toggle
     initSidebarToggle();
 
-    // Initialize theme toggle
-    initThemeToggle();
+    // Initialize theme toggle (only if old button exists, not new component)
+    const oldThemeToggle = document.getElementById('themeToggle');
+    const newThemeToggle = document.querySelector('[x-data*="themeToggle"]');
+
+    if (oldThemeToggle && !newThemeToggle) {
+        initThemeToggle();
+    }
 
     // Initialize tooltips
     initTooltips();

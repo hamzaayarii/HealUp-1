@@ -33,8 +33,31 @@
     <!-- Custom Admin Styles -->
     <link rel="stylesheet" href="{{ asset('admin/css/admin.css') }}">
 
+    <!-- Theme Toggle Component Styles -->
+    <style>
+        /* Ensure theme toggle component works properly in admin */
+        .theme-toggle-container {
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .theme-toggle-container button {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .theme-toggle-container button:focus {
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important;
+        }
+    </style>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Alpine.js for admin dashboard -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @stack('styles')
 </head>
@@ -171,10 +194,16 @@
 
             <!-- Header Actions -->
             <div class="header-actions">
-                <!-- Theme Toggle -->
-                <button class="btn btn-link text-decoration-none me-3" id="themeToggle" title="Toggle Dark Mode">
-                    <i class="fas fa-moon fa-lg"></i>
-                </button>
+                <!-- Modern Theme Toggle -->
+                <div class="theme-toggle-container me-3">
+                    <x-theme.toggle size="sm" />
+
+                    <!-- Fallback Theme Toggle (hidden by default) -->
+                    <button class="btn btn-outline-secondary btn-sm d-none" id="fallbackThemeToggle"
+                            onclick="fallbackToggleTheme()" title="Toggle Theme (Fallback)">
+                        <i class="fas fa-adjust"></i>
+                    </button>
+                </div>
 
                 <!-- Notifications -->
                 <div class="dropdown me-3">
@@ -288,6 +317,64 @@
 
     <!-- Custom Admin JS -->
     <script src="{{ asset('admin/js/admin.js') }}"></script>
+
+    <!-- Ensure Alpine.js components are properly initialized -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            console.log('Alpine.js initialized in admin dashboard');
+        });
+
+        // Test if Alpine.js is working and show fallback if needed
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded');
+            console.log('Alpine available:', typeof Alpine !== 'undefined');
+            console.log('Theme toggle element:', document.querySelector('[x-data*="themeToggle"]'));
+            console.log('CSRF token:', document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'));
+
+            // Show fallback button if Alpine component doesn't initialize within 3 seconds
+            setTimeout(() => {
+                const alpineToggle = document.querySelector('[x-data*="themeToggle"]');
+                const fallbackToggle = document.getElementById('fallbackThemeToggle');
+
+                if (alpineToggle && !alpineToggle._x_dataStack && fallbackToggle) {
+                    console.log('Alpine.js component not initialized, showing fallback');
+                    fallbackToggle.classList.remove('d-none');
+                }
+            }, 3000);
+        });
+
+        // Fallback theme toggle function
+        function fallbackToggleTheme() {
+            console.log('Fallback theme toggle triggered');
+
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+
+            // Toggle theme class immediately
+            if (isDark) {
+                html.classList.remove('dark');
+            } else {
+                html.classList.add('dark');
+            }
+
+            // Try to update server
+            fetch('/theme/toggle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fallback theme toggle successful:', data);
+            })
+            .catch(error => {
+                console.error('Fallback theme toggle error:', error);
+            });
+        }
+    </script>
 
     @stack('scripts')
 </body>
