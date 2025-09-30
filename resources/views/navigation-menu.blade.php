@@ -5,18 +5,36 @@
             <div class="flex items-center">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center group pl-0 sm:pl-2">
-                    <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
-                        <div class="relative">
-                            <x-application-mark class="block h-10 w-auto group-hover:scale-105 transition-transform duration-200" />
-                            <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full opacity-0 group-hover:opacity-20 blur transition-opacity duration-300"></div>
+                    <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 hover:opacity-90 transition-opacity duration-200">
+                        <!-- Custom HealUp Logo with Breathing Animation -->
+                        <div class="relative flex items-center justify-center w-10 h-10 rounded-xl shadow-lg group-hover:shadow-emerald-500/25 transition-all duration-300">
+                            <!-- App Logo Image with Breathing Effect -->
+                            <img src="{{ asset('images/logos/flavicon.png') }}" alt="HealUp Logo" class="w-10 h-10 rounded-xl object-contain animate-pulse" style="animation: breathe 3s ease-in-out infinite;">
+                            <!-- Subtle Glow Ring -->
+                            <div class="absolute inset-0 rounded-xl ring-1 ring-emerald-300/20 dark:ring-emerald-500/30"></div>
                         </div>
-                        <div class="hidden md:block">
-                            <div class="text-xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 dark:from-emerald-400 dark:to-blue-400 bg-clip-text text-transparent">
+
+                        <!-- App Name with Massive Bold Typography -->
+                        <div class="flex items-center">
+                            <span class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-emerald-600 dark:text-emerald-400 font-sans antialiased healup-logo">
                                 HealUp
-                            </div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400 -mt-1">Health & Wellness</div>
+                            </span>
                         </div>
                     </a>
+
+                    <!-- Custom CSS for Breathing Animation -->
+                    <style>
+                        @keyframes breathe {
+                            0%, 100% {
+                                transform: scale(1);
+                                opacity: 1;
+                            }
+                            50% {
+                                transform: scale(1.05);
+                                opacity: 0.9;
+                            }
+                        }
+                    </style>
                 </div>
 
                 <!-- Navigation Links -->
