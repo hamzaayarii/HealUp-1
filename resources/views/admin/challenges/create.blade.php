@@ -18,7 +18,7 @@
         @endif
 
         <div class="challenge-form-card">
-            <form action="{{ route('challenges.store') }}" method="POST" id="challengeForm">
+            <form action="{{ route('admin.challenges.store') }}" method="POST" id="challengeForm">
                 @csrf
 
                 <!-- General Information -->
@@ -36,7 +36,6 @@
                             class="form-input" 
                             value="{{ old('title') }}" 
                             placeholder="Ex: 7-Day Hydration Challenge"
-                            required
                         >
                         @error('title') 
                             <span class="form-error">{{ $message }}</span> 
@@ -49,7 +48,6 @@
                             name="description" 
                             class="form-input form-textarea"
                             placeholder="Describe your challenge in an inspiring and clear way."
-                            required
                         >{{ old('description') }}</textarea>
                         @error('description') 
                             <span class="form-error">{{ $message }}</span> 
@@ -88,7 +86,6 @@
                             value="{{ old('duration', 7) }}"
                             min="1"
                             max="365"
-                            required
                         >
                         @error('duration') 
                             <span class="form-error">{{ $message }}</span> 
@@ -124,8 +121,6 @@
                             name="start_date" 
                             class="form-input"
                             value="{{ old('start_date', date('Y-m-d', strtotime('+1 day'))) }}"
-                            min="{{ date('Y-m-d') }}"
-                            required
                         >
                         @error('start_date') 
                             <span class="form-error">{{ $message }}</span> 
@@ -139,34 +134,17 @@
                             name="end_date" 
                             class="form-input"
                             value="{{ old('end_date') }}"
-                            min="{{ date('Y-m-d') }}"
                         >
                         @error('end_date') 
                             <span class="form-error">{{ $message }}</span> 
                         @enderror
-                        <div class="form-helper">Automatically calculated if empty (start + duration)</div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-checkbox-group">
-                            <label class="form-switch">
-                                <input 
-                                    type="checkbox" 
-                                    name="is_active" 
-                                    value="1" 
-                                    {{ old('is_active', true) ? 'checked' : '' }}
-                                >
-                                <span class="form-switch-slider"></span>
-                            </label>
-                            <label for="is_active" class="form-switch-label">
-                                <strong>Activate challenge immediately</strong>
-                            </label>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <!-- Form Actions -->
                 <div class="form-actions">
-                    <a href="{{ route('challenges.index') }}" class="btn-form-secondary">
+                    <a href="{{ route('admin.challenges.index') }}" class="btn-form-secondary">
                         <i class="fas fa-arrow-left"></i>
                         Cancel
                     </a>

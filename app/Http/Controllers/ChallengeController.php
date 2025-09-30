@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Challenge;
+use App\Http\Requests\StoreChallengeRequest;
+use Illuminate\Http\RedirectResponse;
+
 
 class ChallengeController extends Controller
 {
@@ -32,30 +35,17 @@ class ChallengeController extends Controller
     /**
  * Store a newly created resource in storage.
  */
-public function store(Request $request): RedirectResponse
-{
-    // Define validation rules
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'nullable|string', 
-        'objectif' => 'required|integer|min:1', 
-        'duration' => 'required|integer|min:1|max:365', 
-        'reward' => 'required|string|max:255', 
-        'start_date' => 'required|date|after_or_equal:today',
-        'end_date' => 'nullable|date|after_or_equal:start_date',
-        'is_active' => 'boolean',
-    ], [
-        // Customize error messages for better user experience
-        'title.required' => 'Le titre du défi est obligatoire.',
-        'objectif.required' => 'Veuillez définir un objectif quotidien.',
-        'start_date.after_or_equal' => 'La date de début ne peut pas être dans le passé.',
-        'end_date.after_or_equal' => 'La date de début ne peut pas être dans le passé.'
-    ]);
+    public function store(StoreChallengeRequest $request): RedirectResponse
+    {
+    
+        $validated = $request->validated();
 
-    // If validation passes, create the challenge
-    Challenge::create($validated);
+        $validated['created_by'] = auth()->id();
+        $validated['status'] = auth()->user()->isAdmin() ? 'approved' : 'pending';
+    
+        Challenge::create($validated);
 
-    return redirect()->route('challenges.index')->with('success', 'Défi créé avec succès.');
+        return redirect()->route('challenges.index')->with('success', 'Défi créé avec succès.');
     }
 
     /**

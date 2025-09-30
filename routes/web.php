@@ -5,7 +5,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RepasController;
-use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\AdminChallengeController;
 
 Route::get('/', function () {
     return view('pages.welcome');
@@ -19,14 +19,48 @@ Route::post('/theme/toggle', [ThemeController::class, 'toggle'])->name('theme.to
 Route::post('/theme/set', [ThemeController::class, 'setTheme'])->name('theme.set');
 Route::get('/theme/current', [ThemeController::class, 'getCurrentTheme'])->name('theme.current');
 
+// Debug route (remove in production)
+Route::get('/debug', function () {
+    return view('debug');
+})->name('debug');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect()->route('health.dashboard');
     })->name('dashboard');
+
+    // Health Dashboard - Main health tracking interface
+    Route::get('/health', [App\Http\Controllers\HealthDashboardController::class, 'index'])->name('health.dashboard');
+    Route::get('/health/api', [App\Http\Controllers\HealthDashboardController::class, 'api'])->name('health.api');
+    Route::get('/health/habit-stats', [App\Http\Controllers\HealthDashboardController::class, 'getHabitStats'])->name('health.habit-stats');
+
+    // Habits Management
+    Route::resource('habits', App\Http\Controllers\HabitController::class, [
+        'parameters' => ['habits' => 'userHabit']
+    ]);
+    Route::get('/habits-available', [App\Http\Controllers\HabitController::class, 'available'])->name('habits.available');
+    Route::post('/habits-add-existing', [App\Http\Controllers\HabitController::class, 'addExisting'])->name('habits.add-existing');
+
+    // Daily Progress
+    Route::get('/progress', [App\Http\Controllers\DailyProgressController::class, 'index'])->name('progress.index');
+    Route::post('/progress', [App\Http\Controllers\DailyProgressController::class, 'store'])->name('progress.store');
+    Route::get('/progress/{userHabit}', [App\Http\Controllers\DailyProgressController::class, 'show'])->name('progress.show');
+    Route::put('/progress/{dailyProgress}', [App\Http\Controllers\DailyProgressController::class, 'update'])->name('progress.update');
+    Route::delete('/progress/{dailyProgress}', [App\Http\Controllers\DailyProgressController::class, 'destroy'])->name('progress.destroy');
+    Route::get('/progress/weekly', [App\Http\Controllers\DailyProgressController::class, 'weekly'])->name('progress.weekly');
+    Route::post('/progress/quick-log', [App\Http\Controllers\DailyProgressController::class, 'quickLog'])->name('progress.quick-log');
+
+    // Health Reports
+    Route::get('/health/reports', [App\Http\Controllers\HealthReportController::class, 'index'])->name('health.reports.index');
+    Route::get('/health/reports/weekly', [App\Http\Controllers\HealthReportController::class, 'weekly'])->name('health.reports.weekly');
+    Route::get('/health/reports/monthly', [App\Http\Controllers\HealthReportController::class, 'monthly'])->name('health.reports.monthly');
+    Route::get('/health/reports/category-performance', [App\Http\Controllers\HealthReportController::class, 'categoryPerformance'])->name('health.reports.category-performance');
+    Route::get('/health/reports/habit-comparison', [App\Http\Controllers\HealthReportController::class, 'habitComparison'])->name('health.reports.habit-comparison');
+    Route::get('/health/reports/export-pdf', [App\Http\Controllers\HealthReportController::class, 'exportPdf'])->name('health.reports.export-pdf');
 
     // Wellness Events resource routes
     Route::resource('events', EventController::class);
@@ -40,13 +74,23 @@ Route::middleware([
     Route::get('/api/internal/ingredients/categories', [IngredientController::class, 'getCategories'])->name('api.ingredients.categories');
 });
 
-Route::middleware(['auth', 'isAdmin'])->group(function () {
-    Route::get('challenges/index', [ChallengeController::class, 'index'])->name('challenges.index');
-    Route::get('challenges/create', [ChallengeController::class, 'create'])->name('challenges.create');
-    Route::get('challenges/{id}/edit', [ChallengeController::class, 'edit'])->name('challenges.edit');
-    Route::put('challenges/{id}', [ChallengeController::class, 'update'])->name('challenges.update');
-    Route::delete('challenges/{id}', [ChallengeController::class, 'destroy'])->name('challenges.destroy');
-    Route::post('challenges', [ChallengeController::class, 'store'])->name('challenges.store');
+// Routes Admin ONLY
+Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
+    
+    // Route principale pour l'interface admin
+    Route::get('/challenges', [AdminChallengeController::class, 'index'])->name('challenges.index');
+    
+
+    Route::put('/challenges/{id}/approve', [AdminChallengeController::class, 'approve'])->name('challenges.approve');
+    Route::put('/challenges/{id}/reject', [AdminChallengeController::class, 'reject'])->name('challenges.reject');
+    Route::delete('/challenges/{id}', [AdminChallengeController::class, 'destroy'])->name('challenges.destroy');
+    
+    // Routes standards
+    Route::get('/challenges/create', [AdminChallengeController::class, 'create'])->name('challenges.create');
+    Route::post('/challenges', [AdminChallengeController::class, 'store'])->name('challenges.store');
+    Route::get('/challenges/{id}/edit', [AdminChallengeController::class, 'edit'])->name('challenges.edit');
+    Route::get('/challenges/{id}/details', [AdminChallengeController::class, 'showDetails'])->name('challenges.details');
+    Route::put('/challenges/{id}', [AdminChallengeController::class, 'update'])->name('challenges.update');
 
 });
 

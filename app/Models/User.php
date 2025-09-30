@@ -114,6 +114,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Participation::class);
     }
 
+    public function createdChallenges(): HasMany
+    {
+    return $this->hasMany(Challenge::class, 'created_by');
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
