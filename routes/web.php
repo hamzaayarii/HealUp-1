@@ -66,6 +66,9 @@ Route::middleware([
 
     // Health Reports
     Route::get('/health/reports', [App\Http\Controllers\HealthReportController::class, 'index'])->name('health.reports.index');
+
+    // My Events (Student)
+    Route::get('/my-events', [App\Http\Controllers\EventController::class, 'myEvents'])->name('events.my');
     Route::get('/health/reports/weekly', [App\Http\Controllers\HealthReportController::class, 'weekly'])->name('health.reports.weekly');
     Route::get('/health/reports/monthly', [App\Http\Controllers\HealthReportController::class, 'monthly'])->name('health.reports.monthly');
     Route::get('/health/reports/category-performance', [App\Http\Controllers\HealthReportController::class, 'categoryPerformance'])->name('health.reports.category-performance');

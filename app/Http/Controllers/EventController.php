@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     /**
+     * Show events the authenticated student is registered for.
+     */
+    public function myEvents()
+    {
+        $user = auth()->user();
+        $events = \App\Models\Event::whereHas('users', function($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->with('category')->orderBy('date', 'asc')->get();
+        return view('events.my', compact('events'));
+    }
+    /**
      * Show participants for a given event (professor view).
      */
     public function participants($eventId)
