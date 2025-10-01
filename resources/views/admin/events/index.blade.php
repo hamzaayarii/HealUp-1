@@ -3,10 +3,12 @@
 @section('content')
 <div class="container-fluid">
     <h1>Events</h1>
+    <form method="GET" action="{{ route('admin.events.index') }}" class="mb-3 d-flex" style="gap: 10px;">
+        <input type="text" name="search" class="form-control" placeholder="Search by Title" value="{{ request('search') }}" style="max-width: 300px;">
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+        <a href="{{ route('admin.events.index') }}" class="btn btn-outline-secondary">Reset</a>
+    </form>
     <a href="{{ route('admin.events.create') }}" class="btn btn-primary mb-3">Create Event</a>
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -29,6 +31,7 @@
                     <td>{{ Str::limit($event->description, 50) }}</td>
                     <td>{{ $event->max_participants }}</td>
                     <td>
+                        <a href="{{ route('admin.events.show', $event) }}" class="btn btn-sm btn-primary">View</a>
                         <a href="{{ route('admin.events.participants', $event->id) }}" class="btn btn-sm btn-info">Participants</a>
                         <a href="{{ route('admin.events.edit', $event) }}" class="btn btn-sm btn-warning">Edit</a>
                         <form action="{{ route('admin.events.destroy', $event) }}" method="POST" style="display:inline-block;">

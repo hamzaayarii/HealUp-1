@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
+    // Show details for a single event (admin view)
+    public function show(Event $event)
+    {
+        return view('admin.events.show', compact('event'));
+    }
     // Show participants for a given event (admin view)
     public function participants($eventId)
     {
@@ -17,10 +22,14 @@ class EventController extends Controller
         $participants = $event->users;
         return view('admin.events.participants', compact('event', 'participants'));
     }
-    // Display a listing of events
-    public function index()
+    // Display a listing of events with optional search by title
+    public function index(Request $request)
     {
-        $events = Event::orderBy('date', 'desc')->paginate(20);
+        $query = Event::orderBy('date', 'desc');
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+        $events = $query->paginate(20)->appends(['search' => $request->search]);
         return view('admin.events.index', compact('events'));
     }
 
