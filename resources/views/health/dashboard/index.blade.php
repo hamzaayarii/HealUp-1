@@ -1,9 +1,15 @@
 <x-app-layout>
     <!-- Full-Width Professional Health Dashboard -->
-    <div class="min-h-screen bg-main-gradient theme-transition">
+    <div class="relative min-h-screen bg-gray-200 dark:bg-gray-800 theme-transition overflow-hidden">
+        <!-- Background Floating Bubbles -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-green-200 to-teal-300 dark:from-green-800 dark:to-teal-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
+            <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute bottom-40 left-1/2 w-72 h-72 bg-gradient-to-br from-purple-200 to-pink-300 dark:from-purple-800 dark:to-pink-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+        </div>
 
         <!-- Top Action Bar - Full Width -->
-        <div class="header-sticky">
+        <div class="relative z-20 header-sticky bg-white dark:bg-gray-900 shadow-md">
             <div class="w-full px-4 sm:px-6 lg:px-8 py-4">
                 <div class="flex items-center justify-between">
                     <!-- Title & Date -->
@@ -16,6 +22,20 @@
                         <div>
                             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Health Dashboard</h1>
                             <p class="text-sm text-gray-500 dark:text-gray-400">{{ now()->format('l, F j, Y') }}</p>
+                        </div>
+                        <!-- Weather Widget -->
+                        <div class="hidden md:flex items-center space-x-3 ml-6 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl px-4 py-2 border border-blue-100 dark:border-blue-800">
+                            <div id="weather-icon" class="text-2xl">
+                                ☀️
+                            </div>
+                            <div>
+                                <div id="weather-temp" class="text-lg font-bold text-gray-900 dark:text-white">
+                                    --°C
+                                </div>
+                                <div id="weather-condition" class="text-xs text-gray-600 dark:text-gray-400">
+                                    Loading...
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -56,7 +76,7 @@
         </div>
 
         <!-- Main Dashboard Content - Full Width -->
-        <div class="w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <div class="relative z-20 w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
             <!-- Enhanced Daily Stats Overview - Full Width -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
@@ -494,6 +514,7 @@
                                                     <span class="text-lg">{{ $activity['icon'] }}</span>
                                                 </div>
                                                 <div class="flex-1 min-w-0">
+
                                                     <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
                                                         {{ $activity['habit_name'] }}
                                                     </p>
@@ -574,8 +595,85 @@
 
     @push('scripts')
     <script>
+        // Fetch Weather Data
+        async function fetchWeather() {
+            try {
+                // Get user's location
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+
+                        // Using Open-Meteo API (free, no API key required)
+                        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`);
+                        const data = await response.json();
+
+                        if (data && data.current) {
+                            const temp = Math.round(data.current.temperature_2m);
+                            const weatherCode = data.current.weather_code;
+
+                            // Update temperature
+                            document.getElementById('weather-temp').textContent = `${temp}°C`;
+
+                            // Map weather codes to icons and descriptions
+                            const weatherInfo = getWeatherInfo(weatherCode);
+                            document.getElementById('weather-icon').textContent = weatherInfo.icon;
+                            document.getElementById('weather-condition').textContent = weatherInfo.description;
+                        }
+                    }, (error) => {
+                        // If location access denied, show default
+                        document.getElementById('weather-temp').textContent = '22°C';
+                        document.getElementById('weather-condition').textContent = 'Unable to get location';
+                        console.log('Location access denied:', error);
+                    });
+                } else {
+                    document.getElementById('weather-temp').textContent = '22°C';
+                    document.getElementById('weather-condition').textContent = 'Location not supported';
+                }
+            } catch (error) {
+                console.error('Weather fetch error:', error);
+                document.getElementById('weather-temp').textContent = '22°C';
+                document.getElementById('weather-condition').textContent = 'Weather unavailable';
+            }
+        }
+
+        function getWeatherInfo(code) {
+            // WMO Weather interpretation codes
+            const weatherMap = {
+                0: { icon: '☀️', description: 'Clear sky' },
+                1: { icon: '🌤️', description: 'Mainly clear' },
+                2: { icon: '⛅', description: 'Partly cloudy' },
+                3: { icon: '☁️', description: 'Overcast' },
+                45: { icon: '🌫️', description: 'Foggy' },
+                48: { icon: '🌫️', description: 'Foggy' },
+                51: { icon: '🌦️', description: 'Light drizzle' },
+                53: { icon: '🌦️', description: 'Moderate drizzle' },
+                55: { icon: '🌧️', description: 'Dense drizzle' },
+                61: { icon: '🌧️', description: 'Slight rain' },
+                63: { icon: '🌧️', description: 'Moderate rain' },
+                65: { icon: '⛈️', description: 'Heavy rain' },
+                71: { icon: '🌨️', description: 'Slight snow' },
+                73: { icon: '🌨️', description: 'Moderate snow' },
+                75: { icon: '❄️', description: 'Heavy snow' },
+                77: { icon: '🌨️', description: 'Snow grains' },
+                80: { icon: '🌦️', description: 'Slight rain showers' },
+                81: { icon: '🌧️', description: 'Moderate rain showers' },
+                82: { icon: '⛈️', description: 'Violent rain showers' },
+                85: { icon: '🌨️', description: 'Slight snow showers' },
+                86: { icon: '❄️', description: 'Heavy snow showers' },
+                95: { icon: '⛈️', description: 'Thunderstorm' },
+                96: { icon: '⛈️', description: 'Thunderstorm with hail' },
+                99: { icon: '⛈️', description: 'Thunderstorm with heavy hail' }
+            };
+
+            return weatherMap[code] || { icon: '🌡️', description: 'Unknown' };
+        }
+
         // Enhanced Quick Log Functionality with Professional UX
         document.addEventListener('DOMContentLoaded', function() {
+            // Fetch weather on page load
+            fetchWeather();
+
             // Add professional hover effects
             document.querySelectorAll('.group').forEach(element => {
                 element.addEventListener('mouseenter', function() {

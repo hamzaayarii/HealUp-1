@@ -348,7 +348,7 @@ input[type="email"]:focus {
         }
     }    /* Header and Navigation */
     .header-sticky {
-        @apply sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl;
+        @apply sticky top-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl;
         @apply border-b border-gray-200 dark:border-gray-700 shadow-sm;
     }
 
