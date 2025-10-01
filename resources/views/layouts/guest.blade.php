@@ -14,7 +14,8 @@
     <meta name="theme-config" content="{{ json_encode(app('theme')->getThemeConfig()) }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png+xml" href="{{ asset('images/logos/flavicon.png') }}">
+    <link rel="alternate icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

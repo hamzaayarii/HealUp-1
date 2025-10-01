@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Repas;
 use App\Models\Ingredient;
 use App\Models\RepasIngredient;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RepasController extends Controller
 {
     public function index()
     {
-        $repas = Repas::with(['repasIngredients', 'user'])
+        $repas = Repas::with(['repasIngredients.ingredient', 'user'])
+            ->where('user_id', Auth::id() ?? 1)
             ->orderBy('date_consommation', 'desc')
             ->paginate(10);
 
@@ -35,7 +36,7 @@ class RepasController extends Controller
     public function update(Request $request, $id)
     {
         $repas = Repas::findOrFail($id);
-        
+
         $validated = $request->validate([
             'nom' => 'required|string|max:255',
             'type_repas' => 'required|in:petit-dejeuner,dejeuner,diner,collation',
@@ -45,12 +46,12 @@ class RepasController extends Controller
             'ingredients.*.quantite' => 'required|numeric|min:1|max:2000',
         ]);
 
-        // Mise à jour
+        // Update
         $repas->nom = $validated['nom'];
         $repas->type_repas = $validated['type_repas'];
         $repas->date_consommation = $validated['date_consommation'];
 
-        // Recalculs nutritionnels (même logique que store)
+        // Nutritional recalculations (same logic as store)
         $caloriesTotal = 0;
         $proteinesTotal = 0;
         $glucidesTotal = 0;
@@ -59,6 +60,7 @@ class RepasController extends Controller
         foreach ($validated['ingredients'] as $ingData) {
             $ingredient = Ingredient::find($ingData['id']);
             $facteur = $ingData['quantite'] / 100;
+
             $caloriesTotal += $ingredient->calories_pour_100g * $facteur;
             $proteinesTotal += $ingredient->proteines_pour_100g * $facteur;
             $glucidesTotal += $ingredient->glucides_pour_100g * $facteur;
@@ -71,7 +73,7 @@ class RepasController extends Controller
         $repas->lipides_total = $lipidesTotal;
         $repas->save();
 
-        // Supprimer anciennes relations et recréer
+        // Delete old relationships and recreate
         RepasIngredient::where('repas_id', $repas->id)->delete();
 
         foreach ($validated['ingredients'] as $ingData) {
@@ -89,7 +91,7 @@ class RepasController extends Controller
             ]);
         }
 
-        return redirect()->route('repas.index')->with('success', 'Repas mis à jour!');
+        return redirect()->route('repas.index')->with('success', 'Meal updated successfully!');
     }
 
     public function destroy($id)
@@ -98,10 +100,10 @@ class RepasController extends Controller
             $repas = Repas::findOrFail($id);
             RepasIngredient::where('repas_id', $repas->id)->delete();
             $repas->delete();
-            
-            return redirect()->route('repas.index')->with('success', 'Repas supprimé avec succès!');
+
+            return redirect()->route('repas.index')->with('success', 'Meal deleted successfully!');
         } catch (\Exception $e) {
-            return redirect()->route('repas.index')->with('error', 'Erreur: ' . $e->getMessage());
+            return redirect()->route('repas.index')->with('error', 'Error: ' . $e->getMessage());
         }
     }
 
@@ -128,7 +130,7 @@ class RepasController extends Controller
         $repas->date_consommation = $validated['date_consommation'];
         $repas->user_id = Auth::id() ?? 1;
 
-        // Calculs nutritionnels
+        // Nutritional calculations
         $caloriesTotal = 0;
         $proteinesTotal = 0;
         $glucidesTotal = 0;
@@ -137,6 +139,7 @@ class RepasController extends Controller
         foreach ($validated['ingredients'] as $ingData) {
             $ingredient = Ingredient::find($ingData['id']);
             $facteur = $ingData['quantite'] / 100;
+
             $caloriesTotal += $ingredient->calories_pour_100g * $facteur;
             $proteinesTotal += $ingredient->proteines_pour_100g * $facteur;
             $glucidesTotal += $ingredient->glucides_pour_100g * $facteur;
@@ -149,7 +152,7 @@ class RepasController extends Controller
         $repas->lipides_total = $lipidesTotal;
         $repas->save();
 
-        // Créer les relations
+        // Create relationships
         foreach ($validated['ingredients'] as $ingData) {
             $ingredient = Ingredient::find($ingData['id']);
             $facteur = $ingData['quantite'] / 100;
@@ -165,6 +168,6 @@ class RepasController extends Controller
             ]);
         }
 
-        return redirect()->route('repas.index')->with('success', 'Repas créé!');
+        return redirect()->route('repas.index')->with('success', 'Meal created successfully!');
     }
 }

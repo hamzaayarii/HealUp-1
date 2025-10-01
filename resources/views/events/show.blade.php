@@ -24,6 +24,10 @@
                             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Location</h3>
                             <p class="mt-1 text-lg text-gray-900 dark:text-gray-100">{{ $event->location }}</p>
                         </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Category</h3>
+                                <p class="mt-1 text-lg text-gray-900 dark:text-gray-100">{{ $event->category ? $event->category->name : '-' }}</p>
+                            </div>
                         <div class="md:col-span-2">
                             <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">Description</h3>
                             <p class="mt-1 text-gray-900 dark:text-gray-100">{{ $event->description ?: 'No description provided.' }}</p>
@@ -38,20 +42,24 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 flex justify-end space-x-3">
-                        <a href="{{ route('events.edit', $event) }}"
-                           class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                            Edit Event
-                        </a>
-                        <form action="{{ route('events.destroy', $event) }}" method="POST" class="inline" onsubmit="return confirm('Delete this event?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                    class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                                Delete Event
-                            </button>
-                        </form>
-                    </div>
+                    @if(auth()->check() && auth()->user()->isStudent())
+                        @php
+                            $alreadyRegistered = $event->users->contains(auth()->id());
+                            $spotsAvailable = $event->current_participants < $event->max_participants;
+                        @endphp
+                        <div class="mt-8 flex justify-end">
+                            @if($alreadyRegistered)
+                                <button class="bg-gray-400 text-white font-semibold py-2 px-4 rounded cursor-not-allowed" disabled>Already Registered</button>
+                            @elseif(!$spotsAvailable)
+                                <button class="bg-gray-400 text-white font-semibold py-2 px-4 rounded cursor-not-allowed" disabled>Event Full</button>
+                            @else
+                                <form action="{{ route('events.register', $event) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition duration-200">Register</button>
+                                </form>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

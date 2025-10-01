@@ -21,7 +21,7 @@ class Challenge extends Model
         'status',           
         'created_by',       
         'rejection_reason'  
-    ];
+];
 
     protected $casts = [
         'start_date' => 'date',
@@ -50,15 +50,23 @@ class Challenge extends Model
         return $this->hasMany(Participation::class);
     }
 
-    // AJOUTEZ CETTE MÉTHODE POUR COMPTER LES PARTICIPANTS
+    // Compter les participants
     public function getParticipantsCountAttribute()
     {
         return $this->participations()->count();
     }
 
-    // AJOUTEZ CETTE MÉTHODE POUR COMPTER LES COMPLÉTIONS
+    // Compter les complétions
     public function getCompletedCountAttribute()
     {
         return $this->participations()->where('completed', true)->count();
     }
+
+    // Relation avec la catégorie
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+
 }

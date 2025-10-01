@@ -28,7 +28,8 @@
         content="@yield('twitter_description', 'HealUp - Your Health Management Platform')">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png+xml" href="{{ asset('images/logos/flavicon.png') }}">
+    <link rel="alternate icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -162,6 +163,11 @@
             <footer role="contentinfo" class="@yield('footer_class', 'mt-auto')">
                 @yield('footer')
             </footer>
+        @else
+            {{-- Default Footer for authenticated users --}}
+            @auth
+                <x-footer />
+            @endauth
         @endif
     </div>
 
