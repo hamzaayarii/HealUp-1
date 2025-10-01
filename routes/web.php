@@ -12,6 +12,7 @@ use App\Http\Controllers\AdviceController;
 use App\Http\Controllers\ChatSessionController;
 use App\Http\Controllers\ChatMessageController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\AdviceController as AdminAdviceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -74,14 +75,15 @@ Route::middleware([
 
 
 
-    // Front office wellness events page
+    // Front office wellness events page (main events listing)
     Route::get('/wellness-events', [EventController::class, 'frontoffice'])->name('events.frontoffice');
+    Route::get('/events', [EventController::class, 'frontoffice'])->name('events.index'); // Alias for backward compatibility
 
     // Event registration (student)
     Route::post('/events/{event}/register', [EventController::class, 'register'])->name('events.register');
 
-    // Wellness Events resource routes
-    Route::resource('events', EventController::class);
+    // User event routes (view single event only)
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
     // ✅ AJOUTER CES ROUTES NUTRITION
     Route::resource('ingredients', IngredientController::class);
@@ -174,6 +176,9 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
 
     // Event Management
     Route::resource('events', App\Http\Controllers\Admin\EventController::class);
+
+    // Advice Management
+    Route::resource('advices', AdminAdviceController::class);
 });
 
 // Debug route (remove in production)
