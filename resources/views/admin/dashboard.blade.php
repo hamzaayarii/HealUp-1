@@ -78,6 +78,57 @@
         </div>
     </div>
 
+    <!-- Nutrition Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card d-flex align-items-center" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                <div class="flex-grow-1">
+                    <div class="stats-number">{{ \App\Models\Ingredient::count() }}</div>
+                    <div class="stats-label">Ingredients</div>
+                </div>
+                <div class="stats-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card d-flex align-items-center" style="background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);">
+                <div class="flex-grow-1">
+                    <div class="stats-number">{{ \App\Models\Repas::count() }}</div>
+                    <div class="stats-label">Total Meals</div>
+                </div>
+                <div class="stats-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card d-flex align-items-center" style="background: linear-gradient(135deg, #EC4899 0%, #BE185D 100%);">
+                <div class="flex-grow-1">
+                    <div class="stats-number">{{ \App\Models\Repas::whereDate('date_consommation', today())->count() }}</div>
+                    <div class="stats-label">Meals Today</div>
+                </div>
+                <div class="stats-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card d-flex align-items-center" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                <div class="flex-grow-1">
+                    <div class="stats-number">{{ number_format(\App\Models\Repas::avg('calories_total') ?? 0, 0) }}</div>
+                    <div class="stats-label">Avg Calories/Meal</div>
+                </div>
+                <div class="stats-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Charts Row -->
     <div class="row mb-4">
         <div class="col-lg-8 mb-4">
