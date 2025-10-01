@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Event;
@@ -8,6 +7,29 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    /**
+     * Unregister the authenticated user from an event.
+     */
+    public function unregister($eventId)
+    {
+        $user = auth()->user();
+        $event = Event::findOrFail($eventId);
+
+        // Check if registered
+        if (!$event->users()->where('user_id', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'You are not registered for this event.');
+        }
+
+        // Unregister user
+        $event->users()->detach($user->id);
+
+        // Optionally decrement current_participants
+        if ($event->current_participants > 0) {
+            $event->decrement('current_participants');
+        }
+
+        return redirect()->back()->with('success', 'You have unregistered from the event.');
+    }
     /**
      * Show events the authenticated student is registered for.
      */

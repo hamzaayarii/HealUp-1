@@ -6,9 +6,9 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="p-6">
+                <div class="p-6 overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead class="bg-gray-50 dark:bg-gray-700">
                             <tr>
@@ -16,7 +16,7 @@
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Date</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Location</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-64">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -30,8 +30,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ \Carbon\Carbon::parse($event->date)->format('M j, Y') }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ $event->category ? $event->category->name : '-' }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ $event->location }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                        @if(auth()->user()->isStudent())
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div class="flex flex-row gap-2 items-center">
                                             @php
                                                 $alreadyRegistered = $event->users->contains(auth()->id());
                                             @endphp
@@ -43,9 +43,10 @@
                                                     <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded transition duration-200">Register</button>
                                                 </form>
                                             @endif
-                                        @elseif(auth()->user()->isProfessor())
-                                            <a href="{{ route('events.participants', $event) }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 px-3 rounded transition duration-200">View Participants</a>
-                                        @endif
+                                            @if(auth()->user()->isProfessor())
+                                                <a href="{{ route('events.participants', $event) }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-1 px-3 rounded transition duration-200">View Participants</a>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

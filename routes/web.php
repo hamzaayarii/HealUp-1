@@ -82,8 +82,11 @@ Route::middleware([
     Route::get('/wellness-events', [EventController::class, 'frontoffice'])->name('events.frontoffice');
     Route::get('/events', [EventController::class, 'frontoffice'])->name('events.index'); // Alias for backward compatibility
 
+
     // Event registration (student)
     Route::post('/events/{event}/register', [EventController::class, 'register'])->name('events.register');
+    // Event unregistration (student)
+    Route::post('/events/{event}/unregister', [EventController::class, 'unregister'])->name('events.unregister');
 
     // User event routes (view single event only)
     Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
