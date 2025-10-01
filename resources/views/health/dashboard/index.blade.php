@@ -3,9 +3,21 @@
     <div class="relative min-h-screen bg-gray-200 dark:bg-gray-800 theme-transition overflow-hidden">
         <!-- Background Floating Bubbles -->
         <div class="absolute inset-0 z-0">
+            <!-- Large Bubbles -->
             <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-green-200 to-teal-300 dark:from-green-800 dark:to-teal-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float"></div>
             <div class="absolute top-40 right-10 w-72 h-72 bg-gradient-to-br from-blue-200 to-indigo-300 dark:from-blue-800 dark:to-indigo-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
             <div class="absolute bottom-40 left-1/2 w-72 h-72 bg-gradient-to-br from-purple-200 to-pink-300 dark:from-purple-800 dark:to-pink-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+
+            <!-- Medium Bubbles -->
+            <div class="absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-br from-cyan-200 to-blue-300 dark:from-cyan-800 dark:to-blue-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-60 animate-float" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 right-1/4 w-56 h-56 bg-gradient-to-br from-orange-200 to-amber-300 dark:from-orange-800 dark:to-amber-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-60 animate-float" style="animation-delay: 3s;"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-60 h-60 bg-gradient-to-br from-rose-200 to-pink-300 dark:from-rose-800 dark:to-pink-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-xl opacity-60 animate-float" style="animation-delay: 5s;"></div>
+
+            <!-- Small Bubbles -->
+            <div class="absolute top-60 right-1/3 w-40 h-40 bg-gradient-to-br from-emerald-200 to-green-300 dark:from-emerald-800 dark:to-green-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-lg opacity-50 animate-float" style="animation-delay: 1.5s;"></div>
+            <div class="absolute bottom-60 right-20 w-48 h-48 bg-gradient-to-br from-violet-200 to-purple-300 dark:from-violet-800 dark:to-purple-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-lg opacity-50 animate-float" style="animation-delay: 2.5s;"></div>
+            <div class="absolute top-1/4 right-1/2 w-36 h-36 bg-gradient-to-br from-sky-200 to-cyan-300 dark:from-sky-800 dark:to-cyan-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-lg opacity-50 animate-float" style="animation-delay: 3.5s;"></div>
+            <div class="absolute bottom-1/3 right-1/3 w-44 h-44 bg-gradient-to-br from-lime-200 to-emerald-300 dark:from-lime-800 dark:to-emerald-700 rounded-full mix-blend-multiply dark:mix-blend-overlay filter blur-lg opacity-50 animate-float" style="animation-delay: 4.5s;"></div>
         </div>
 
         <!-- Top Action Bar - Full Width -->

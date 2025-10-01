@@ -56,20 +56,18 @@
 
                     <div class="h-6 border-l border-gray-200 dark:border-gray-700 mx-3"></div>
 
-                    <!-- Health Tracking Dropdown -->
+                    <!-- Habits Management Dropdown -->
                     <div class="relative" x-data="{ open: false }">
             <button @click="open = !open"
                 class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900
-                                {{ request()->routeIs('habits.*') || request()->routeIs('progress.*') || request()->routeIs('health.reports.*')
+                                {{ request()->routeIs('habits.*')
                                    ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100' }}">
                             <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 2v5h5"></path>
-                                <path d="M21 6v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h11l6 3z"></path>
-                                <path d="M8 11h8"></path>
-                                <path d="M8 15h4"></path>
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
                             </svg>
-                            <span>Health Tracker</span>
+                            <span>Habits</span>
                             <svg class="ml-2 h-4 w-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
@@ -83,34 +81,25 @@
                              x-transition:leave="transition ease-in duration-150"
                              x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                              x-transition:leave-end="opacity-0 scale-95 translate-y-1"
-                             class="absolute left-0 mt-2 w-64 rounded-xl shadow-lg bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg ring-1 ring-gray-200 dark:ring-gray-700 divide-y divide-gray-100 dark:divide-gray-700 z-[60] overflow-hidden theme-transition">
-                            <div class="py-1">
+                             class="absolute left-0 mt-2 w-56 rounded-xl shadow-xl bg-white dark:bg-gray-800 backdrop-blur-lg ring-1 ring-emerald-200 dark:ring-emerald-700/50 z-[60] overflow-hidden theme-transition">
+                            <div class="py-2">
                                 <a href="{{ route('habits.index') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition {{ request()->routeIs('habits.*') ? 'bg-gray-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400' : '' }}">
-                                    <span class="mr-3">🎯</span>
-                                    My Habits
-                                </a>
-                                <a href="{{ route('progress.index') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition {{ request()->routeIs('progress.*') ? 'bg-gray-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400' : '' }}">
-                                    <span class="mr-3">📊</span>
-                                    Daily Progress
-                                </a>
-                                <a href="{{ route('health.reports.index') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition {{ request()->routeIs('health.reports.*') ? 'bg-gray-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400' : '' }}">
-                                    <span class="mr-3">📈</span>
-                                    Health Reports
-                                </a>
-                            </div>
-                            <div class="py-1">
-                                <a href="{{ route('habits.create') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition">
-                                    <span class="mr-3">➕</span>
-                                    Create New Habit
+                                   class="group flex items-center px-4 py-3 text-sm font-medium transition-all duration-200 {{ request()->routeIs('habits.index') ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400' }}">
+                                    <div class="flex items-center justify-center w-8 h-8 rounded-lg {{ request()->routeIs('habits.index') ? 'bg-emerald-100 dark:bg-emerald-800/50' : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-800/50' }} mr-3 transition-colors duration-200">
+                                        <svg class="w-4 h-4 {{ request()->routeIs('habits.index') ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-600 dark:text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                                        </svg>
+                                    </div>
+                                    <span>My Habits</span>
                                 </a>
                                 <a href="{{ route('habits.available') }}"
-                                   class="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 theme-transition">
-                                    <span class="mr-3">🌟</span>
-                                    Browse Habits
+                                   class="group flex items-center px-4 py-3 text-sm font-medium transition-all duration-200 {{ request()->routeIs('habits.available') ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400' }}">
+                                    <div class="flex items-center justify-center w-8 h-8 rounded-lg {{ request()->routeIs('habits.available') ? 'bg-emerald-100 dark:bg-emerald-800/50' : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-emerald-100 dark:group-hover:bg-emerald-800/50' }} mr-3 transition-colors duration-200">
+                                        <svg class="w-4 h-4 {{ request()->routeIs('habits.available') ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-600 dark:text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                        </svg>
+                                    </div>
+                                    <span>Browse Habits</span>
                                 </a>
                             </div>
                         </div>
@@ -340,25 +329,22 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <!-- Health Tracker Mobile Navigation -->
+            <!-- Habits Mobile Navigation -->
             <div class="border-t border-gray-200 dark:border-gray-700 mt-2 pt-2 theme-transition">
-                <div class="block px-4 py-2 text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide theme-transition">
-                    Health Tracker
+                <div class="block px-4 py-2 text-xs text-emerald-600 dark:text-emerald-400 uppercase tracking-wide font-semibold theme-transition">
+                    Habits
                 </div>
-                <x-responsive-nav-link href="{{ route('habits.index') }}" :active="request()->routeIs('habits.*')">
-                    🎯 My Habits
+                <x-responsive-nav-link href="{{ route('habits.index') }}" :active="request()->routeIs('habits.index')">
+                    <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
+                    My Habits
                 </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('progress.index') }}" :active="request()->routeIs('progress.*')">
-                    📊 Daily Progress
-                </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('health.reports.index') }}" :active="request()->routeIs('health.reports.*')">
-                    📈 Health Reports
-                </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('habits.create') }}">
-                    ➕ Create New Habit
-                </x-responsive-nav-link>
-                <x-responsive-nav-link href="{{ route('habits.available') }}">
-                    🌟 Browse Habits
+                <x-responsive-nav-link href="{{ route('habits.available') }}" :active="request()->routeIs('habits.available')">
+                    <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    Browse Habits
                 </x-responsive-nav-link>
             </div>
 
