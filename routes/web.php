@@ -18,6 +18,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+
+
 Route::get('/', function () {
     return view('pages.welcome');
 })->name('welcome');
@@ -112,6 +114,7 @@ Route::middleware([
 
     // Chat messages
     Route::post('/chat-sessions/{id}/messages', [ChatMessageController::class, 'store'])->name('chat.messages.store');
+
 });
 
 // Admin Routes - Protected by auth and admin middleware
@@ -142,11 +145,6 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
     // Habits Management
     Route::resource('habits', App\Http\Controllers\Admin\HabitController::class);
     Route::get('/habits/{habit}/users', [App\Http\Controllers\Admin\HabitController::class, 'users'])->name('habits.users');
-
-    // Challenges Management
-    Route::resource('challenges', App\Http\Controllers\Admin\ChallengeController::class);
-    Route::post('/challenges/{challenge}/toggle-status', [App\Http\Controllers\Admin\ChallengeController::class, 'toggleStatus'])->name('challenges.toggle-status');
-    Route::get('/challenges/{challenge}/participants', [App\Http\Controllers\Admin\ChallengeController::class, 'participants'])->name('challenges.participants');
 
     // Reports Management
     Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
@@ -186,6 +184,32 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
 
     // Advice Management
     Route::resource('advices', AdminAdviceController::class);
+
+        // Route principale pour l'interface admin
+    Route::get('/challenges', [AdminChallengeController::class, 'index'])->name('challenges.index');
+    
+
+    Route::put('/challenges/{id}/approve', [AdminChallengeController::class, 'approve'])->name('challenges.approve');
+    Route::put('/challenges/{id}/reject', [AdminChallengeController::class, 'reject'])->name('challenges.reject');
+    Route::delete('/challenges/{id}', [AdminChallengeController::class, 'destroy'])->name('challenges.destroy');
+    
+    // Routes standards
+    Route::get('/challenges/create', [AdminChallengeController::class, 'create'])->name('challenges.create');
+    Route::post('/challenges', [AdminChallengeController::class, 'store'])->name('challenges.store');
+    Route::get('/challenges/{id}/edit', [AdminChallengeController::class, 'edit'])->name('challenges.edit');
+    Route::get('/challenges/{id}/details', [AdminChallengeController::class, 'showDetails'])->name('challenges.details');
+    Route::put('/challenges/{id}', [AdminChallengeController::class, 'update'])->name('challenges.update');
+});
+
+//Professor role - Challenge Management
+Route::middleware(['auth', 'verified', 'professor']) 
+    ->prefix('professor') 
+    ->name('professor.') 
+    ->group(function () {
+        
+        Route::get('/challenges', [App\Http\Controllers\Professor\ChallengeController::class, 'index'])->name('challenges.index');
+        
+
 });
 
 // Debug route (remove in production)
@@ -209,26 +233,6 @@ Route::get('/debug-habits', function () {
             ];
         })
     ];
-});
-
-// Routes Admin ONLY
-Route::middleware(['auth', 'isAdmin'])->name('admin.')->group(function () {
-    
-    // Route principale pour l'interface admin
-    Route::get('/challenges', [AdminChallengeController::class, 'index'])->name('challenges.index');
-    
-
-    Route::put('/challenges/{id}/approve', [AdminChallengeController::class, 'approve'])->name('challenges.approve');
-    Route::put('/challenges/{id}/reject', [AdminChallengeController::class, 'reject'])->name('challenges.reject');
-    Route::delete('/challenges/{id}', [AdminChallengeController::class, 'destroy'])->name('challenges.destroy');
-    
-    // Routes standards
-    Route::get('/challenges/create', [AdminChallengeController::class, 'create'])->name('challenges.create');
-    Route::post('/challenges', [AdminChallengeController::class, 'store'])->name('challenges.store');
-    Route::get('/challenges/{id}/edit', [AdminChallengeController::class, 'edit'])->name('challenges.edit');
-    Route::get('/challenges/{id}/details', [AdminChallengeController::class, 'showDetails'])->name('challenges.details');
-    Route::put('/challenges/{id}', [AdminChallengeController::class, 'update'])->name('challenges.update');
-
 });
 
 

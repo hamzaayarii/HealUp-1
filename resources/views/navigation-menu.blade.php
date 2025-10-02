@@ -104,15 +104,20 @@
                             </div>
                         </div>
                     </div>
-<!-- Challenges Link -->
-<x-nav-link href="{{ route('admin.challenges.index') }}" :active="request()->routeIs('challenges.*')"
-            class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-              d="M9 12l2 2l4-4m5-2a9 9 0 11-18 0a9 9 0 0118 0z"/>
-    </svg>
-    {{ __('Challenges') }}
-</x-nav-link>
+
+                    @auth
+    @if(auth()->user()->role === 'professor' || auth()->user()->role === 'admin')
+        <x-nav-link :href="auth()->user()->role === 'professor' ? route('professor.challenges.index') : route('admin.challenges.index')" 
+                   :active="request()->routeIs('professor.challenges.*') || request()->routeIs('admin.challenges.*')"
+                   class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M9 12l2 2l4-4m5-2a9 9 0 11-18 0a9 9 0 0118 0z"/>
+            </svg>
+            {{ __('Challenges') }}
+        </x-nav-link>
+    @endif
+@endauth
 
 <div class="h-6 border-l border-gray-200 dark:border-gray-700 mx-3"></div>
 

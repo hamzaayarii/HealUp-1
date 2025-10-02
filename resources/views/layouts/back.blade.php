@@ -128,7 +128,7 @@
 
                 <!-- Challenges -->
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.challenges.*') ? 'active' : '' }}" href="{{ route('admin.challenges.index') }}" data-tooltip="Challenges">
+                    <a class="nav-link" href="{{ route('admin.challenges.index') }}" data-tooltip="Challenges">
                         <i class="fas fa-trophy"></i>
                         <span>Challenges</span>
                     </a>
