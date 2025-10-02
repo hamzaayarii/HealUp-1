@@ -161,10 +161,17 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
     // Route::post('/teams/{team}/toggle-status', [App\Http\Controllers\Admin\TeamController::class, 'toggleStatus'])->name('teams.toggle-status');
     // Route::get('/teams/{team}/members', [App\Http\Controllers\Admin\TeamController::class, 'members'])->name('teams.members');
 
-    // Nutrition Management (TODO: Create NutritionController)
-    // Route::get('/nutrition', [App\Http\Controllers\Admin\NutritionController::class, 'index'])->name('nutrition.index');
-    // Route::resource('nutrition/ingredients', App\Http\Controllers\Admin\IngredientController::class, ['as' => 'nutrition']);
-    // Route::resource('nutrition/repas', App\Http\Controllers\Admin\RepasController::class, ['as' => 'nutrition']);
+    // Nutrition Management - ✅ IMPLEMENTED
+    Route::prefix('nutrition')->name('nutrition.')->group(function () {
+        Route::resource('ingredients', App\Http\Controllers\Admin\IngredientController::class);
+        Route::resource('repas', App\Http\Controllers\Admin\RepasController::class)->parameters([
+            'repas' => 'repas'
+        ]);
+        
+        // Additional statistics routes
+        Route::get('ingredients/{ingredient}/statistics', [App\Http\Controllers\Admin\IngredientController::class, 'statistics'])->name('ingredients.statistics');
+        Route::get('repas/{repas}/statistics', [App\Http\Controllers\Admin\RepasController::class, 'statistics'])->name('repas.statistics');
+    });
 
     // Reports (TODO: Create ReportController)
     // Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');

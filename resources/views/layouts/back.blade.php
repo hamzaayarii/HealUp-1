@@ -143,11 +143,26 @@
                 </li>
 
                 <!-- Nutrition -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-tooltip="Nutrition (Coming Soon)">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('admin.nutrition.*') ? 'active' : '' }}" 
+                       href="#" id="nutritionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-tooltip="Nutrition">
                         <i class="fas fa-apple-alt"></i>
                         <span>Nutrition</span>
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nutritionDropdown">
+                        <li>
+                            <a class="dropdown-item {{ request()->routeIs('admin.nutrition.ingredients.*') ? 'active' : '' }}" 
+                               href="{{ route('admin.nutrition.ingredients.index') }}">
+                                <i class="fas fa-carrot me-2"></i>Ingredients
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->routeIs('admin.nutrition.repas.*') ? 'active' : '' }}" 
+                               href="{{ route('admin.nutrition.repas.index') }}">
+                                <i class="fas fa-utensils me-2"></i>Meals
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <!-- Reports -->
