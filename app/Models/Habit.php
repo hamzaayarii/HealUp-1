@@ -11,7 +11,6 @@ class Habit extends Model
 
     protected $fillable = [
         'category_id',
-        'user_id',
         'name',
         'description',
         'frequency',
@@ -19,7 +18,9 @@ class Habit extends Model
         'points_per_completion',
         'icon',
         'color',
-        'is_active'
+        'is_active',
+        'target_value',
+        'unit'
     ];
 
     protected $casts = [
@@ -30,11 +31,6 @@ class Habit extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function users()

@@ -53,6 +53,7 @@ class ChallengeController extends Controller
         ]);
 
         $validated['is_active'] = $request->has('is_active');
+        $validated['created_by'] = auth()->id();
 
         Challenge::create($validated);
 

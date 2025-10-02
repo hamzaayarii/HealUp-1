@@ -11,7 +11,7 @@ class HabitController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Habit::with(['category', 'user']);
+        $query = Habit::with(['category'])->withCount('userHabits');
 
         // Search functionality
         if ($request->has('search') && $request->search) {
@@ -57,8 +57,6 @@ class HabitController extends Controller
             'color' => 'nullable|string|max:7',
         ]);
 
-        $validated['user_id'] = auth()->id();
-
         Habit::create($validated);
 
         return redirect()->route('admin.habits.index')
@@ -67,7 +65,7 @@ class HabitController extends Controller
 
     public function show(Habit $habit)
     {
-        $habit->load(['category', 'user', 'userHabits.user', 'userHabits.dailyProgress']);
+        $habit->load(['category', 'userHabits.user', 'userHabits.dailyProgress']);
         $habit->loadCount('userHabits');
 
         return view('admin.habits.show', compact('habit'));

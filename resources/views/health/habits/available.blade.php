@@ -254,8 +254,6 @@
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('addHabitModal');
             const modalHabitName = document.getElementById('modalHabitName');
             const habitDescription = document.getElementById('habitDescription');
@@ -293,6 +291,13 @@
                 modal.classList.add('hidden');
             });
 
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+
             // Use suggested target
             useSuggestedBtn.addEventListener('click', function() {
                 targetValue.value = currentSuggestedTarget;
@@ -311,11 +316,8 @@
                 }
 
                 const submitBtn = addHabitForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Adding...';
-                const submitBtn = addHabitForm.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Adding...';
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<svg class="w-5 h-5 animate-spin mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>';
                 submitBtn.disabled = true;
 
                 fetch('{{ route("habits.add-existing") }}', {
@@ -338,7 +340,9 @@
 
                         // Remove the habit card from the available list
                         const habitCard = document.querySelector(`[data-habit-id="${currentHabitId}"]`).closest('.group');
-                        habitCard.style.display = 'none';
+                        if (habitCard) {
+                            habitCard.style.display = 'none';
+                        }
 
                         // Show option to go to habits page
                         setTimeout(() => {
@@ -352,10 +356,10 @@
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showNotification('Failed to add habit', 'error');
+                    showNotification('Failed to add habit. Please try again.', 'error');
                 })
                 .finally(() => {
-                    submitBtn.textContent = originalText;
+                    submitBtn.innerHTML = originalText;
                     submitBtn.disabled = false;
                 });
             });
@@ -379,11 +383,7 @@
                 setTimeout(() => {
                     notification.remove();
                 }, 4000);
-            }odal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.classList.add('hidden');
-                }
-            });
+            }
 
             // Quick target adjustments
             targetValue.addEventListener('input', function() {

@@ -8,6 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Drop repas_ingredients table first to remove foreign key constraint
+        Schema::dropIfExists('repas_ingredients');
+        
         // Supprimez la table existante si elle existe
         Schema::dropIfExists('repas');
         
@@ -26,6 +29,16 @@ return new class extends Migration
 
             // Clé étrangère
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+        
+        // Recreate repas_ingredients table
+        Schema::create('repas_ingredients', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('repas_id')->constrained('repas')->onDelete('cascade');
+            $table->foreignId('ingredient_id')->constrained('ingredients')->onDelete('cascade');
+            $table->decimal('quantite', 8, 2)->default(0); // Quantity in grams
+            $table->decimal('calories_calculees', 8, 2)->default(0); // Calculated calories
+            $table->timestamps();
         });
     }
 

@@ -83,11 +83,6 @@
                             @endif
 
                             <div class="mb-3">
-                                <strong>Created by:</strong>
-                                <span>{{ $habit->user->name }}</span>
-                            </div>
-
-                            <div class="mb-3">
                                 <strong>Created at:</strong>
                                 <span>{{ $habit->created_at->format('M d, Y H:i') }}</span>
                             </div>
