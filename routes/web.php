@@ -98,6 +98,24 @@ Route::middleware([
     Route::resource('ingredients', IngredientController::class);
     Route::resource('repas', RepasController::class);
 
+    // 🤖 Routes IA pour les Repas
+    Route::prefix('repas')->name('repas.')->group(function () {
+        Route::post('/ai/suggestions', [RepasController::class, 'aiSuggestions'])->name('ai.suggestions');
+        Route::post('/ai/analyze-balance', [RepasController::class, 'analyzeBalance'])->name('ai.analyze-balance');
+        Route::post('/ai/detect-deficiencies', [RepasController::class, 'detectDeficiencies'])->name('ai.detect-deficiencies');
+        Route::post('/ai/nutrition-report', [RepasController::class, 'nutritionReport'])->name('ai.nutrition-report');
+        Route::post('/ai/predict-goals', [RepasController::class, 'predictGoals'])->name('ai.predict-goals');
+        Route::post('/ai/weekly-plan', [RepasController::class, 'weeklyPlan'])->name('ai.weekly-plan');
+        Route::post('/{id}/optimize', [RepasController::class, 'optimizeRepas'])->name('optimize');
+        Route::get('/{id}/analyze-quality', [RepasController::class, 'analyzeMealQuality'])->name('analyze-quality');
+    });
+
+    // 🔄 Routes IA pour les Ingrédients
+    Route::prefix('ingredients')->name('ingredients.')->group(function () {
+        Route::get('/{id}/alternatives', [IngredientController::class, 'alternatives'])->name('alternatives');
+        Route::get('/{id}/stats', [IngredientController::class, 'stats'])->name('stats');
+    });
+
     // Routes API internes pour recherche dynamique
     Route::get('/api/internal/ingredients/search', [IngredientController::class, 'search'])->name('api.ingredients.search');
     Route::get('/api/internal/ingredients/categories', [IngredientController::class, 'getCategories'])->name('api.ingredients.categories');
