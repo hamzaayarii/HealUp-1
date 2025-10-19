@@ -9,6 +9,14 @@
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
             <form method="GET" action="" class="mb-4 flex flex-row gap-2 items-center">
                 <input type="text" name="search" value="{{ request('search', $search ?? '') }}" placeholder="Search my events..." class="border-gray-300 dark:bg-gray-700 dark:text-gray-100 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300">
+                <select name="sort" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition min-w-[140px]">
+                    <option value="date" {{ (request('sort', $sort ?? 'date') == 'date') ? 'selected' : '' }}>Date</option>
+                    <option value="category" {{ (request('sort', $sort ?? '') == 'category') ? 'selected' : '' }}>Category</option>
+                </select>
+                <select name="direction" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-100 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition min-w-[140px]">
+                    <option value="asc" {{ (request('direction', $direction ?? 'asc') == 'asc') ? 'selected' : '' }}>Ascending</option>
+                    <option value="desc" {{ (request('direction', $direction ?? '') == 'desc') ? 'selected' : '' }}>Descending</option>
+                </select>
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">Search</button>
                 @if(request('search'))
                     <a href="{{ route('events.my') }}" class="ml-2 text-sm text-gray-500 dark:text-gray-300 underline">Clear</a>

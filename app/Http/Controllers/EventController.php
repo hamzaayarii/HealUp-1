@@ -68,7 +68,7 @@ class EventController extends Controller
         $user = auth()->user();
         $query = \App\Models\Event::whereHas('users', function($q) use ($user) {
             $q->where('user_id', $user->id);
-        })->with('category')->orderBy('date', 'asc');
+        })->with('category');
         $search = request('search');
         if ($search) {
             $query->where(function($q) use ($search) {
@@ -76,8 +76,21 @@ class EventController extends Controller
                   ->orWhere('description', 'like', "%{$search}%");
             });
         }
+        $sort = request('sort', 'date');
+        $direction = request('direction', 'asc');
+    $allowedSorts = ['date', 'category'];
+        $allowedDirections = ['asc', 'desc'];
+        if (!in_array($sort, $allowedSorts)) $sort = 'date';
+        if (!in_array($direction, $allowedDirections)) $direction = 'asc';
+        if ($sort === 'category') {
+            $query->join('categories', 'events.category_id', '=', 'categories.id')
+                  ->orderBy('categories.name', $direction)
+                  ->select('events.*');
+        } else {
+            $query->orderBy($sort, $direction);
+        }
         $events = $query->paginate(10)->withQueryString();
-        return view('events.my', compact('events', 'search'));
+        return view('events.my', compact('events', 'search', 'sort', 'direction'));
     }
     /**
      * Show participants for a given event (professor view).
@@ -114,9 +127,8 @@ class EventController extends Controller
      */
     public function frontoffice()
     {
-        $query = Event::where('is_active', true)
-            ->whereDate('date', '>=', now())
-            ->orderBy('date', 'asc')
+        $query = Event::where('events.is_active', true)
+            ->whereDate('events.date', '>=', now())
             ->with('category');
         $search = request('search');
         if ($search) {
@@ -125,8 +137,21 @@ class EventController extends Controller
                   ->orWhere('description', 'like', "%{$search}%");
             });
         }
+        $sort = request('sort', 'date');
+        $direction = request('direction', 'asc');
+    $allowedSorts = ['date', 'category'];
+        $allowedDirections = ['asc', 'desc'];
+        if (!in_array($sort, $allowedSorts)) $sort = 'date';
+        if (!in_array($direction, $allowedDirections)) $direction = 'asc';
+        if ($sort === 'category') {
+            $query->join('categories', 'events.category_id', '=', 'categories.id')
+                  ->orderBy('categories.name', $direction)
+                  ->select('events.*');
+        } else {
+            $query->orderBy($sort, $direction);
+        }
         $events = $query->paginate(10)->withQueryString();
-        return view('events.frontoffice', compact('events', 'search'));
+        return view('events.frontoffice', compact('events', 'search', 'sort', 'direction'));
     }
 
     /**

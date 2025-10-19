@@ -5,6 +5,14 @@
     <h1>Events</h1>
     <form method="GET" action="{{ route('admin.events.index') }}" class="mb-3 d-flex" style="gap: 10px;">
         <input type="text" name="search" class="form-control" placeholder="Search by Title" value="{{ request('search') }}" style="max-width: 300px;">
+    <select name="sort" class="form-control" style="min-width: 140px;">
+            <option value="date" {{ (request('sort', $sort ?? 'date') == 'date') ? 'selected' : '' }}>Date</option>
+            <option value="category" {{ (request('sort', $sort ?? '') == 'category') ? 'selected' : '' }}>Category</option>
+        </select>
+    <select name="direction" class="form-control" style="min-width: 140px;">
+            <option value="desc" {{ (request('direction', $direction ?? 'desc') == 'desc') ? 'selected' : '' }}>Descending</option>
+            <option value="asc" {{ (request('direction', $direction ?? '') == 'asc') ? 'selected' : '' }}>Ascending</option>
+        </select>
         <button type="submit" class="btn btn-outline-primary">Search</button>
         <a href="{{ route('admin.events.index') }}" class="btn btn-outline-secondary">Reset</a>
     </form>

@@ -25,12 +25,25 @@ class EventController extends Controller
     // Display a listing of events with optional search by title
     public function index(Request $request)
     {
-        $query = Event::orderBy('date', 'desc');
+        $query = Event::query();
         if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+            $query->where('events.title', 'like', '%' . $request->search . '%');
         }
-        $events = $query->paginate(20)->appends(['search' => $request->search]);
-        return view('admin.events.index', compact('events'));
+        $sort = $request->input('sort', 'date');
+        $direction = $request->input('direction', 'desc');
+    $allowedSorts = ['date', 'category'];
+        $allowedDirections = ['asc', 'desc'];
+        if (!in_array($sort, $allowedSorts)) $sort = 'date';
+        if (!in_array($direction, $allowedDirections)) $direction = 'desc';
+        if ($sort === 'category') {
+            $query->join('categories', 'events.category_id', '=', 'categories.id')
+                  ->orderBy('categories.name', $direction)
+                  ->select('events.*');
+        } else {
+            $query->orderBy($sort, $direction);
+        }
+        $events = $query->paginate(20)->appends(['search' => $request->search, 'sort' => $sort, 'direction' => $direction]);
+        return view('admin.events.index', compact('events', 'sort', 'direction'));
     }
 
     // Show the form for creating a new event
