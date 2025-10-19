@@ -42,12 +42,15 @@
                         </div>
                     </div>
 
-                    @if(auth()->check() && auth()->user()->isStudent())
+                    @if(auth()->check() && (auth()->user()->isStudent() || auth()->user()->isProfessor()))
                         @php
                             $alreadyRegistered = $event->users->contains(auth()->id());
                             $spotsAvailable = $event->current_participants < $event->max_participants;
                         @endphp
-                        <div class="mt-8 flex justify-end">
+                        <div class="mt-8 flex flex-col md:flex-row gap-2 justify-end">
+                            @if(auth()->user()->isProfessor())
+                                <a href="{{ route('events.participants', $event->id) }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition duration-200">View Participants</a>
+                            @endif
                             @if($alreadyRegistered)
                                 <button class="bg-gray-400 text-white font-semibold py-2 px-4 rounded cursor-not-allowed" disabled>Already Registered</button>
                             @elseif(!$spotsAvailable)

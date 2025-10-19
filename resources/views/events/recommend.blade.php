@@ -17,8 +17,13 @@
                         <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">
                             <span class="font-medium">{{ $event['date'] }}</span>
                         </div>
-                        <p class="text-gray-700 dark:text-gray-300">{{ $event['description'] }}</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">{{ $event['description'] }}</p>
                     </div>
+                    @if($event['id'])
+                        <a href="{{ route('events.show', $event['id']) }}" class="mt-2 inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded transition text-center">View Details</a>
+                    @else
+                        <span class="mt-2 inline-block bg-gray-300 text-gray-600 font-semibold px-4 py-2 rounded text-center cursor-not-allowed" title="Event not found in database">Unavailable</span>
+                    @endif
                 </div>
             @endforeach
         </div>

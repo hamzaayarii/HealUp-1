@@ -23,10 +23,15 @@ class EventController extends Controller
         $recommended = [];
         foreach ($output as $line) {
             if (preg_match('/^- (.+) \((.+)\): (.+)$/', $line, $matches)) {
+                // Try to find the event in the DB by title and date
+                $event = \App\Models\Event::where('title', $matches[1])
+                    ->where('date', $matches[2])
+                    ->first();
                 $recommended[] = [
                     'title' => $matches[1],
                     'date' => $matches[2],
                     'description' => $matches[3],
+                    'id' => $event ? $event->id : null,
                 ];
             }
         }
