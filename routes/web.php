@@ -1,4 +1,7 @@
+
 <?php
+// Event recommendations (AI)
+Route::get('/events/recommend', [App\Http\Controllers\EventController::class, 'recommendEvents'])->name('events.recommend')->middleware(['auth', 'verified']);
 
 // Professor: View event participants
 Route::get('/events/{event}/participants', [App\Http\Controllers\EventController::class, 'participants'])->name('events.participants');

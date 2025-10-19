@@ -8,6 +8,31 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     /**
+     * Recommend events for the authenticated user using the Python AI module.
+     */
+    public function recommendEvents()
+    {
+        $interests = $this->getUserInterestCategories();
+        // Prepare the command to call the Python recommender
+    $command = "python ../python_ai/event_recommender.py \"{$interests}\"";
+        // Run the command and capture output
+        $output = [];
+        $return_var = 0;
+        exec($command, $output, $return_var);
+        // Parse recommended events from output (simple parsing for demo)
+        $recommended = [];
+        foreach ($output as $line) {
+            if (preg_match('/^- (.+) \((.+)\): (.+)$/', $line, $matches)) {
+                $recommended[] = [
+                    'title' => $matches[1],
+                    'date' => $matches[2],
+                    'description' => $matches[3],
+                ];
+            }
+        }
+        return view('events.recommend', compact('recommended'));
+    }
+    /**
      * Unregister the authenticated user from an event.
      */
     public function unregister($eventId)
@@ -90,5 +115,22 @@ class EventController extends Controller
     public function show(Event $event)
     {
         return view('events.show', compact('event'));
+    }
+    /**
+     * Get participated event categories for the authenticated user as a comma-separated string.
+     */
+    public function getUserInterestCategories()
+    {
+        $user = auth()->user();
+        $categories = Event::whereHas('users', function($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })
+        ->with('category')
+        ->get()
+        ->pluck('category.name')
+        ->unique()
+        ->implode(', ');
+        \Log::info('getUserInterestCategories called for user: ' . ($user ? $user->id : 'guest') . ' | interests: ' . $categories);
+        return $categories;
     }
 }

@@ -149,6 +149,11 @@
          x-transition:leave-end="opacity-0 scale-95 translate-y-1"
          class="absolute left-0 mt-2 w-56 rounded-xl shadow-xl bg-white dark:bg-gray-800 backdrop-blur-lg ring-1 ring-emerald-200 dark:ring-emerald-700/50 z-[60] overflow-hidden theme-transition">
         <div class="py-2">
+            <a href="{{ route('events.recommend') }}"
+               class="group flex items-center px-4 py-3 text-sm font-medium transition-all duration-200 {{ request()->routeIs('events.recommend') ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400' }}">
+                <span class="mr-3">🤖</span>
+                Recommended Events
+            </a>
             <a href="{{ route('events.frontoffice') }}"
                class="group flex items-center px-4 py-3 text-sm font-medium transition-all duration-200 {{ request()->routeIs('events.frontoffice') ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300' : 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400' }}">
                 <span class="mr-3">📅</span>
