@@ -66,10 +66,18 @@ class EventController extends Controller
     public function myEvents()
     {
         $user = auth()->user();
-        $events = \App\Models\Event::whereHas('users', function($q) use ($user) {
+        $query = \App\Models\Event::whereHas('users', function($q) use ($user) {
             $q->where('user_id', $user->id);
-        })->with('category')->orderBy('date', 'asc')->get();
-        return view('events.my', compact('events'));
+        })->with('category')->orderBy('date', 'asc');
+        $search = request('search');
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        $events = $query->paginate(10)->withQueryString();
+        return view('events.my', compact('events', 'search'));
     }
     /**
      * Show participants for a given event (professor view).
@@ -106,12 +114,19 @@ class EventController extends Controller
      */
     public function frontoffice()
     {
-        $events = Event::where('is_active', true)
+        $query = Event::where('is_active', true)
             ->whereDate('date', '>=', now())
             ->orderBy('date', 'asc')
-            ->with('category')
-            ->paginate(10);
-        return view('events.frontoffice', compact('events'));
+            ->with('category');
+        $search = request('search');
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        $events = $query->paginate(10)->withQueryString();
+        return view('events.frontoffice', compact('events', 'search'));
     }
 
     /**

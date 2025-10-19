@@ -7,6 +7,13 @@
 
     <div class="py-6">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+            <form method="GET" action="" class="mb-4 flex flex-row gap-2 items-center">
+                <input type="text" name="search" value="{{ request('search', $search ?? '') }}" placeholder="Search my events..." class="border-gray-300 dark:bg-gray-700 dark:text-gray-100 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-300">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">Search</button>
+                @if(request('search'))
+                    <a href="{{ route('events.my') }}" class="ml-2 text-sm text-gray-500 dark:text-gray-300 underline">Clear</a>
+                @endif
+            </form>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -45,6 +52,9 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+                <div class="mt-4">
+                    {{ $events->links() }}
                 </div>
             </div>
         </div>
