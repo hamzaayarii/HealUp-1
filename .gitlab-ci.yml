@@ -1,0 +1,54 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  DOCKER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH:$CI_COMMIT_SHA
+
+build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t $DOCKER_IMAGE .
+    - docker push $DOCKER_IMAGE
+  only:
+    - main
+    - develop
+    - feature
+
+unit_test:
+  stage: test
+  image: php:8.2
+  services:
+    - mysql:latest
+  variables:
+    MYSQL_DATABASE: healUp
+    MYSQL_ROOT_PASSWORD: ""
+  script:
+    - apt-get update && apt-get install -y unzip
+    - curl -sS https://getcomposer.org/installer | php
+    - php composer.phar install
+    - cp .env.example .env
+    - php artisan key:generate
+    - php artisan migrate --force
+    - php artisan test
+  only:
+    - main
+    - develop
+    - feature
+    - merge_requests
+
+deploy:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    - echo "Deploying to Kubernetes..."
+    - kubectl apply -f k8s/
+  environment:
+    name: production
+    url: https://your-app-url.com
+  only:
+    - main
