@@ -23,7 +23,15 @@ jobs:
           cp .env.example .env || true
           php artisan key:generate || true
           php artisan config:cache || true
-          ./vendor/bin/phpunit || true
+          ./vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-html=coverage-html || true
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            coverage.xml
+            coverage-html/
+          retention-days: 5
 
   python-tests:
     runs-on: ubuntu-latest
