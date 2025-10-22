@@ -46,9 +46,8 @@ COPY --from=frontend-build /app/public/build /var/www/html/public/build
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose port 9000 and start PHP-FPM
-EXPOSE 9000
-CMD ["php-fpm"]
+EXPOSE 8080
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
 
 # --- Python AI Service (optional) ---
 # Uncomment if you want to run python_ai as a separate container
