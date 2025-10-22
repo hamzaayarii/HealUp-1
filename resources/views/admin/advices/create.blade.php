@@ -1,57 +1,48 @@
-@extends('layouts.back')
+<div class="p-6 space-y-4">
 
-@section('title', 'Add Advice')
+    <form action="{{ route('admin.advices.store') }}" method="POST" class="space-y-4">
+        @csrf
 
-@section('content')
-<div class="container-fluid">
-    <div class="admin-card">
-        <div class="card-body">
-            <h4 class="mb-4">Create New Advice</h4>
-
-            <form action="{{ route('admin.advices.store') }}" method="POST">
-                @csrf
-
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Content</label>
-                    <textarea name="content" rows="5" class="form-control" required></textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">For User</label>
-                    <select name="user_id" class="form-select" required>
-                        @foreach(\App\Models\User::all() as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Source</label>
-                    <select name="source" class="form-select" required>
-                        <option value="AI">AI</option>
-                        <option value="professor">Professor</option>
-                        <option value="system">System</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Is Read</label>
-                    <select name="is_read" class="form-select">
-                        <option value="0">Unread</option>
-                        <option value="1">Read</option>
-                    </select>
-                </div>
-
-
-                <button type="submit" class="btn btn-healup">Save</button>
-                <a href="{{ route('admin.advices.index') }}" class="btn btn-outline-secondary">Cancel</a>
-            </form>
+        <div>
+            <label class="block text-sm font-medium mb-1">Title</label>
+            <input type="text" name="title" class="w-full border rounded px-3 py-2" required>
         </div>
-    </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Content</label>
+            <textarea name="content" rows="5" class="w-full border rounded px-3 py-2" required></textarea>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">For User</label>
+            <select name="user_id" class="w-full border rounded px-3 py-2" required>
+                @foreach(\App\Models\User::all() as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Source</label>
+            <select name="source" class="w-full border rounded px-3 py-2" required>
+                <option value="AI">AI</option>
+                <option value="professor">Professor</option>
+                <option value="system">System</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Is Read</label>
+            <select name="is_read" class="w-full border rounded px-3 py-2">
+                <option value="0">Unread</option>
+                <option value="1">Read</option>
+            </select>
+        </div>
+
+        <div class="flex justify-end gap-3 mt-4">
+            <button type="submit" class="btn-healup text-white px-4 py-2 rounded">Save</button>
+            <button type="button" onclick="closeCreateAdviceModal()" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
+        </div>
+    </form>
 </div>
-@endsection
+

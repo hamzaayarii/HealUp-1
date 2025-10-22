@@ -1,37 +1,24 @@
-@extends('layouts.back')
+<div class="p-6 space-y-4">
+    <h2 class="text-xl font-bold text-gray-800">🧠 {{ $advice->title }}</h2>
 
-@section('title', 'View Advice')
+    <ul class="space-y-1 text-sm text-gray-700">
+        <li><strong>Source:</strong> {{ ucfirst($advice->source) }}</li>
+        <li><strong>Status:</strong>
+            @if($advice->is_read)
+                <span class="text-green-600 font-semibold">✅ Read</span>
+            @else
+                <span class="text-yellow-600 font-semibold">⏳ Unread</span>
+            @endif
+        </li>
+        <li><strong>Created At:</strong> {{ $advice->created_at->format('d/m/Y H:i') }}</li>
+        <li><strong>Advisor:</strong> {{ $advice->advisor->name ?? '—' }}</li>
+        <li><strong>User:</strong> {{ $advice->user->name ?? '—' }}</li>
+    </ul>
 
-@section('content')
-<div class="container-fluid">
-    <div class="row mb-4">
-        <div class="col-12 d-flex justify-content-between align-items-center">
-            <h2 class="mb-0">View Advice</h2>
-            <a href="{{ route('admin.advices.index') }}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left me-2"></i> Back to Advices
-            </a>
-        </div>
-    </div>
-
-    <div class="admin-card">
-        <div class="card-body">
-            <h4 class="mb-3">{{ $advice->title }}</h4>
-            <p><strong>Source:</strong> {{ ucfirst($advice->source) }}</p>
-            <p><strong>Content:</strong></p>
-            <div class="p-3 bg-light border rounded mb-3">
-                {!! nl2br(e($advice->content)) !!}
-            </div>
-            <p><strong>Status:</strong> 
-                @if($advice->is_read)
-                    <span class="status-badge status-active">Read</span>
-                @else
-                    <span class="status-badge status-pending">Unread</span>
-                @endif
-            </p>
-            <p><strong>Created At:</strong> {{ $advice->created_at->format('M d, Y H:i') }}</p>
-            <p><strong>Advisor:</strong> {{ $advice->advisor ? $advice->advisor->name : '-' }}</p>
-            <p><strong>User:</strong> {{ $advice->user ? $advice->user->name : '-' }}</p>
+    <div class="mt-4">
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">📝 Content</h3>
+        <div class="p-4 bg-gray-50 border rounded text-gray-700 whitespace-pre-line">
+            {!! nl2br(e($advice->content)) !!}
         </div>
     </div>
 </div>
-@endsection
