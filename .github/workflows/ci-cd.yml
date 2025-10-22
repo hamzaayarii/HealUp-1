@@ -225,27 +225,3 @@ jobs:
           echo "✅ Docker Build: ${{ needs.docker.result }}"
           echo "================================================"
 
- # deploy:
-  #   if: github.ref == 'refs/heads/main' && success()
-  #   needs: [laravel-tests, python-tests]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #     - name: Deploy to server via SSH
-  #       uses: appleboy/ssh-action@v0.1.10
-  #       with:
-  #         host: ${{ secrets.DEPLOY_HOST }}
-  #         username: ${{ secrets.DEPLOY_USER }}
-  #         key: ${{ secrets.DEPLOY_KEY }}
-  #         port: ${{ secrets.DEPLOY_PORT }}
-  #         script: |
-  #           cd /path/to/your/project
-  #           git pull origin main
-  #           composer install --no-interaction --prefer-dist --optimize-autoloader
-  #           php artisan migrate --force
-  #           php artisan config:cache
-  #           php artisan route:cache
-  #           php artisan view:cache
-  #           php artisan storage:link
-  #           # Add any other deployment commands here

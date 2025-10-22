@@ -4,16 +4,17 @@
 FROM node:20 AS frontend-build
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 COPY resources/ ./resources/
 COPY vite.config.js ./
+COPY public/ ./public/
 RUN npm run build
 
 # --- PHP Composer Stage ---
 FROM composer:2.7 AS composer
 WORKDIR /app
 COPY composer.json composer.lock ./
-RUN composer install --ignore-platform-reqs --no-scripts --no-autoloader
+RUN composer install --ignore-platform-reqs --no-scripts --no-autoloader --prefer-dist
 
 # --- App Stage ---
 FROM php:8.2-fpm
@@ -30,33 +31,86 @@ RUN apt-get update && apt-get install -y \
     curl \
     sqlite3 \
     libsqlite3-dev \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
+    nginx \
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
-COPY --from=composer /app /app
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# Copy composer dependencies
+COPY --from=composer /app/vendor /var/www/html/vendor
 
 # Copy application code
 COPY . /var/www/html
 
-
 # Copy built assets from frontend-build
 COPY --from=frontend-build /app/public/build /var/www/html/public/build
 
-
 # Install PHP dependencies in final image
-RUN composer install --ignore-platform-reqs --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Create symbolic link for storage if needed
+RUN php artisan storage:link || true
+
+# Configure nginx
+COPY <<EOF /etc/nginx/sites-available/default
+server {
+    listen 8080;
+    server_name _;
+    root /var/www/html/public;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+
+    index index.php;
+
+    charset utf-8;
+
+    location / {
+        try_files \$uri \$uri/ /index.php?\$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    error_page 404 /index.php;
+
+    location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_param SCRIPT_FILENAME \$realpath_root\$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+EOF
+
+# Create startup script
+COPY <<'EOF' /usr/local/bin/start.sh
+#!/bin/bash
+set -e
+
+# Start PHP-FPM in background
+php-fpm -D
+
+# Run Laravel optimizations
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Start nginx in foreground
+nginx -g "daemon off;"
+EOF
+
+RUN chmod +x /usr/local/bin/start.sh
 
 EXPOSE 8080
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
 
-# --- Python AI Service (optional) ---
-# Uncomment if you want to run python_ai as a separate container
-# FROM python:3.10 AS python-ai
-# WORKDIR /app
-# COPY python_ai/ ./
-# RUN pip install -r requirements.txt
-# CMD ["python", "app.py"]
+CMD ["/usr/local/bin/start.sh"]

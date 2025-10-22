@@ -1,4 +1,3 @@
-
 <?php
 // Event recommendations (AI)
 Route::get('/events/recommend', [App\Http\Controllers\EventController::class, 'recommendEvents'])->name('events.recommend')->middleware(['auth', 'verified']);
@@ -188,7 +187,7 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
         Route::resource('repas', App\Http\Controllers\Admin\RepasController::class)->parameters([
             'repas' => 'repas'
         ]);
-        
+
         // Additional statistics routes
         Route::get('ingredients/{ingredient}/statistics', [App\Http\Controllers\Admin\IngredientController::class, 'statistics'])->name('ingredients.statistics');
         Route::get('repas/{repas}/statistics', [App\Http\Controllers\Admin\RepasController::class, 'statistics'])->name('repas.statistics');
@@ -213,14 +212,14 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
     // Advice Management
     Route::resource('advices', AdminAdviceController::class);
 
-        // Route principale pour l'interface admin
+    // Route principale pour l'interface admin
     Route::get('/challenges', [AdminChallengeController::class, 'index'])->name('challenges.index');
-    
+
 
     Route::put('/challenges/{id}/approve', [AdminChallengeController::class, 'approve'])->name('challenges.approve');
     Route::put('/challenges/{id}/reject', [AdminChallengeController::class, 'reject'])->name('challenges.reject');
     Route::delete('/challenges/{id}', [AdminChallengeController::class, 'destroy'])->name('challenges.destroy');
-    
+
     // Routes standards
     Route::get('/challenges/create', [AdminChallengeController::class, 'create'])->name('challenges.create');
     Route::post('/challenges', [AdminChallengeController::class, 'store'])->name('challenges.store');
@@ -230,16 +229,30 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->name('admin.')->g
 });
 
 //Professor role - Challenge Management
-Route::middleware(['auth', 'verified', 'professor']) 
-    ->prefix('professor') 
-    ->name('professor.') 
+Route::middleware(['auth', 'verified', 'professor'])
+    ->prefix('professor')
+    ->name('professor.')
     ->group(function () {
-        
+
         Route::get('/challenges', [App\Http\Controllers\Professor\ChallengeController::class, 'index'])->name('challenges.index');
-        
 
+
+    });
+Route::get('/debug-assets', function () {
+    $manifestPath = public_path('build/manifest.json');
+
+    return response()->json([
+        'manifest_exists' => file_exists($manifestPath),
+        'manifest_path' => $manifestPath,
+        'manifest_contents' => file_exists($manifestPath) ? json_decode(file_get_contents($manifestPath), true) : null,
+        'public_path' => public_path(),
+        'build_dir_exists' => is_dir(public_path('build')),
+        'build_files' => is_dir(public_path('build')) ? scandir(public_path('build')) : [],
+        'asset_url' => config('app.asset_url'),
+        'app_url' => config('app.url'),
+        'app_env' => config('app.env'),
+    ]);
 });
-
 // Debug route (remove in production)
 Route::get('/debug-habits', function () {
     $habit = App\Models\Habit::with(['userHabits.user'])->first();

@@ -1,11 +1,11 @@
 services:
   - type: web
     name: healup
-  env: docker
-  plan: free
-  branch: develop
-  healthCheckPath: /
-  envVars:
+    env: docker
+    plan: free
+    branch: develop
+    healthCheckPath: /
+    envVars:
       - key: APP_NAME
         value: HealUp
       - key: APP_ENV
@@ -16,12 +16,22 @@ services:
         value: false
       - key: APP_URL
         value: https://healup.onrender.com
+      - key: ASSET_URL
+        value: https://healup.onrender.com
       - key: VITE_ASSET_URL
         value: https://healup.onrender.com
       - key: DB_CONNECTION
         value: pgsql
       - key: STORAGE_PATH
         value: /var/www/html/storage
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: LOG_CHANNEL
+        value: stderr
       - key: DB_HOST
         fromDatabase:
           name: healup-db

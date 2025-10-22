@@ -13,4 +13,15 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        manifest: true,
+        outDir: 'public/build',
+        rollupOptions: {
+            output: {
+                manualChunks: undefined,
+            }
+        }
+    },
+    // Ensure assets use absolute paths in production
+    base: process.env.APP_ENV === 'production' ? process.env.VITE_ASSET_URL || '/' : '/',
 });
