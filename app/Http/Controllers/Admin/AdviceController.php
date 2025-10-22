@@ -57,12 +57,23 @@ class AdviceController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = \Validator::make($request->all(), [
             'title'   => 'required|string|max:255',
             'content' => 'required|string',
             'source'  => 'required|in:AI,professor,system',
             'user_id' => 'required|exists:users,id',
         ]);
+
+        if ($validator->fails()) {
+            if ($request->ajax()) {
+                // Return validation errors as JSON
+                return response()->json([
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         Advice::create([
             'user_id'    => $request->user_id,
@@ -73,8 +84,16 @@ class AdviceController extends Controller
             'is_read'    => false,
         ]);
 
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Advice created successfully.'
+            ]);
+        }
+
         return redirect()->route('admin.advices.index')->with('success', 'Advice created successfully.');
     }
+
 
     public function update(Request $request, Advice $advice)
     {
@@ -82,10 +101,12 @@ class AdviceController extends Controller
             'title'   => 'required|string|max:255',
             'content' => 'required|string',
             'source'  => 'required|in:AI,professor,system',
+            'user_id' => 'required|exists:users,id',
             'is_read' => 'boolean',
+            'status'  => 'required|in:new,seen,archived',
         ]);
 
-        $advice->update($request->only(['title', 'content', 'source', 'is_read']));
+        $advice->update($request->only(['title', 'content', 'source', 'user_id', 'is_read', 'status']));
 
         return redirect()->route('admin.advices.index')->with('success', 'Advice updated successfully.');
     }
