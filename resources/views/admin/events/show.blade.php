@@ -11,6 +11,7 @@
             <p><strong>Category:</strong> {{ $event->category ? $event->category->name : '-' }}</p>
             <p><strong>Description:</strong> {{ $event->description }}</p>
             <p><strong>Max Participants:</strong> {{ $event->max_participants }}</p>
+            <a href="{{ route('admin.events.participants', $event->id) }}" class="btn btn-primary mb-2">View Participants</a>
             <a href="{{ route('admin.events.index') }}" class="btn btn-secondary">Back to Events</a>
         </div>
     </div>
