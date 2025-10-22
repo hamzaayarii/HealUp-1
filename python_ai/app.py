@@ -549,6 +549,53 @@ def optimize_meal():
             'error': str(e)
         }), 500
 
+
+#================================================================
+# generate Advices
+#================================================================
+import joblib
+import random
+model = joblib.load('advice_model.pkl')
+
+ADVICE_LIBRARY = {
+    'Sleep': [
+        {'title': 'Improve Your Sleep', 'content': 'Try to maintain a consistent bedtime and wake-up schedule.'},
+        {'title': 'Nap Smartly', 'content': 'Short 20-min naps can boost energy without affecting nighttime sleep.'},
+        {'title': 'Optimize Your Bedroom', 'content': 'Keep your room dark, quiet, and cool to improve sleep quality.'}
+    ],
+    'Nutrition': [
+        {'title': 'Eat More Veggies', 'content': 'Add at least 2 servings of vegetables to each meal.'},
+        {'title': 'Stay Hydrated', 'content': 'Drink at least 8 glasses of water daily.'},
+        {'title': 'Balance Macronutrients', 'content': 'Ensure each meal has carbs, protein, and healthy fats.'}
+    ],
+    'Activity': [
+        {'title': 'Take a Walk', 'content': 'A 20-minute walk after meals helps digestion and metabolism.'},
+        {'title': 'Stretch Daily', 'content': 'Spend 10 minutes stretching to improve mobility and reduce tension.'},
+        {'title': 'Strength Training', 'content': 'Include 2-3 strength sessions per week for overall health.'}
+    ]
+}
+
+@app.route('/predict_advice', methods=['POST'])
+def predict_advice():
+    data = request.json or {}
+    
+    required_keys = ['age','poids','taille','total_calories','total_proteines','total_glucides','total_lipides','current_streak']
+    if not all(k in data for k in required_keys):
+        return jsonify([])  # return empty array instead of null
+
+    features = np.array([[data['age'], data['poids'], data['taille'],
+                          data['total_calories'], data['total_proteines'],
+                          data['total_glucides'], data['total_lipides'],
+                          data['current_streak']]])
+    
+    advice_type = model.predict(features)[0]
+    
+    advice_options = ADVICE_LIBRARY.get(advice_type, [])
+    advice_list = random.sample(advice_options, k=min(3, len(advice_options)))
+    
+    return jsonify(advice_list)
+
+
 # ============================================================================
 # DÉMARRAGE DU SERVEUR
 # ============================================================================

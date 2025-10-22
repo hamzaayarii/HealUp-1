@@ -3,36 +3,60 @@
         <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8">
             Personalized Advice & Chat
         </h1>
-
-        <!-- Advice List -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($advices as $advice)
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition">
-                    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                        {{ $advice->title }}
-                    </h2>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                        {{ $advice->content }}
-                    </p>
-                    <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-                        <span>By: {{ $advice->generated_by }}</span>
-                        <span class="italic">{{ $advice->created_at->diffForHumans() }}</span>
-                    </div>
-
-                    <div class="mt-4 flex space-x-2">
-                        <!-- Start Chat Button -->
-                        <a href="{{ route('chat.sessions.start', $advice->id) }}"
-                           class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-center transition">
-                            Start Chat
-                        </a>
-                        <!-- View Details -->
-                        <a href="{{ route('advices.show', $advice->id) }}"
-                           class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-center transition">
-                            View
-                        </a>
-                    </div>
+        <!-- Manual Advices -->
+        @foreach($advices as $advice)
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    {{ $advice->title }}
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                    {{ $advice->content }}
+                </p>
+                <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <span>By: {{ $advice->generated_by }}</span>
+                    <span class="italic">{{ $advice->created_at->diffForHumans() }}</span>
                 </div>
-            @endforeach
+
+                <div class="mt-4 flex space-x-2">
+                    <a href="{{ route('chat.sessions.start', $advice->id) }}"
+                    class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-center transition">
+                        Start Chat
+                    </a>
+                    <a href="{{ route('advices.show', $advice->id) }}"
+                    class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-center transition">
+                        View
+                    </a>
+                </div>
+            </div>
+        @endforeach
+
+        <!-- AI-generated Advices -->
+        @foreach($aiAdvices as $aiAdvice)
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition">
+                <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    {{ $aiAdvice['title'] }}
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                    {{ $aiAdvice['content'] }}
+                </p>
+                <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <span>By: AI</span>
+                    <span class="italic">{{ now()->diffForHumans() }}</span>
+                </div>
+
+                <div class="mt-4 flex space-x-2">
+                    <a href="#"
+                    class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-center transition cursor-not-allowed">
+                        Start Chat
+                    </a>
+                    <a href="#"
+                    class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-center transition cursor-not-allowed">
+                        View
+                    </a>
+                </div>
+            </div>
+        @endforeach
         </div>
 
         <!-- Active Chat Sessions -->
