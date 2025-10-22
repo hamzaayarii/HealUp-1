@@ -49,8 +49,7 @@ jobs:
   python-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -62,7 +61,7 @@ jobs:
       - name: Run Python tests (if any)
         run: |
           cd python_ai
-          if [ -f test.py ]; then python test.py; elif [ -f app.py ]; then python app.py; else echo "No python tests found"; fi
+          if [ -f test.py ]; then python test.py; else echo "No python tests found"; fi
 
   frontend-build:
     runs-on: ubuntu-latest

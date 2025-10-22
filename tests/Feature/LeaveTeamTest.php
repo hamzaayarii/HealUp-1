@@ -15,9 +15,11 @@ class LeaveTeamTest extends TestCase
     public function test_users_can_leave_teams(): void
     {
         $user = User::factory()->withPersonalTeam()->create();
-
-        $user->currentTeam->users()->attach(
-            $otherUser = User::factory()->create(), ['role' => 'admin']
+        $team = $user->currentTeam;
+        $this->assertNotNull($team, 'Team not found');
+        $team->users()->attach(
+            $otherUser = User::factory()->create(),
+            ['role' => 'admin']
         );
 
         $this->actingAs($otherUser);
