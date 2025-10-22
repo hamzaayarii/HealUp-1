@@ -21,6 +21,8 @@ class IngredientFactory extends Factory
             'categorie' => $this->faker->word(),
             'calories_pour_100g' => $this->faker->numberBetween(10, 500),
             'proteines_pour_100g' => $this->faker->numberBetween(1, 50),
+            'glucides_pour_100g' => $this->faker->numberBetween(1, 100),
+            // Add other NOT NULL fields here if needed
         ];
     }
 }
