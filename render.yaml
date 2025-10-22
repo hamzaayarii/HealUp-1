@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: healup
+  env: docker
+  plan: free
+  branch: develop
+  healthCheckPath: /
+  envVars:
+      - key: APP_NAME
+        value: HealUp
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://healup.onrender.com
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: STORAGE_PATH
+        value: /var/www/html/storage
+      - key: DB_HOST
+        fromDatabase:
+          name: healup-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: healup-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: healup-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: healup-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: healup-db
+          property: password
+
+databases:
+  - name: healup-db
+    plan: free
+    databaseName: healup
+    user: healup
