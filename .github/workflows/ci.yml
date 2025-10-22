@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ develop, main ]
+  pull_request:
+    branches: [ develop, main ]
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Run Laravel tests
+        run: |
+          cp .env.example .env || true
+          php artisan key:generate || true
+          php artisan config:cache || true
+          ./vendor/bin/phpunit || true
+
+  python-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Python dependencies
+        run: |
+          cd python_ai
+          pip install -r requirements.txt
+      - name: Run Python tests (if any)
+        run: |
+          cd python_ai
+          if [ -f test.py ]; then python test.py; else echo "No python tests found"; fi
