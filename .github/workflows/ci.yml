@@ -167,17 +167,17 @@ jobs:
         with:
           context: .
           push: true
-          tags: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/healUp:latest
+          tags: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/healup:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Docker Image Summary
         run: |
           echo "🐳 Docker Image pushed successfully to Docker Hub!"
-          echo "📦 Repository: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/healUp"
+          echo "📦 Repository: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/healup"
           echo "📦 Tag: latest"
           echo ""
           echo "🔗 Pull command:"
-          echo "   docker pull docker.io/${{ secrets.DOCKERHUB_USERNAME }}/healUp:latest"
+          echo "   docker pull docker.io/${{ secrets.DOCKERHUB_USERNAME }}/healup:latest"
 
   notify:
     name: Pipeline Summary
