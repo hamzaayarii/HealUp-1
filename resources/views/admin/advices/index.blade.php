@@ -252,61 +252,114 @@ function openCreateAdviceModal() {
     modal.classList.remove('hidden');
     body.style.overflow = 'hidden';
 
-    // Load form via fetch (optional)
+    // Load form via AJAX
     fetch(`/admin/advices/create`)
         .then(res => res.text())
         .then(html => {
             document.getElementById('createAdviceModalContent').innerHTML = html;
+
+            const form = document.querySelector('#createAdviceModalContent form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                submitCreateAdviceForm(form);
+            });
         });
 }
 
-function closeCreateAdviceModal() {
-    const modal = document.getElementById('createAdviceModal');
-    const body = document.body;
-    modal.classList.add('hidden');
-    body.style.overflow = '';
+function submitCreateAdviceForm(form) {
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: formData
+    })
+    .then(async res => {
+        if (res.status === 422) {
+            const data = await res.json();
+            showFormErrors(form, data.errors);
+        } else if (res.redirected) {
+            // Success - close modal and reload page
+            closeCreateAdviceModal();
+            window.location.href = res.url;
+        } else {
+            return res.text();
+        }
+    })
+    .catch(err => console.error(err));
+}
+
+function closeCreateAdviceModal() { const modal = document.getElementById('createAdviceModal'); const body = document.body; modal.classList.add('hidden'); body.style.overflow = ''; }
+
+function showFormErrors(form, errors) {
+    // Clear previous errors
+    form.querySelectorAll('p.text-red-600').forEach(p => p.remove());
+    form.querySelectorAll('.border-red-500').forEach(input => input.classList.remove('border-red-500'));
+
+    // Show new errors
+    for (const key in errors) {
+        const input = form.querySelector(`[name="${key}"]`);
+        if (input) {
+            input.classList.add('border-red-500');
+
+            const errorEl = document.createElement('p');
+            errorEl.classList.add('mt-1', 'text-sm', 'text-red-600');
+            errorEl.innerText = errors[key][0];
+            input.parentNode.appendChild(errorEl);
+        }
+    }
 }
 
 function openEditModal(id) {
     const modal = document.getElementById('editAdviceModal');
     const body = document.body;
-
-    // Show modal
     modal.classList.remove('hidden');
     body.style.overflow = 'hidden';
 
-    // Loading spinner
-    document.getElementById('editModalContent').innerHTML = `
-        <div class="flex items-center justify-center py-10">
-            <svg class="animate-spin h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" 
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 
-                    5.291A7.962 7.962 0 014 12H0c0 
-                    3.042 1.135 5.824 3 7.938l3-2.647z">
-                </path>
-            </svg>
-        </div>`;
-
-    // Fetch edit form via AJAX (expects JSON)
     fetch(`/admin/advices/${id}/edit`, {
-    headers: { 'X-Requested-With': 'XMLHttpRequest' } // important
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
-    .then(res => res.json()) // expect JSON
+    .then(res => res.json())
     .then(data => {
         document.getElementById('editModalContent').innerHTML = data.html;
+
+        const form = document.querySelector('#editModalContent form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitEditAdviceForm(form);
+        });
     })
     .catch(err => {
         document.getElementById('editModalContent').innerHTML = `<p>Error: ${err}</p>`;
     });
 }
 
-function closeEditModal() {
-    const modal = document.getElementById('editAdviceModal');
-    const body = document.body;
-    modal.classList.add('hidden');
-    body.style.overflow = '';
+function submitEditAdviceForm(form) {
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: 'POST',
+        headers: { 
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData
+    })
+    .then(async res => {
+        if (res.status === 422) {
+            const data = await res.json();
+            showFormErrors(form, data.errors);
+        } else if (res.redirected) {
+            closeEditModal();
+            window.location.href = res.url;
+        } else {
+            return res.text();
+        }
+    })
+    .catch(err => console.error(err));
 }
+
+function closeEditModal() { const modal = document.getElementById('editAdviceModal'); const body = document.body; modal.classList.add('hidden'); body.style.overflow = ''; }
 
 // Optional: close modal if click outside
 window.addEventListener('click', function(event) {
