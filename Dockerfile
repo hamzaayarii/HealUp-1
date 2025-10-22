@@ -43,6 +43,10 @@ COPY . /var/www/html
 COPY --from=frontend-build /app/resources /var/www/html/resources
 COPY --from=frontend-build /app/public/build /var/www/html/public/build
 
+
+# Install PHP dependencies in final image
+RUN composer install --ignore-platform-reqs --no-dev --optimize-autoloader
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
