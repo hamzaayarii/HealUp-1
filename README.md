@@ -5,7 +5,7 @@
   
   **Your Comprehensive Health Management Platform**
   
-  *Empowering individuals to take control of their health journey through intelligent tracking, personalized insights, and community support.*
+  *Empowering individuals to take control of their health journey through intelligent tracking and personalized insights.*
 
 ![Laravel](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)
