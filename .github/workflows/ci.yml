@@ -161,7 +161,7 @@ jobs:
         with:
           registry: ghcr.io
           username: hamzaayarii
-          password: ${{ secrets.GHCR_PAT }}
+          password: ${{ secrets.healup_package }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
