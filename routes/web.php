@@ -62,8 +62,30 @@ Route::middleware([
     Route::get('/health/reports/habit-comparison', [App\Http\Controllers\HealthReportController::class, 'habitComparison'])->name('health.reports.habit-comparison');
     Route::get('/health/reports/export-pdf', [App\Http\Controllers\HealthReportController::class, 'exportPdf'])->name('health.reports.export-pdf');
 
+<<<<<<< Updated upstream
     // Wellness Events resource routes
     Route::resource('events', EventController::class);
+=======
+
+
+
+    // Front office wellness events page (main events listing)
+    Route::get('/wellness-events', [EventController::class, 'frontoffice'])->name('events.frontoffice');
+    Route::get('/events', [EventController::class, 'frontoffice'])->name('events.index'); // Alias for backward compatibility
+
+    // Public/Student-facing Challenges listing
+    // Students should be able to browse approved challenges at /challenges
+    Route::get('/challenges', [App\Http\Controllers\Professor\ChallengeController::class, 'index'])->name('challenges.index');
+
+
+    // Event registration (student)
+    Route::post('/events/{event}/register', [EventController::class, 'register'])->name('events.register');
+    // Event unregistration (student)
+    Route::post('/events/{event}/unregister', [EventController::class, 'unregister'])->name('events.unregister');
+
+    // User event routes (view single event only)
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+>>>>>>> Stashed changes
 
     // ✅ AJOUTER CES ROUTES NUTRITION
     Route::resource('ingredients', IngredientController::class);
@@ -72,6 +94,26 @@ Route::middleware([
     // Routes API internes pour recherche dynamique
     Route::get('/api/internal/ingredients/search', [IngredientController::class, 'search'])->name('api.ingredients.search');
     Route::get('/api/internal/ingredients/categories', [IngredientController::class, 'getCategories'])->name('api.ingredients.categories');
+<<<<<<< Updated upstream
+=======
+
+    // Advice routes
+    Route::get('/advices', [AdviceController::class, 'index'])->name('advices.index');
+    Route::get('/advices/{id}', [AdviceController::class, 'show'])->name('advices.show');
+
+    // Chat session routes
+    Route::get('/chat-sessions/start/{advice}', [ChatSessionController::class, 'start'])->name('chat.sessions.start');
+    Route::get('/chat-sessions/{id}', [ChatSessionController::class, 'show'])->name('chat.sessions.show');
+    Route::delete('/chat-sessions/{id}', [ChatSessionController::class, 'destroy'])->name('chat.sessions.destroy');
+
+
+    // Chat messages
+    Route::post('/chat-sessions/{id}/messages', [ChatMessageController::class, 'store'])->name('chat.messages.store');
+
+    // Recommendation events (impression, click) - record for training
+    Route::post('/recommendations/event', [App\Http\Controllers\RecommendationEventController::class, 'store'])->name('recommendations.event');
+
+>>>>>>> Stashed changes
 });
 
 // Routes Admin ONLY

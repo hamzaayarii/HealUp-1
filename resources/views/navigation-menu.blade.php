@@ -79,6 +79,7 @@
                         </div>
                     </div>
 
+<<<<<<< Updated upstream
                     <!-- Challenges Link -->
                 <x-nav-link href="{{ route('admin.challenges.index') }}" :active="request()->routeIs('challenges.*')"
                             class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
@@ -88,6 +89,26 @@
                     </svg>
                     {{ __('Challenges') }}
                 </x-nav-link>
+=======
+                    @auth
+    @if(auth()->user()->role === 'professor' || auth()->user()->role === 'admin' || auth()->user()->role === 'student')
+        @php
+            // Determine href based on role: professors/admins go to their management pages, students go to the public listing
+            $challengesHref = auth()->user()->role === 'professor' ? route('professor.challenges.index') : (auth()->user()->role === 'admin' ? route('admin.challenges.index') : route('challenges.index'));
+            $challengesActive = request()->routeIs('professor.challenges.*') || request()->routeIs('admin.challenges.*') || request()->routeIs('challenges.*');
+        @endphp
+        <x-nav-link :href="$challengesHref" 
+                   :active="$challengesActive"
+                   class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M9 12l2 2l4-4m5-2a9 9 0 11-18 0a9 9 0 0118 0z"/>
+            </svg>
+            {{ __('Challenges') }}
+        </x-nav-link>
+    @endif
+@endauth
+>>>>>>> Stashed changes
 
 
                     <!-- Events Link -->

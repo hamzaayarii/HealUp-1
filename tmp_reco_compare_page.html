@@ -1,0 +1,501 @@
+﻿
+<!DOCTYPE html>
+<html lang="en" class="h-full ">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="2y65usWYoj0KHru7MjTxJgJP9Mpaduu9uyfzU557">
+
+    <!-- Theme configuration -->
+    <meta name="theme-config" content="{&quot;current&quot;:&quot;light&quot;,&quot;isDark&quot;:false,&quot;isLight&quot;:true,&quot;classes&quot;:{&quot;html&quot;:&quot;&quot;,&quot;body&quot;:&quot;bg-gray-50 text-gray-900&quot;,&quot;surface&quot;:&quot;bg-white text-gray-900&quot;,&quot;border&quot;:&quot;border-gray-200&quot;,&quot;hover&quot;:&quot;hover:bg-gray-100&quot;},&quot;available&quot;:{&quot;light&quot;:{&quot;name&quot;:&quot;Light&quot;,&quot;icon&quot;:&quot;sun&quot;,&quot;description&quot;:&quot;Light theme for day use&quot;},&quot;dark&quot;:{&quot;name&quot;:&quot;Dark&quot;,&quot;icon&quot;:&quot;moon&quot;,&quot;description&quot;:&quot;Dark theme for night use&quot;}}}">
+
+    <!-- SEO Meta Tags -->
+    <title>Laravel</title>
+    <meta name="description" content="HealUp - Your Health Management Platform">
+    <meta name="keywords" content="health, medical, healthcare">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://127.0.0.1:8000/recommendations/compare">
+    <meta property="og:title" content="Laravel">
+    <meta property="og:description" content="HealUp - Your Health Management Platform">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="http://127.0.0.1:8000/recommendations/compare">
+    <meta property="twitter:title" content="Laravel">
+    <meta property="twitter:description"
+        content="HealUp - Your Health Management Platform">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png+xml" href="http://127.0.0.1:8000/images/logos/flavicon.png">
+    <link rel="alternate icon" type="image/x-icon" href="http://127.0.0.1:8000/favicon.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Styles -->
+        <link rel="preload" as="style" href="http://127.0.0.1:8000/build/assets/app-DH0tm6rU.css" /><link rel="modulepreload" as="script" href="http://127.0.0.1:8000/build/assets/app-yDP7JHDh.js" /><link rel="stylesheet" href="http://127.0.0.1:8000/build/assets/app-DH0tm6rU.css" data-navigate-track="reload" /><script type="module" src="http://127.0.0.1:8000/build/assets/app-yDP7JHDh.js" data-navigate-track="reload"></script>
+<script>
+     window.addEventListener('load', () => window.setTimeout(() => {
+        const makeLink = (asset) => {
+            const link = document.createElement('link')
+
+            Object.keys(asset).forEach((attribute) => {
+                link.setAttribute(attribute, asset[attribute])
+            })
+
+            return link
+        }
+
+        const loadNext = (assets, count) => window.setTimeout(() => {
+            if (count > assets.length) {
+                count = assets.length
+
+                if (count === 0) {
+                    return
+                }
+            }
+
+            const fragment = new DocumentFragment
+
+            while (count > 0) {
+                const link = makeLink(assets.shift())
+                fragment.append(link)
+                count--
+
+                if (assets.length) {
+                    link.onload = () => loadNext(assets, 1)
+                    link.onerror = () => loadNext(assets, 1)
+                }
+            }
+
+            document.head.append(fragment)
+        })
+
+        loadNext([], 3)
+    }))
+</script>    <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}</style>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Theme-aware styles -->
+    <style>
+        /* Smooth theme transitions */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Fade in up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Theme transition class */
+        .theme-transition {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Ensure proper theme switching */
+        .theme-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+
+    <!-- Additional Head Content -->
+    </head>
+
+<body
+    class="font-sans antialiased h-full theme-transition bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+    data-page="" data-section="" data-theme="light">
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content"
+        class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
+        Skip to main content
+    </a>
+
+    <!-- Page Structure -->
+    <div class="min-h-full flex flex-col">
+        <!-- Header Section -->
+        
+        <!-- Navigation Section -->
+        
+        <!-- Breadcrumb Section -->
+        
+        <!-- Main Content Area -->
+        <main id="main-content" role="main" class="flex-1 flex flex-col"
+            aria-label="Main content">
+
+            <!-- Flash Messages -->
+            
+            <!-- Page Content -->
+            <div class="p-6">
+    <h1 class="text-2xl font-semibold">Recommendation Comparison for Dr. Sarah Wilson</h1>
+    <p class="text-sm text-gray-600 mt-2">Showing top 8 recommendations for levels 0 (Balanced), 1 (Habit-focused), 2 (Category-focused).</p>
+
+    <div class="grid grid-cols-3 gap-4 mt-6">
+                    <div class="bg-white p-4 border rounded">
+                <h2 class="font-semibold">Level 0 —  Balanced </h2>
+                <ol class="mt-3 space-y-3">
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Sleep Schedule Reset</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.04 · EstFactor: 0.8333</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.1 · HabitContrib: 0.27858 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.4146</div>
+                                                                            <div class="text-xs mt-1 text-gray-600">Δ 0</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 1  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">Dominant: habit</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Hydration Hero</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.04 · EstFactor: 0.8</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.1 · HabitContrib: 0.27858 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.4089</div>
+                                                                            <div class="text-xs mt-1 text-gray-600">Δ 0</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 2  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">Dominant: habit</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Meditation Master</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.04 · EstFactor: 0.75</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.1 · HabitContrib: 0.27858 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.4023</div>
+                                                                            <div class="text-xs mt-1 text-gray-600">Δ 0</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 3  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">Dominant: habit</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">30-Day Fitness Challenge</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.04 · EstFactor: 0.5</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.1 · HabitContrib: 0.27858 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.3643</div>
+                                                                            <div class="text-xs mt-1 text-gray-600">Δ 0</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 4  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">Dominant: habit</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Healthy Eating Week</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=0 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.04 · EstFactor: 0.6667</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.1 · HabitContrib: 0 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.2431</div>
+                                                                            <div class="text-xs mt-1 text-gray-600">Δ 0</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 5  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Dominant: category</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Sugar-Free Sprint</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=0 · pop=0</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.04 · EstFactor: 0</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.1 · HabitContrib: 0 · PopContrib: 0</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.134</div>
+                                                                            <div class="text-xs mt-1 text-gray-600">Δ 0</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 6  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Dominant: category</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                    </ol>
+            </div>
+                    <div class="bg-white p-4 border rounded">
+                <h2 class="font-semibold">Level 1 —  Habit </h2>
+                <ol class="mt-3 space-y-3">
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Sleep Schedule Reset</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.1 · EstFactor: 0.8333</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.04 · HabitContrib: 0.55716 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.5609</div>
+                                                                            <div class="text-xs mt-1 text-green-700">Δ 0.1463</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 1  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">Dominant: habit</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Hydration Hero</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.1 · EstFactor: 0.8</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.04 · HabitContrib: 0.55716 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.5551</div>
+                                                                            <div class="text-xs mt-1 text-green-700">Δ 0.1462</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 2  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">Dominant: habit</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Meditation Master</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.1 · EstFactor: 0.75</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.04 · HabitContrib: 0.55716 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.5485</div>
+                                                                            <div class="text-xs mt-1 text-green-700">Δ 0.1462</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 3  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">Dominant: habit</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">30-Day Fitness Challenge</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.1 · EstFactor: 0.5</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.04 · HabitContrib: 0.55716 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.5106</div>
+                                                                            <div class="text-xs mt-1 text-green-700">Δ 0.1463</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 4  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-green-100 text-green-800">Dominant: habit</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Healthy Eating Week</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=0 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.1 · EstFactor: 0.6667</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.04 · HabitContrib: 0 · PopContrib: 0.018182</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.2431</div>
+                                                                            <div class="text-xs mt-1 text-gray-600">Δ 0</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 5  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-gray-100 text-gray-800">Dominant: baseline</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Sugar-Free Sprint</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=0 · pop=0</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.1 · EstFactor: 0</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.04 · HabitContrib: 0 · PopContrib: 0</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.134</div>
+                                                                            <div class="text-xs mt-1 text-gray-600">Δ 0</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 6  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-gray-100 text-gray-800">Dominant: baseline</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                    </ol>
+            </div>
+                    <div class="bg-white p-4 border rounded">
+                <h2 class="font-semibold">Level 2 —  Category </h2>
+                <ol class="mt-3 space-y-3">
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Sleep Schedule Reset</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.16 · EstFactor: 0.8333</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.16 · HabitContrib: 0.09286 · PopContrib: 0.009091</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.4069</div>
+                                                                            <div class="text-xs mt-1 text-red-700">Δ -0.0077</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 1  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Dominant: category</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Hydration Hero</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.16 · EstFactor: 0.8</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.16 · HabitContrib: 0.09286 · PopContrib: 0.009091</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.4011</div>
+                                                                            <div class="text-xs mt-1 text-red-700">Δ -0.0078</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 2  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Dominant: category</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Meditation Master</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.16 · EstFactor: 0.75</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.16 · HabitContrib: 0.09286 · PopContrib: 0.009091</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.3945</div>
+                                                                            <div class="text-xs mt-1 text-red-700">Δ -0.0078</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 3  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Dominant: category</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">30-Day Fitness Challenge</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=1 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.16 · EstFactor: 0.5</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.16 · HabitContrib: 0.09286 · PopContrib: 0.009091</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.3565</div>
+                                                                            <div class="text-xs mt-1 text-red-700">Δ -0.0078</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 4  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Dominant: category</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Healthy Eating Week</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=0 · pop=0.0909</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.16 · EstFactor: 0.6667</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.16 · HabitContrib: 0 · PopContrib: 0.009091</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.3329</div>
+                                                                            <div class="text-xs mt-1 text-green-700">Δ 0.0898</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 5  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Dominant: category</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                                                    <li class="p-2 border rounded-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="flex-1">
+                                    <div class="font-medium">Sugar-Free Sprint</div>
+                                    <div class="text-xs text-gray-600">category_match=0.2 · habit=0 · pop=0</div>
+                                                                            <div class="mt-1 text-xs text-gray-500">Baseline: 0.16 · EstFactor: 0</div>
+                                        <div class="mt-1 text-xs text-gray-500">CatContrib: 0.16 · HabitContrib: 0 · PopContrib: 0</div>
+                                                                    </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-semibold">0.2285</div>
+                                                                            <div class="text-xs mt-1 text-green-700">Δ 0.0945</div>
+                                                                                                                <div class="text-xs mt-1">Rank: 6  <span class="text-gray-600">—</span> </div>
+                                                                                                                                                        <div class="inline-block mt-2 px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Dominant: category</div>
+                                                                    </div>
+                            </div>
+                        </li>
+                                    </ol>
+            </div>
+            </div>
+
+    <div class="mt-6">
+        <a href="#" onclick="window.print();return false;" class="px-4 py-2 bg-blue-600 text-white rounded">Print comparison</a>
+    </div>
+</div>
+
+
+            <!-- Additional Content Slots -->
+                    </main>
+
+        <!-- Sidebar Section (if needed) -->
+        
+        <!-- Footer Section -->
+                    
+                        </div>
+
+    <!-- Modals Area -->
+    
+    <!-- Scripts -->
+    <!-- Livewire Scripts -->
+<script src="/livewire/livewire.js?id=df3a17f2"   data-csrf="2y65usWYoj0KHru7MjTxJgJP9Mpaduu9uyfzU557" data-update-uri="/livewire/update" data-navigate-once="true"></script>
+    
+    <!-- Additional Body Content -->
+    
+    
+    </body>
+
+</html>
+

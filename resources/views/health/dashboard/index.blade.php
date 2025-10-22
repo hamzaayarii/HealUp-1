@@ -127,6 +127,7 @@
                     </div>
                 </div>
 
+<<<<<<< Updated upstream
                 <!-- Quick Actions -->
                 @if($quickActions->count() > 0)
                     <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
@@ -289,12 +290,35 @@
                             <div class="p-8">
                                 <div class="flex items-center mb-6">
                                     <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center mr-3">
+=======
+                <!-- Right Column: Stats & Activity -->
+                <div class="space-y-6">
+
+                        <!-- Weekly Overview -->
+                        <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <!-- Professional Header -->
+                            <div class="bg-gradient-to-r from-purple-500 to-indigo-500 px-6 py-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+>>>>>>> Stashed changes
                                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                         </svg>
                                     </div>
+<<<<<<< Updated upstream
                                     <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 theme-transition">This Week</h3>
                                 </div>
+=======
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white">Weekly Stats</h3>
+                                        <p class="text-white/80 text-sm">Your progress overview</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-6">
+>>>>>>> Stashed changes
 
                                 <div class="space-y-6">
                                     <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 theme-transition">
@@ -328,16 +352,36 @@
                         </div>
 
                         <!-- Recent Activity -->
+<<<<<<< Updated upstream
                         <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
                             <div class="p-8">
                                 <div class="flex items-center mb-6">
                                     <div class="w-10 h-10 bg-gradient-to-br from-teal-600 to-cyan-600 rounded-lg flex items-center justify-center mr-3">
+=======
+                        <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <!-- Professional Header -->
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 px-6 py-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+>>>>>>> Stashed changes
                                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                         </svg>
                                     </div>
+<<<<<<< Updated upstream
                                     <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 theme-transition">Recent Activity</h3>
                                 </div>
+=======
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white">Recent Activity</h3>
+                                        <p class="text-white/80 text-sm">Latest habit updates</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-6">
+>>>>>>> Stashed changes
 
                                 @if($recentActivity->count() > 0)
                                     <div class="space-y-4">
@@ -347,6 +391,10 @@
                                                     <span class="text-lg">{{ $activity['icon'] }}</span>
                                                 </div>
                                                 <div class="flex-1 min-w-0">
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                                                     <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
                                                         {{ $activity['habit_name'] }}
                                                     </p>
@@ -360,9 +408,15 @@
 
                                     <div class="mt-6 text-center">
                                         <a href="{{ route('progress.index') }}"
+<<<<<<< Updated upstream
                                            class="inline-flex items-center text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-semibold transition-colors">
                                             View all activity
                                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+=======
+                                           class="inline-flex items-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                            <span>View All Activity</span>
+                                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+>>>>>>> Stashed changes
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                             </svg>
                                         </a>
@@ -415,7 +469,11 @@
                                 </div>
                             </div>
                         @endif
+<<<<<<< Updated upstream
                     </div>
+=======
+
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>

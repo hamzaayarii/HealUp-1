@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "title": "30-Day Fitness Challenge",
+        "description": "Complete 30 minutes of exercise every day for 30 days",
+        "tags": null,
+        "category_id": 1,
+        "target_type": "habit",
+        "estimated_points": 10,
+        "participations_count": 1
+    },
+    {
+        "id": 2,
+        "title": "Healthy Eating Week",
+        "description": "Eat 5 servings of fruits and vegetables daily for 7 days",
+        "tags": null,
+        "category_id": 2,
+        "target_type": null,
+        "estimated_points": 20,
+        "participations_count": 1
+    },
+    {
+        "id": 3,
+        "title": "Meditation Master",
+        "description": "Practice meditation for 10 minutes daily for 21 days",
+        "tags": null,
+        "category_id": 3,
+        "target_type": "habit",
+        "estimated_points": 30,
+        "participations_count": 1
+    },
+    {
+        "id": 4,
+        "title": "Hydration Hero",
+        "description": "Drink 8 glasses of water every day for 14 days",
+        "tags": null,
+        "category_id": 5,
+        "target_type": "habit",
+        "estimated_points": 40,
+        "participations_count": 1
+    },
+    {
+        "id": 5,
+        "title": "Sleep Schedule Reset",
+        "description": "Go to bed before 11 PM and sleep 7-8 hours for 10 days",
+        "tags": null,
+        "category_id": 4,
+        "target_type": "habit",
+        "estimated_points": 50,
+        "participations_count": 1
+    },
+    {
+        "id": 6,
+        "title": "10K Steps Daily",
+        "description": "Walk at least 10,000 steps every day for 30 days",
+        "tags": null,
+        "category_id": 1,
+        "target_type": null,
+        "estimated_points": 0,
+        "participations_count": 0
+    },
+    {
+        "id": 7,
+        "title": "Sugar-Free Sprint",
+        "description": "Avoid added sugars and sugary drinks for 14 days",
+        "tags": null,
+        "category_id": 2,
+        "target_type": null,
+        "estimated_points": 0,
+        "participations_count": 0
+    },
+    {
+        "id": 8,
+        "title": "Rejected Challenge Example",
+        "description": "This challenge was not approved by admin",
+        "tags": null,
+        "category_id": 1,
+        "target_type": null,
+        "estimated_points": 0,
+        "participations_count": 0
+    }
+]

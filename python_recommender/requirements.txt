@@ -1,0 +1,5 @@
+lightfm==1.16
+scipy
+pandas
+numpy
+joblib
