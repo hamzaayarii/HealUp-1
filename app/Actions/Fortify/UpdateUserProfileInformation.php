@@ -17,6 +17,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update(User $user, array $input): void
     {
+        // Debug: Log what we receive
+        \Log::info('UpdateProfileInformation called', [
+            'user_id' => $user->id,
+            'input_keys' => array_keys($input),
+            'has_photo' => isset($input['photo']),
+            'photo_type' => isset($input['photo']) ? get_class($input['photo']) : 'not set',
+            'photo_value' => $input['photo'] ?? 'not set'
+        ]);
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
@@ -24,6 +33,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         ])->validateWithBag('updateProfileInformation');
 
         if (isset($input['photo'])) {
+            \Log::info('Updating profile photo', [
+                'photo_type' => get_class($input['photo']),
+                'photo_size' => method_exists($input['photo'], 'getSize') ? $input['photo']->getSize() : 'unknown'
+            ]);
             $user->updateProfilePhoto($input['photo']);
         }
 

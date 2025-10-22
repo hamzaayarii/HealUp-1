@@ -52,7 +52,10 @@
                                 <a href="{{ route('events.participants', $event->id) }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition duration-200">View Participants</a>
                             @endif
                             @if($alreadyRegistered)
-                                <button class="bg-gray-400 text-white font-semibold py-2 px-4 rounded cursor-not-allowed" disabled>Already Registered</button>
+                                <form action="{{ route('events.unregister', $event) }}" method="POST" onsubmit="return confirm('Are you sure you want to unregister from this event?');">
+                                    @csrf
+                                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition duration-200">Unregister</button>
+                                </form>
                             @elseif(!$spotsAvailable)
                                 <button class="bg-gray-400 text-white font-semibold py-2 px-4 rounded cursor-not-allowed" disabled>Event Full</button>
                             @else

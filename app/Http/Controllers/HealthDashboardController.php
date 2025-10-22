@@ -53,6 +53,13 @@ class HealthDashboardController extends Controller
             ->limit(3)
             ->get();
 
+        // Get upcoming events (next 3, active, date >= today)
+        $upcomingEvents = \App\Models\Event::where('is_active', true)
+            ->where('date', '>=', now()->toDateString())
+            ->orderBy('date')
+            ->limit(3)
+            ->get();
+
         return view('health.dashboard.index', compact(
             'habitsWithProgress',
             'todayStats',
@@ -60,7 +67,8 @@ class HealthDashboardController extends Controller
             'recentActivity',
             'quickActions',
             'motivationalMessage',
-            'upcomingChallenges'
+            'upcomingChallenges',
+            'upcomingEvents'
         ));
     }
 

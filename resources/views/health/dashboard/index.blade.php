@@ -445,156 +445,98 @@
                 </div>
 
                 <!-- Right Column: Stats & Activity -->
-                <div class="space-y-6">
-
-                        <!-- Weekly Overview -->
-                        <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <!-- Professional Header -->
-                            <div class="bg-gradient-to-r from-purple-500 to-indigo-500 px-6 py-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Upcoming Challenges -->
+                    @if($upcomingChallenges->count() > 0)
+                        <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition h-full flex flex-col">
+                            <div class="p-8 flex-1 flex flex-col">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-amber-600 to-orange-600 rounded-lg flex items-center justify-center mr-3">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
+                                        </svg>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 theme-transition">Upcoming Challenges</h3>
+                                </div>
+                                <div class="space-y-4 flex-1">
+                                    @foreach($upcomingChallenges as $challenge)
+                                        <div class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/30 border border-amber-200 dark:border-amber-700 rounded-xl p-4 theme-transition">
+                                            <h4 class="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-2">{{ $challenge->name }}</h4>
+                                            <div class="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
+                                                <span class="flex items-center">
+                                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM4 9h12v7H4V9z"/>
+                                                    </svg>
+                                                    Starts {{ \Carbon\Carbon::parse($challenge->start_date)->format('M j') }}
+                                                </span>
+                                                <span class="flex items-center">
+                                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                                    </svg>
+                                                    {{ $challenge->points }} points
+                                                </span>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    {{-- Upcoming Events Card --}}
+                    @if($upcomingEvents->count() > 0)
+                        <div class="bg-gradient-to-br from-white to-blue-50 dark:from-gray-800 dark:to-blue-900 rounded-2xl shadow-xl border border-blue-100 dark:border-blue-700 theme-transition h-full flex flex-col">
+                            <div class="p-8 flex-1 flex flex-col">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center mr-3">
                                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                         </svg>
                                     </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold text-white">Weekly Stats</h3>
-                                        <p class="text-white/80 text-sm">Your progress overview</p>
-                                    </div>
+                                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 theme-transition">Upcoming Events</h3>
                                 </div>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="p-6">
-
-                                <div class="space-y-6">
-                                    <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 theme-transition">
-                                        <div class="flex justify-between items-center mb-3">
-                                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Completion Rate</span>
-                                            <span class="font-bold text-xl text-purple-600 dark:text-purple-400">{{ $weeklyOverview['completion_rate'] }}%</span>
-                                        </div>
-
-                                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                                            <div class="bg-gradient-to-r from-purple-500 to-indigo-500 h-3 rounded-full transition-all duration-1000 shadow-sm"
-                                                 style="width: {{ $weeklyOverview['completion_rate'] }}%"></div>
-                                        </div>
-                                    </div>
-
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-3 text-center theme-transition">
-                                                <div class="text-xl font-bold text-green-600 dark:text-green-400">{{ $weeklyOverview['active_streaks'] }}</div>
-                                                <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">Active Streaks</div>
+                                <div class="space-y-4 flex-1">
+                                    @foreach($upcomingEvents as $event)
+                                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/30 border border-blue-200 dark:border-blue-700 rounded-xl p-4 theme-transition flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                            <div>
+                                                <h4 class="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-1">{{ $event->title }}</h4>
+                                                <div class="flex items-center text-xs text-gray-600 dark:text-gray-400 space-x-3">
+                                                    <span class="flex items-center">
+                                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                                        </svg>
+                                                        {{ \Carbon\Carbon::parse($event->date)->format('M j, Y') }}
+                                                    </span>
+                                                    <span class="flex items-center">
+                                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/>
+                                                        </svg>
+                                                        {{ $event->location }}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="bg-orange-50 dark:bg-orange-900/20 rounded-lg p-3 text-center theme-transition">
-                                                <div class="text-xl font-bold text-orange-600 dark:text-orange-400">{{ $weeklyOverview['consistency_score'] }}%</div>
-                                                <div class="text-xs text-gray-500 dark:text-gray-400 font-medium">Consistency</div>
+                                            <div class="mt-3 sm:mt-0">
+                                                <a href="{{ route('events.show', $event->id) }}" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-bold py-2 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-xs">
+                                                    <span>View Details</span>
+                                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                                    </svg>
+                                                </a>
                                             </div>
                                         </div>
-
-                                        <div class="bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20 rounded-lg p-3 text-center theme-transition">
-                                            <div class="text-sm text-gray-700 dark:text-gray-300">Best Day: <span class="font-semibold text-blue-600 dark:text-blue-400">{{ $weeklyOverview['best_day'] }}</span></div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
-                        </div>
-
-                        <!-- Recent Activity -->
-                        <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-                            <!-- Professional Header -->
-                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 px-6 py-4">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                <div class="mt-6 text-center">
+                                    <a href="{{ route('events.index') }}" class="inline-flex items-center bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                        <span>View All Events</span>
+                                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                         </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold text-white">Recent Activity</h3>
-                                        <p class="text-white/80 text-sm">Latest habit updates</p>
-                                    </div>
+                                    </a>
                                 </div>
-                            </div>
-
-                            <!-- Content -->
-                            <div class="p-6">
-
-                                @if($recentActivity->count() > 0)
-                                    <div class="space-y-4">
-                                        @foreach($recentActivity->take(5) as $activity)
-                                            <div class="flex items-center bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-700 dark:to-blue-900/20 rounded-xl p-4 theme-transition">
-                                                <div class="w-10 h-10 bg-blue-600 dark:bg-blue-700 rounded-lg flex items-center justify-center mr-4">
-                                                    <span class="text-lg">{{ $activity['icon'] }}</span>
-                                                </div>
-                                                <div class="flex-1 min-w-0">
-
-                                                    <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
-                                                        {{ $activity['habit_name'] }}
-                                                    </p>
-                                                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                                                        {{ $activity['value'] }} {{ $activity['unit'] }} • {{ $activity['time_ago'] }}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-
-                                    <div class="mt-6 text-center">
-                                        <a href="{{ route('progress.index') }}"
-                                           class="inline-flex items-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                                            <span>View All Activity</span>
-                                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                @else
-                                    <div class="text-center py-8">
-                                        <div class="w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                                            <div class="text-2xl">📈</div>
-                                        </div>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">No recent activity</p>
-                                    </div>
-                                @endif
                             </div>
                         </div>
-
-                        <!-- Upcoming Challenges -->
-                        @if($upcomingChallenges->count() > 0)
-                            <div class="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 theme-transition">
-                                <div class="p-8">
-                                    <div class="flex items-center mb-6">
-                                        <div class="w-10 h-10 bg-gradient-to-br from-amber-600 to-orange-600 rounded-lg flex items-center justify-center mr-3">
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
-                                            </svg>
-                                        </div>
-                                        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 theme-transition">Upcoming Challenges</h3>
-                                    </div>
-
-                                    <div class="space-y-4">
-                                        @foreach($upcomingChallenges as $challenge)
-                                            <div class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/30 border border-amber-200 dark:border-amber-700 rounded-xl p-4 theme-transition">
-                                                <h4 class="font-semibold text-gray-900 dark:text-gray-100 text-sm mb-2">{{ $challenge->name }}</h4>
-                                                <div class="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
-                                                    <span class="flex items-center">
-                                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zM4 9h12v7H4V9z"/>
-                                                        </svg>
-                                                        Starts {{ \Carbon\Carbon::parse($challenge->start_date)->format('M j') }}
-                                                    </span>
-                                                    <span class="flex items-center">
-                                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                                        </svg>
-                                                        {{ $challenge->points }} points
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
+                    @endif
+                </div>
 
                 </div>
             </div>
