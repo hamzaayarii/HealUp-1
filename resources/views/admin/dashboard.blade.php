@@ -29,6 +29,7 @@
 
     <!-- Stats Cards -->
     <div class="row mb-4">
+
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="stats-card d-flex align-items-center">
                 <div class="flex-grow-1">
@@ -49,6 +50,18 @@
                 </div>
                 <div class="stats-icon">
                     <i class="fas fa-calendar-check"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="stats-card d-flex align-items-center" style="background: linear-gradient(135deg, #2563EB 0%, #60A5FA 100%);">
+                <div class="flex-grow-1">
+                    <div class="stats-number">{{ \App\Models\Event::count() }}</div>
+                    <div class="stats-label">Events</div>
+                </div>
+                <div class="stats-icon">
+                    <i class="fas fa-calendar-alt"></i>
                 </div>
             </div>
         </div>
