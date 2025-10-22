@@ -3,17 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Repas extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'nom',
         'type_repas',
         'date_consommation',
-        'user_id',  // ⭐ AJOUTEZ CECI
+        'user_id',
         'calories_total',
         'proteines_total',
         'glucides_total',
