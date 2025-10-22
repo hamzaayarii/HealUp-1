@@ -278,12 +278,10 @@ function submitCreateAdviceForm(form) {
         if (res.status === 422) {
             const data = await res.json();
             showFormErrors(form, data.errors);
-        } else if (res.redirected) {
+        } else {
             // Success - close modal and reload page
             closeCreateAdviceModal();
             window.location.href = res.url;
-        } else {
-            return res.text();
         }
     })
     .catch(err => console.error(err));
@@ -337,27 +335,45 @@ function openEditModal(id) {
 function submitEditAdviceForm(form) {
     const formData = new FormData(form);
 
+    // Ensure PUT method is included
+    if (!formData.has('_method')) {
+        formData.append('_method', 'PUT');
+    }
+
     fetch(form.action, {
-        method: 'POST',
+        method: 'POST', // Laravel uses _method spoofing
         headers: { 
             'X-Requested-With': 'XMLHttpRequest',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json'
         },
         body: formData
     })
     .then(async res => {
         if (res.status === 422) {
+            // Validation errors
             const data = await res.json();
             showFormErrors(form, data.errors);
-        } else if (res.redirected) {
+        } else if (res.ok) {
+            // Success
+            const data = await res.json().catch(() => null);
+
             closeEditModal();
-            window.location.href = res.url;
+
+            // Redirect to the index page if provided
+            if (data && data.redirect) {
+                window.location.href = data.redirect;
+            } else {
+                // fallback reload
+                window.location.reload();
+            }
         } else {
-            return res.text();
+            console.error('Unexpected response:', res);
         }
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error('Fetch error:', err));
 }
+
 
 function closeEditModal() { const modal = document.getElementById('editAdviceModal'); const body = document.body; modal.classList.add('hidden'); body.style.overflow = ''; }
 
