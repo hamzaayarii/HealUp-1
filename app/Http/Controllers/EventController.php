@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Event;
@@ -9,42 +8,150 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Recommend events for the authenticated user using the Python AI module.
      */
-    public function index()
+    public function recommendEvents()
     {
-    $events = Event::orderBy('date', 'asc')->paginate(10);
-    return view('events.index', compact('events'));
+        $interests = $this->getUserInterestCategories();
+        // Prepare the command to call the Python recommender
+    $command = "python ../python_ai/event_recommender.py \"{$interests}\"";
+        // Run the command and capture output
+        $output = [];
+        $return_var = 0;
+        exec($command, $output, $return_var);
+        // Parse recommended events from output (simple parsing for demo)
+        $recommended = [];
+        foreach ($output as $line) {
+            if (preg_match('/^- (.+) \((.+)\): (.+)$/', $line, $matches)) {
+                // Try to find the event in the DB by title and date
+                $event = \App\Models\Event::where('title', $matches[1])
+                    ->where('date', $matches[2])
+                    ->first();
+                $recommended[] = [
+                    'title' => $matches[1],
+                    'date' => $matches[2],
+                    'description' => $matches[3],
+                    'id' => $event ? $event->id : null,
+                ];
+            }
+        }
+        return view('events.recommend', compact('recommended'));
     }
-
     /**
-     * Show the form for creating a new resource.
+     * Unregister the authenticated user from an event.
      */
-    public function create()
+    public function unregister($eventId)
     {
-        $categories = Category::where('is_active', true)->orderBy('name')->get();
-        return view('events.create', compact('categories'));
+        $user = auth()->user();
+        $event = Event::findOrFail($eventId);
+
+        // Check if registered
+        if (!$event->users()->where('user_id', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'You are not registered for this event.');
+        }
+
+        // Unregister user
+        $event->users()->detach($user->id);
+
+        // Optionally decrement current_participants
+        if ($event->current_participants > 0) {
+            $event->decrement('current_participants');
+        }
+
+        return redirect()->back()->with('success', 'You have unregistered from the event.');
     }
-
     /**
-     * Store a newly created resource in storage.
+     * Show events the authenticated student is registered for.
      */
-    public function store(Request $request)
+    public function myEvents()
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'date' => 'required|date|after_or_equal:today',
-            'location' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'max_participants' => 'required|integer|min:1',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+        $user = auth()->user();
+        $query = \App\Models\Event::whereHas('users', function($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })->with('category');
+        $search = request('search');
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        $sort = request('sort', 'date');
+        $direction = request('direction', 'asc');
+    $allowedSorts = ['date', 'category'];
+        $allowedDirections = ['asc', 'desc'];
+        if (!in_array($sort, $allowedSorts)) $sort = 'date';
+        if (!in_array($direction, $allowedDirections)) $direction = 'asc';
+        if ($sort === 'category') {
+            $query->join('categories', 'events.category_id', '=', 'categories.id')
+                  ->orderBy('categories.name', $direction)
+                  ->select('events.*');
+        } else {
+            $query->orderBy($sort, $direction);
+        }
+        $events = $query->paginate(10)->withQueryString();
+        return view('events.my', compact('events', 'search', 'sort', 'direction'));
+    }
+    /**
+     * Show participants for a given event (professor view).
+     */
+    public function participants($eventId)
+    {
+        $event = Event::with('users')->findOrFail($eventId);
+        $participants = $event->users;
+        return view('events.participants', compact('event', 'participants'));
+    }
+    /**
+     * Register the authenticated user for an event.
+     */
+    public function register($eventId)
+    {
+        $user = auth()->user();
+        $event = Event::findOrFail($eventId);
 
-        $validated['current_participants'] = 0;
-        $validated['is_active'] = true;
+        // Check if already registered
+        if ($event->users()->where('user_id', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'You are already registered for this event.');
+        }
 
-        Event::create($validated);
-        return redirect()->route('events.index')->with('success', 'Event created successfully.');
+        // Register user
+        $event->users()->attach($user->id, ['registered_at' => now()]);
+
+        // Optionally increment current_participants
+        $event->increment('current_participants');
+
+        return redirect()->back()->with('success', 'You have registered for the event!');
+    }
+    /**
+     * Display the front office events list for students and professors.
+     */
+    public function frontoffice()
+    {
+        $query = Event::where('events.is_active', true)
+            ->whereDate('events.date', '>=', now())
+            ->with('category');
+        $search = request('search');
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+        $sort = request('sort', 'date');
+        $direction = request('direction', 'asc');
+    $allowedSorts = ['date', 'category'];
+        $allowedDirections = ['asc', 'desc'];
+        if (!in_array($sort, $allowedSorts)) $sort = 'date';
+        if (!in_array($direction, $allowedDirections)) $direction = 'asc';
+        if ($sort === 'category') {
+            $query->join('categories', 'events.category_id', '=', 'categories.id')
+                  ->orderBy('categories.name', $direction)
+                  ->select('events.*');
+        } else {
+            $query->orderBy($sort, $direction);
+        }
+        $events = $query->paginate(10)->withQueryString();
+        return view('events.frontoffice', compact('events', 'search', 'sort', 'direction'));
     }
 
     /**
@@ -52,42 +159,23 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-    return view('events.show', compact('event'));
+        return view('events.show', compact('event'));
     }
-
     /**
-     * Show the form for editing the specified resource.
+     * Get participated event categories for the authenticated user as a comma-separated string.
      */
-    public function edit(Event $event)
+    public function getUserInterestCategories()
     {
-        $categories = Category::where('is_active', true)->orderBy('name')->get();
-        return view('events.edit', compact('event', 'categories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Event $event)
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'date' => 'required|date|after_or_equal:today',
-            'location' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'max_participants' => 'required|integer|min:1',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-
-        $event->update($validated);
-        return redirect()->route('events.index')->with('success', 'Event updated successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Event $event)
-    {
-    $event->delete();
-    return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
+        $user = auth()->user();
+        $categories = Event::whereHas('users', function($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })
+        ->with('category')
+        ->get()
+        ->pluck('category.name')
+        ->unique()
+        ->implode(', ');
+        \Log::info('getUserInterestCategories called for user: ' . ($user ? $user->id : 'guest') . ' | interests: ' . $categories);
+        return $categories;
     }
 }

@@ -14,9 +14,13 @@ class Habit extends Model
         'name',
         'description',
         'frequency',
+        'difficulty_level',
+        'points_per_completion',
+        'icon',
+        'color',
+        'is_active',
         'target_value',
-        'unit',
-        'is_active'
+        'unit'
     ];
 
     protected $casts = [

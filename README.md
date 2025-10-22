@@ -25,8 +25,10 @@
 
 HealUp is a modern, comprehensive health management platform designed to help individuals track, monitor, and improve their overall well-being. Built with cutting-edge technologies and a user-centric approach, HealUp provides a seamless experience for managing your health journey.
 
+
 ### ✨ Key Features
 
+-   🗓️ **Event Management**: Browse, search, sort, and register for wellness events. Professors and students can view, join, and manage event participation. Admins have advanced controls for event creation, editing, and participant management.
 -   🎯 **Habit Tracking**: Create, monitor, and maintain healthy habits with intelligent progress tracking
 -   📊 **Health Dashboard**: Real-time insights and analytics on your health metrics and progress
 -   🍽️ **Nutrition Management**: Comprehensive meal planning and ingredient tracking system
@@ -35,6 +37,16 @@ HealUp is a modern, comprehensive health management platform designed to help in
 -   🌙 **Dark/Light Theme**: Adaptive interface that works perfectly in any lighting condition
 -   📱 **Responsive Design**: Seamless experience across desktop, tablet, and mobile devices
 -   🔐 **Secure Authentication**: Multi-factor authentication and secure data handling
+### 🗓️ Events Module
+
+HealUp features a robust Events system for wellness and community engagement:
+
+-   **Event Listings**: View all upcoming wellness events with advanced search, sorting, and pagination.
+-   **Registration**: Students and professors can register or unregister for events directly from the platform.
+-   **Participants View**: Professors can view and manage event participants.
+-   **Admin Controls**: Admins can create, edit, delete, and manage all events and participants, with advanced filtering and sorting options.
+-   **Recommended Events**: Personalized event recommendations based on user interests.
+
 
 ## 🚀 Technology Stack
 

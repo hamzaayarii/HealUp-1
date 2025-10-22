@@ -16,6 +16,10 @@
         animation: float 6s ease-in-out infinite;
     }
 
+    .animate-float-fast {
+        animation: float 3s ease-in-out infinite;
+    }
+
     .animate-pulse-slow {
         animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
@@ -136,5 +140,320 @@ input[type="email"]:focus {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Health Dashboard Styles */
+@layer components {
+    /* Professional Enhancements */
+    .theme-transition {
+        @apply transition-all duration-300 ease-out;
+    }
+
+    .hover-lift:hover {
+        @apply -translate-y-0.5 shadow-lg;
+    }
+
+    /* Card Styles */
+    .card-professional {
+        @apply bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900;
+        @apply border border-gray-200/80 dark:border-gray-700/30;
+        @apply shadow-sm;
+    }
+
+    .card-hover {
+        @apply transition-all duration-300 ease-out;
+    }
+
+    .card-hover:hover {
+        @apply -translate-y-1 scale-[1.02] shadow-xl;
+    }
+
+    /* Button Styles */
+    .btn-gradient-green {
+        @apply bg-gradient-to-r from-green-600 to-emerald-600;
+        @apply hover:from-green-700 hover:to-emerald-700;
+        @apply transition-all duration-300 transform hover:scale-105;
+        @apply shadow-lg hover:shadow-xl;
+    }
+
+    .btn-gradient-blue {
+        @apply bg-gradient-to-r from-blue-600 to-indigo-600;
+        @apply hover:from-blue-700 hover:to-indigo-700;
+        @apply transition-all duration-300 transform hover:scale-105;
+        @apply shadow-lg hover:shadow-xl;
+    }
+
+    .btn-gradient-teal {
+        @apply bg-gradient-to-r from-green-600 to-teal-600;
+        @apply hover:from-green-700 hover:to-teal-700;
+        @apply transition-all duration-300 transform hover:scale-105;
+        @apply shadow-lg hover:shadow-xl;
+    }
+
+    /* Background Gradients */
+    .bg-main-gradient {
+        @apply bg-gradient-to-br from-slate-50 via-white to-blue-50;
+        @apply dark:from-gray-900 dark:via-gray-800 dark:to-slate-900;
+    }
+
+    .bg-motivational-banner {
+        @apply bg-gradient-to-r from-green-500 via-teal-500 to-blue-500;
+    }
+
+    .bg-habit-pending {
+        @apply bg-gradient-to-br from-blue-50 to-indigo-50;
+        @apply dark:from-blue-900/20 dark:to-indigo-900/30;
+    }
+
+    /* Icon Gradients */
+    .icon-green-teal {
+        @apply bg-gradient-to-br from-green-500 to-teal-500;
+    }
+
+    .icon-blue-indigo {
+        @apply bg-gradient-to-br from-blue-500 to-indigo-600;
+    }
+
+    .icon-green-emerald {
+        @apply bg-gradient-to-br from-green-500 to-emerald-600;
+    }
+
+    .icon-orange-amber {
+        @apply bg-gradient-to-br from-orange-500 to-amber-600;
+    }
+
+    .icon-purple-pink {
+        @apply bg-gradient-to-br from-purple-500 to-pink-600;
+    }
+
+    .icon-blue-indigo-large {
+        @apply bg-gradient-to-br from-blue-600 to-indigo-600;
+    }
+
+    .icon-green-teal-large {
+        @apply bg-gradient-to-br from-green-100 to-teal-100;
+        @apply dark:from-green-900/30 dark:to-teal-900/30;
+    }
+
+    /* Header Styles */
+    .header-green {
+        @apply bg-gradient-to-r from-green-500 to-teal-500;
+    }
+
+    .header-purple {
+        @apply bg-gradient-to-r from-purple-500 to-indigo-500;
+    }
+
+    .header-teal {
+        @apply bg-gradient-to-r from-teal-500 to-cyan-500;
+    }
+
+    /* Icon Container */
+    .icon-container {
+        @apply flex items-center justify-center transition-transform duration-300 hover:scale-110;
+    }
+
+    /* Habit Card Styles */
+    .habit-card-completed {
+        @apply bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/30;
+        @apply border-green-200 dark:border-green-700;
+    }
+
+    .habit-card-pending {
+        @apply bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/30;
+        @apply border-blue-200 dark:border-blue-700;
+    }
+
+    /* Progress Bar */
+    .progress-bar-animated {
+        @apply relative overflow-hidden transition-all duration-1000;
+    }
+
+    .progress-bar-animated::after {
+        content: '';
+        @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent;
+        animation: shimmer 2s infinite;
+    }
+
+    /* Streak Info */
+    .streak-info {
+        @apply bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20;
+        @apply border border-orange-100 dark:border-orange-800;
+    }
+
+    /* Quick Action Card */
+    .quick-action-card {
+        @apply relative overflow-hidden;
+    }
+
+    .quick-action-card::before {
+        content: '';
+        @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+        @apply bg-gradient-to-br from-blue-500/5 to-indigo-500/5;
+    }
+
+    .quick-action-card:hover::before {
+        @apply opacity-100;
+    }
+
+    /* Layout */
+    .dashboard-layout {
+        @apply flex flex-col gap-6;
+    }
+
+    .dashboard-main {
+        @apply flex-1;
+    }
+
+    .dashboard-sidebar {
+        @apply w-full;
+    }
+
+    .dashboard-sidebar-horizontal {
+        @apply flex flex-col gap-4;
+    }
+
+    @media (min-width: 768px) {
+        .dashboard-sidebar-horizontal {
+            @apply gap-6;
+        }
+    }
+
+    /* Adjust card sizes for horizontal layout */
+    .dashboard-sidebar-horizontal .bg-white,
+    .dashboard-sidebar-horizontal .bg-gray-800 {
+        @apply min-h-0;
+    }
+
+    .dashboard-sidebar-horizontal h3 {
+        @apply text-base lg:text-lg;
+    }
+
+    .dashboard-sidebar-horizontal .px-8 {
+        @apply px-4 lg:px-6;
+    }
+
+    .dashboard-sidebar-horizontal .py-8 {
+        @apply py-4 lg:py-6;
+    }
+
+    @media (min-width: 1280px) {
+        .dashboard-layout {
+            @apply flex-row;
+        }
+
+        .dashboard-main {
+            @apply w-1/2 flex-shrink-0;
+        }
+
+        .dashboard-sidebar {
+            @apply w-1/2 flex-shrink-0;
+        }
+    }    /* Header and Navigation */
+    .header-sticky {
+        @apply sticky top-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl;
+        @apply border-b border-gray-200 dark:border-gray-700 shadow-sm;
+    }
+
+    .status-badge-green {
+        @apply flex items-center space-x-2 bg-green-100 dark:bg-green-900/30;
+        @apply text-green-700 dark:text-green-300 px-4 py-2 rounded-full;
+    }
+
+    .status-badge-blue {
+        @apply flex items-center space-x-2 bg-blue-100 dark:bg-blue-900/30;
+        @apply text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full;
+    }
+
+    .nav-btn {
+        @apply inline-flex items-center px-4 py-2 font-medium rounded-lg;
+        @apply transition-colors shadow-sm hover:shadow-md;
+    }
+
+    .nav-btn-green {
+        @apply bg-green-600 hover:bg-green-700 text-white;
+    }
+
+    .nav-btn-blue {
+        @apply bg-blue-600 hover:bg-blue-700 text-white;
+    }
+
+    .nav-btn-purple {
+        @apply bg-purple-600 hover:bg-purple-700 text-white;
+    }
+
+    /* Stats Card */
+    .stats-card {
+        @apply bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg;
+        @apply border border-gray-200 dark:border-gray-700;
+        @apply hover:shadow-xl hover:scale-105 transition-all duration-300;
+        @apply overflow-hidden relative;
+    }
+
+    .stats-icon-animated {
+        @apply w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg;
+        @apply group-hover:scale-110 transition-transform duration-300;
+    }
+
+    /* Notification Styles */
+    .notification-toast {
+        @apply backdrop-blur-sm border border-white/20;
+    }
+
+    .notification-success {
+        @apply bg-gradient-to-r from-green-500 to-emerald-500;
+    }
+
+    .notification-error {
+        @apply bg-gradient-to-r from-red-500 to-pink-500;
+    }
+}
+
+@layer utilities {
+    /* Performance optimizations */
+    .will-change-transform {
+        will-change: transform;
+    }
+
+    .will-change-opacity {
+        will-change: opacity;
+    }
+
+    /* Focus states */
+    .focus-ring:focus {
+        @apply outline-2 outline-green-500 outline-offset-2;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+        .mobile-padding {
+            @apply px-4;
+        }
+
+        .mobile-text {
+            @apply text-sm;
+        }
+    }
+}
+
+/* Animations */
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .theme-transition,
+    .card-hover,
+    .icon-container,
+    .animate-shimmer {
+        animation: none !important;
+        transition: none !important;
     }
 }

@@ -17,6 +17,9 @@ return new class extends Migration {
             $table->decimal('proteines_pour_100g', 8, 2)->after('calories_pour_100g');
             $table->decimal('glucides_pour_100g', 8, 2)->after('proteines_pour_100g');
             $table->decimal('lipides_pour_100g', 8, 2)->after('glucides_pour_100g');
+            $table->decimal('fibres_pour_100g', 8, 2)->nullable()->after('lipides_pour_100g');
+            $table->json('allergenes')->nullable()->after('fibres_pour_100g');
+            $table->string('image')->nullable()->after('allergenes');
         });
     }
 
@@ -32,7 +35,10 @@ return new class extends Migration {
                 'calories_pour_100g',
                 'proteines_pour_100g',
                 'glucides_pour_100g',
-                'lipides_pour_100g'
+                'lipides_pour_100g',
+                'fibres_pour_100g',
+                'allergenes',
+                'image'
             ]);
         });
     }

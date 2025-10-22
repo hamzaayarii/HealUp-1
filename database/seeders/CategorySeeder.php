@@ -56,6 +56,18 @@ class CategorySeeder extends Seeder
                 'icon' => 'book',
                 'color' => '#84cc16'
             ],
+            [
+                'name' => 'Sustainability',
+                'description' => 'Eco-friendly and sustainable living practices',
+                'icon' => 'leaf',
+                'color' => '#22c55e'
+            ],
+            [
+                'name' => 'Lifestyle',
+                'description' => 'General lifestyle and digital wellness',
+                'icon' => 'mobile',
+                'color' => '#eab308'
+            ],
         ];
 
         foreach ($categories as $category) {

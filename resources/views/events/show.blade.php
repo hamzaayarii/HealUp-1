@@ -42,20 +42,30 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 flex justify-end space-x-3">
-                        <a href="{{ route('events.edit', $event) }}"
-                           class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                            Edit Event
-                        </a>
-                        <form action="{{ route('events.destroy', $event) }}" method="POST" class="inline" onsubmit="return confirm('Delete this event?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                    class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-                                Delete Event
-                            </button>
-                        </form>
-                    </div>
+                    @if(auth()->check() && (auth()->user()->isStudent() || auth()->user()->isProfessor()))
+                        @php
+                            $alreadyRegistered = $event->users->contains(auth()->id());
+                            $spotsAvailable = $event->current_participants < $event->max_participants;
+                        @endphp
+                        <div class="mt-8 flex flex-col md:flex-row gap-2 justify-end">
+                            @if(auth()->user()->isProfessor())
+                                <a href="{{ route('events.participants', $event->id) }}" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition duration-200">View Participants</a>
+                            @endif
+                            @if($alreadyRegistered)
+                                <form action="{{ route('events.unregister', $event) }}" method="POST" onsubmit="return confirm('Are you sure you want to unregister from this event?');">
+                                    @csrf
+                                    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition duration-200">Unregister</button>
+                                </form>
+                            @elseif(!$spotsAvailable)
+                                <button class="bg-gray-400 text-white font-semibold py-2 px-4 rounded cursor-not-allowed" disabled>Event Full</button>
+                            @else
+                                <form action="{{ route('events.register', $event) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition duration-200">Register</button>
+                                </form>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

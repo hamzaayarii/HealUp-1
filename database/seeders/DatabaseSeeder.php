@@ -16,10 +16,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             CategorySeeder::class,
+            EventSeeder::class,
             HabitSeeder::class,
             ChallengeSeeder::class,
             PostSeeder::class,
             AdviceSeeder::class,
+            BadgeSeeder::class,
         ]);
     }
 }

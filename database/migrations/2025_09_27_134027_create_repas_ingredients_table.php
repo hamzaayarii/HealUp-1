@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('repas_ingredients', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('repas_id')->constrained('repas')->onDelete('cascade');
+            $table->foreignId('ingredient_id')->constrained('ingredients')->onDelete('cascade');
+            $table->decimal('quantite', 8, 2)->default(0); // Quantity in grams
+            $table->decimal('calories_calculees', 8, 2)->default(0); // Calculated calories
             $table->timestamps();
         });
     }

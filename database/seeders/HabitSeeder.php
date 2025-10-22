@@ -22,6 +22,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 30,
                 'unit' => 'minutes',
+                'difficulty_level' => 'easy',
+                'points_per_completion' => 10,
+                'icon' => 'fas fa-walking',
+                'color' => '#28a745',
             ],
             [
                 'category_id' => 1,
@@ -30,6 +34,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 45,
                 'unit' => 'minutes',
+                'difficulty_level' => 'medium',
+                'points_per_completion' => 20,
+                'icon' => 'fas fa-dumbbell',
+                'color' => '#ffc107',
             ],
             [
                 'category_id' => 1,
@@ -38,6 +46,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 10000,
                 'unit' => 'steps',
+                'difficulty_level' => 'medium',
+                'points_per_completion' => 15,
+                'icon' => 'fas fa-shoe-prints',
+                'color' => '#17a2b8',
             ],
 
             // Nutrition
@@ -48,6 +60,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 5,
                 'unit' => 'servings',
+                'difficulty_level' => 'easy',
+                'points_per_completion' => 12,
+                'icon' => 'fas fa-apple-alt',
+                'color' => '#28a745',
             ],
             [
                 'category_id' => 2,
@@ -56,6 +72,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 1,
                 'unit' => 'meal',
+                'difficulty_level' => 'easy',
+                'points_per_completion' => 8,
+                'icon' => 'fas fa-coffee',
+                'color' => '#fd7e14',
             ],
 
             // Mental Health
@@ -66,6 +86,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 15,
                 'unit' => 'minutes',
+                'difficulty_level' => 'medium',
+                'points_per_completion' => 15,
+                'icon' => 'fas fa-spa',
+                'color' => '#6f42c1',
             ],
             [
                 'category_id' => 3,
@@ -74,6 +98,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 3,
                 'unit' => 'items',
+                'difficulty_level' => 'easy',
+                'points_per_completion' => 10,
+                'icon' => 'fas fa-book',
+                'color' => '#e83e8c',
             ],
 
             // Sleep & Rest
@@ -84,6 +112,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 8,
                 'unit' => 'hours',
+                'difficulty_level' => 'medium',
+                'points_per_completion' => 12,
+                'icon' => 'fas fa-bed',
+                'color' => '#6610f2',
             ],
             [
                 'category_id' => 4,
@@ -92,6 +124,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 1,
                 'unit' => 'hour',
+                'difficulty_level' => 'hard',
+                'points_per_completion' => 18,
+                'icon' => 'fas fa-moon',
+                'color' => '#20c997',
             ],
 
             // Hydration
@@ -102,6 +138,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 8,
                 'unit' => 'glasses',
+                'difficulty_level' => 'easy',
+                'points_per_completion' => 10,
+                'icon' => 'fas fa-tint',
+                'color' => '#17a2b8',
             ],
 
             // Social Wellness
@@ -112,6 +152,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'weekly',
                 'target_value' => 3,
                 'unit' => 'times',
+                'difficulty_level' => 'medium',
+                'points_per_completion' => 20,
+                'icon' => 'fas fa-users',
+                'color' => '#fd7e14',
             ],
 
             // Study Habits
@@ -122,6 +166,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 2,
                 'unit' => 'hours',
+                'difficulty_level' => 'hard',
+                'points_per_completion' => 25,
+                'icon' => 'fas fa-graduation-cap',
+                'color' => '#007bff',
             ],
             [
                 'category_id' => 7,
@@ -130,6 +178,10 @@ class HabitSeeder extends Seeder
                 'frequency' => 'daily',
                 'target_value' => 30,
                 'unit' => 'minutes',
+                'difficulty_level' => 'easy',
+                'points_per_completion' => 12,
+                'icon' => 'fas fa-book-open',
+                'color' => '#6c757d',
             ],
         ];
 

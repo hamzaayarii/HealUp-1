@@ -114,6 +114,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Participation::class);
     }
 
+    public function createdChallenges(): HasMany
+    {
+    return $this->hasMany(Challenge::class, 'created_by');
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -179,23 +184,25 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getTodayCalories()
     {
         return $this->repas()
-                   ->whereDate('date_consommation', today())
-                   ->sum('calories_total') ?? 0;
+            ->whereDate('date_consommation', today())
+            ->sum('calories_total') ?? 0;
     }
 
     public function getNutritionStats($days = 7)
     {
         $startDate = today()->subDays($days - 1);
-        
+
         return $this->repas()
-                   ->where('date_consommation', '>=', $startDate)
-                   ->selectRaw('
+            ->where('date_consommation', '>=', $startDate)
+            ->selectRaw('
                        AVG(calories_total) as avg_calories,
                        AVG(proteines_total) as avg_proteines,
                        AVG(glucides_total) as avg_glucides,
                        AVG(lipides_total) as avg_lipides,
                        COUNT(*) as total_repas
                    ')
-                   ->first();
+            ->first();
     }
+
+
 }

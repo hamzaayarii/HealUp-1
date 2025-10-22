@@ -17,7 +17,14 @@ class IngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nom' => $this->faker->word(),
+            'categorie' => $this->faker->word(),
+            'calories_pour_100g' => $this->faker->numberBetween(10, 500),
+            'proteines_pour_100g' => $this->faker->numberBetween(1, 50),
+            'glucides_pour_100g' => $this->faker->numberBetween(1, 100),
+            'lipides_pour_100g' => $this->faker->numberBetween(1, 100),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

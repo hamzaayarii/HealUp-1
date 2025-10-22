@@ -13,15 +13,26 @@
             <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
                 <input type="file" id="photo" class="hidden"
-                            wire:model.live="photo"
+                            wire:model="photo"
+                            accept="image/png,image/jpeg,image/jpg"
                             x-ref="photo"
                             x-on:change="
-                                    photoName = $refs.photo.files[0].name;
-                                    const reader = new FileReader();
-                                    reader.onload = (e) => {
-                                        photoPreview = e.target.result;
-                                    };
-                                    reader.readAsDataURL($refs.photo.files[0]);
+                                    console.log('File selected:', $refs.photo.files[0]);
+                                    if ($refs.photo.files[0]) {
+                                        photoName = $refs.photo.files[0].name;
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => {
+                                            photoPreview = e.target.result;
+                                        };
+                                        reader.readAsDataURL($refs.photo.files[0]);
+                                        
+                                        // Trigger Livewire upload
+                                        @this.upload('photo', $refs.photo.files[0], () => {
+                                            console.log('Photo uploaded to Livewire!');
+                                        }, () => {
+                                            console.error('Photo upload failed');
+                                        });
+                                    }
                             " />
 
                 <x-label for="photo" value="{{ __('Photo') }}" />
@@ -88,8 +99,13 @@
             {{ __('Saved.') }}
         </x-action-message>
 
-        <x-button wire:loading.attr="disabled" wire:target="photo">
-            {{ __('Save') }}
+        <div wire:loading wire:target="photo" class="me-3 text-blue-600">
+            Uploading photo...
+        </div>
+
+        <x-button wire:loading.attr="disabled" wire:target="photo,updateProfileInformation">
+            <span wire:loading.remove wire:target="updateProfileInformation">{{ __('Save') }}</span>
+            <span wire:loading wire:target="updateProfileInformation">Saving...</span>
         </x-button>
     </x-slot>
 </x-form-section>

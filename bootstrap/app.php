@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\EnsureUserIsProfessor;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,10 +14,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        // Add theme middleware to web group
+        $middleware->alias([
+        'professor' => EnsureUserIsProfessor::class,
+        'isAdmin' => IsAdmin::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+    ]);
         $middleware->web(append: [
             \App\Http\Middleware\ThemeMiddleware::class,
+            \App\Http\Middleware\RedirectAdminMiddleware::class,
         ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

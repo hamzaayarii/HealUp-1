@@ -48,9 +48,15 @@ class HealthDashboardController extends Controller
         $motivationalMessage = $this->getMotivationalMessage($todayStats, $weeklyOverview);
 
         // Get upcoming challenges
-        $upcomingChallenges = Challenge::where('is_active', true)
-            ->where('end_date', '>', now())
+        $upcomingChallenges = Challenge::where('end_date', '>', now())
             ->orderBy('start_date')
+            ->limit(3)
+            ->get();
+
+        // Get upcoming events (next 3, active, date >= today)
+        $upcomingEvents = \App\Models\Event::where('is_active', true)
+            ->where('date', '>=', now()->toDateString())
+            ->orderBy('date')
             ->limit(3)
             ->get();
 
@@ -61,7 +67,8 @@ class HealthDashboardController extends Controller
             'recentActivity',
             'quickActions',
             'motivationalMessage',
-            'upcomingChallenges'
+            'upcomingChallenges',
+            'upcomingEvents'
         ));
     }
 

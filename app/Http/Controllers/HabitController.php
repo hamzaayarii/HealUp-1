@@ -223,9 +223,25 @@ class HabitController extends Controller
                     'target_value' => $validated['target_value'],
                     'started_at' => now(),
                 ]);
+                
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Habit reactivated successfully!'
+                    ]);
+                }
+                
                 return redirect()->route('habits.index')
                     ->with('success', 'Habit reactivated successfully!');
             }
+            
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You already have this habit!'
+                ], 400);
+            }
+            
             return redirect()->route('habits.index')
                 ->with('error', 'You already have this habit!');
         }
@@ -237,6 +253,13 @@ class HabitController extends Controller
             'started_at' => now(),
             'is_active' => true,
         ]);
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Habit added successfully!'
+            ]);
+        }
 
         return redirect()->route('habits.index')
             ->with('success', 'Habit added successfully!');
