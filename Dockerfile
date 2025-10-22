@@ -39,8 +39,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy application code
 COPY . /var/www/html
 
+
 # Copy built assets from frontend-build
-COPY --from=frontend-build /app/resources /var/www/html/resources
 COPY --from=frontend-build /app/public/build /var/www/html/public/build
 
 
