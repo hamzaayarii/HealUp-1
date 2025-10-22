@@ -48,7 +48,7 @@ class AdviceController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax()) {
-            return view('admin.advices.partials.advice-form');
+            return view('admin.advices.create');
         }
 
         return view('admin.advices.create'); // full page
@@ -57,59 +57,47 @@ class AdviceController extends Controller
 
     public function store(Request $request)
     {
-        $validator = \Validator::make($request->all(), [
-            'title'   => 'required|string|max:255',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'source'  => 'required|in:AI,professor,system',
+            'source' => 'required|in:AI,professor,system',
             'user_id' => 'required|exists:users,id',
         ]);
 
-        if ($validator->fails()) {
-            if ($request->ajax()) {
-                // Return validation errors as JSON
-                return response()->json([
-                    'errors' => $validator->errors()
-                ], 422);
-            }
-
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
         Advice::create([
-            'user_id'    => $request->user_id,
+            'user_id' => $validated['user_id'],
             'advisor_id' => auth()->id(),
-            'title'      => $request->title,
-            'content'    => $request->content,
-            'source'     => $request->source,
-            'is_read'    => false,
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'source' => $validated['source'],
+            'is_read' => $request->input('is_read', false),
         ]);
 
         if ($request->ajax()) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Advice created successfully.'
-            ]);
+            return response()->json(['success' => true, 'redirect' => route('admin.advices.index')]);
         }
 
         return redirect()->route('admin.advices.index')->with('success', 'Advice created successfully.');
     }
 
-
     public function update(Request $request, Advice $advice)
     {
-        $request->validate([
-            'title'   => 'required|string|max:255',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'source'  => 'required|in:AI,professor,system',
-            'user_id' => 'required|exists:users,id',
+            'source' => 'required|in:AI,professor,system',
             'is_read' => 'boolean',
-            'status'  => 'required|in:new,seen,archived',
         ]);
 
-        $advice->update($request->only(['title', 'content', 'source', 'user_id', 'is_read', 'status']));
+        $advice->update($validated);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'redirect' => route('admin.advices.index')]);
+        }
 
         return redirect()->route('admin.advices.index')->with('success', 'Advice updated successfully.');
     }
+
 
     public function show(Request $request, Advice $advice)
     {

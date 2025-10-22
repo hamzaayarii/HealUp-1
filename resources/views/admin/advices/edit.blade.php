@@ -1,5 +1,6 @@
 <div class="p-6 space-y-4">
-    <form action="{{ route('admin.advices.update', $advice) }}" method="POST" class="space-y-4">
+    <form action="{{ route('admin.advices.update', $advice) }}" method="POST" class="space-y-4"
+    onsubmit="event.preventDefault(); submitEditAdviceForm(this);">
         @csrf
         @method('PUT')
 
