@@ -23,15 +23,7 @@ return new class extends Migration
         $table->timestamps();
     });
 
-    Schema::create('user_badges', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-        $table->foreignId('badge_id')->constrained()->cascadeOnDelete();
-        $table->timestamp('awarded_at');
-        $table->timestamps();
-
-        $table->unique(['user_id', 'badge_id']);
-    });
+    // Removed user_badges table creation to avoid duplication. Now handled in a dedicated migration.
     }
 
     /**
@@ -40,5 +32,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('badges');
+        // No need to drop user_badges here, handled in its own migration.
     }
 };
