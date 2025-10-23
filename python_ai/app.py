@@ -555,7 +555,14 @@ def optimize_meal():
 #================================================================
 import joblib
 import random
-model = joblib.load('advice_model.pkl')
+
+# Try to load ML model, fallback to random if not available
+try:
+    model = joblib.load('advice_model.pkl')
+    logger.info("ML model loaded successfully")
+except Exception as e:
+    logger.warning(f"Could not load ML model: {str(e)}. Using fallback random selection.")
+    model = None
 
 ADVICE_LIBRARY = {
     'Sleep': [
@@ -588,7 +595,16 @@ def predict_advice():
                           data['total_glucides'], data['total_lipides'],
                           data['current_streak']]])
     
-    advice_type = model.predict(features)[0]
+    # Use ML model if available, otherwise select random category
+    if model is not None:
+        try:
+            advice_type = model.predict(features)[0]
+        except Exception as e:
+            logger.warning(f"Model prediction failed: {str(e)}. Using random selection.")
+            advice_type = random.choice(list(ADVICE_LIBRARY.keys()))
+    else:
+        # Fallback: random selection from all categories
+        advice_type = random.choice(list(ADVICE_LIBRARY.keys()))
     
     advice_options = ADVICE_LIBRARY.get(advice_type, [])
     advice_list = random.sample(advice_options, k=min(3, len(advice_options)))
