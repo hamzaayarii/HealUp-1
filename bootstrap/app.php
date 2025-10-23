@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\StudentMiddleware;
 use App\Http\Middleware\EnsureUserIsProfessor;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
         'professor' => EnsureUserIsProfessor::class,
         'isAdmin' => IsAdmin::class,
+        'student' => StudentMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
     ]);
         $middleware->web(append: [

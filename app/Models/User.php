@@ -204,5 +204,90 @@ class User extends Authenticatable implements MustVerifyEmail
             ->first();
     }
 
+    // ===== RELATIONS BADGES =====
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'user_badges')
+                    ->withPivot('earned_at', 'progress_data')
+                    ->withTimestamps();
+    }
+
+    public function earnedBadges()
+    {
+        return $this->belongsToMany(Badge::class, 'user_badges')
+                    ->withPivot('earned_at', 'progress_data')
+                    ->wherePivot('earned_at', '<=', now());
+    }
+
+    // Vérifier si l'utilisateur a un badge spécifique
+    public function hasBadge($badgeId)
+    {
+        return $this->badges()->where('badges.id', $badgeId)->exists();
+    }
+
+    // Méthodes pour l'attribution automatique des badges
+    public function checkAndAwardBadges()
+    {
+        $userStats = $this->getChallengeStats();
+        $badges = Badge::where('is_active', true)->get();
+        
+        foreach ($badges as $badge) {
+            if (!$this->hasBadge($badge->id) && $this->meetsBadgeCriteria($badge, $userStats)) {
+                $this->awardBadge($badge);
+            }
+        }
+    }
+
+    private function meetsBadgeCriteria(Badge $badge, $userStats)
+    {
+        $criteria = $badge->criteria;
+        
+        if (!is_array($criteria)) {
+            return false;
+        }
+        
+        foreach ($criteria as $key => $requiredValue) {
+            if (!isset($userStats[$key]) || $userStats[$key] < $requiredValue) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function awardBadge(Badge $badge)
+    {
+        if (!$this->hasBadge($badge->id)) {
+            $this->badges()->attach($badge->id, [
+                'earned_at' => now(),
+                'progress_data' => json_encode($this->getChallengeStats())
+            ]);
+            
+            \Log::info("Badge awarded: {$badge->name} to user: {$this->name}");
+            return true;
+        }
+        return false;
+    }
+
+    public function getChallengeStats()
+    {
+        return [
+            'challenges_completed' => $this->participations()->where('completed', true)->count(),
+            'total_points' => $this->participations()->sum('points_earned'),
+            'current_streak' => $this->getCurrentStreak(),
+            'total_checkins' => $this->participations()->sum('checkin_count'),
+        ];
+    }
+
+    public function getCurrentStreak()
+    {
+        // Logique simplifiée pour le streak
+        $latestParticipation = $this->participations()
+            ->where('completed', false)
+            ->latest()
+            ->first();
+        
+        return $latestParticipation ? $latestParticipation->checkin_count : 0;
+    }
+
 
 }

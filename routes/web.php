@@ -240,7 +240,28 @@ Route::middleware(['auth', 'verified', 'professor'])
 
 });
 
-// Debug route (remove in production)
+// Student Routes
+Route::middleware(['auth', 'verified', 'student']) 
+    ->prefix('student')
+    ->name('student.')
+    ->group(function () {
+        // Dashboard and challenges
+        Route::get('/dashboard', [App\Http\Controllers\Student\StudentController::class, 'dashboard'])->name('dashboard');
+        Route::get('/challenges', [App\Http\Controllers\Student\ChallengeController::class, 'index'])->name('challenges.index');
+        Route::post('/challenges/{challenge}/join', [App\Http\Controllers\Student\ChallengeController::class, 'join'])->name('challenges.join');
+        Route::get('/progress', [App\Http\Controllers\Student\StudentController::class, 'progress'])->name('progress');
+        Route::get('/badges', [App\Http\Controllers\Student\StudentController::class, 'badges'])->name('badges');
+        
+        // Calendar routes
+        Route::get('/calendar', [App\Http\Controllers\Student\CalendarController::class, 'index'])->name('calendar.index');
+        Route::get('/calendar/events', [App\Http\Controllers\Student\CalendarController::class, 'getEvents'])->name('calendar.events');
+        Route::post('/calendar/checkin', [App\Http\Controllers\Student\CalendarController::class, 'checkin'])->name('calendar.checkin');
+        Route::get('/calendar/stats', [App\Http\Controllers\Student\CalendarController::class, 'getStats'])->name('calendar.stats');
+        Route::post('/calendar/sync-all', [App\Http\Controllers\Student\CalendarController::class, 'syncAllProgress'])->name('calendar.sync-all');
+});
+
+
+
 Route::get('/debug-habits', function () {
     $habit = App\Models\Habit::with(['userHabits.user'])->first();
 

@@ -104,19 +104,98 @@
                             </div>
                         </div>
                     </div>
+                    
 
-                    @auth
-    @if(auth()->user()->role === 'professor' || auth()->user()->role === 'admin')
-        <x-nav-link :href="auth()->user()->role === 'professor' ? route('professor.challenges.index') : route('admin.challenges.index')" 
-                   :active="request()->routeIs('professor.challenges.*') || request()->routeIs('admin.challenges.*')"
-                   class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M9 12l2 2l4-4m5-2a9 9 0 11-18 0a9 9 0 0118 0z"/>
-            </svg>
-            {{ __('Challenges') }}
-        </x-nav-link>
-    @endif
+                    <!-- Challenges Link - Visible pour tous les rôles avec redirection appropriée -->
+@auth
+
+
+<div class="relative" x-data="{ open: false }">
+    <button @click="open = !open"
+            class="inline-flex items-center h-10 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900
+            {{ request()->routeIs('*.challenges.*') || request()->routeIs('*.calendar.*') || request()->routeIs('*.badges.*')
+               ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+               : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100' }}">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M9 12l2 2l4-4m5-2a9 9 0 11-18 0a9 9 0 0118 0z"/>
+        </svg>
+        <span>Challenges</span>
+        <svg class="ml-2 h-4 w-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+        @if(auth()->user()->isStudent())
+            <span class="ml-2 bg-emerald-100 dark:bg-emerald-800 text-emerald-800 dark:text-emerald-200 text-xs px-2 py-1 rounded-full">
+                Student
+            </span>
+        @elseif(auth()->user()->isProfessor())
+            <span class="ml-2 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded-full">
+                Professor
+            </span>
+        @elseif(auth()->user()->isAdmin())
+            <span class="ml-2 bg-purple-100 dark:bg-purple-800 text-purple-800 dark:text-purple-200 text-xs px-2 py-1 rounded-full">
+                Admin
+            </span>
+        @endif
+    </button>
+
+    <div x-show="open"
+         @click.away="open = false"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 scale-95 translate-y-1"
+         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+         x-transition:leave-end="opacity-0 scale-95 translate-y-1"
+         class="absolute left-0 mt-2 w-64 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-emerald-200 dark:ring-emerald-700/50 z-50">
+        <div class="p-2 space-y-1">
+            <!-- Browse Challenges -->
+            <a href="{{ route('student.challenges.index') }}" 
+               class="flex items-center px-4 py-2 text-sm rounded-lg transition-colors duration-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/20">
+                <svg class="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div>
+                    <div class="font-medium">Browse Challenges</div>
+                    
+                </div>
+            </a>
+
+            <!-- Calendar -->
+            <a href="{{ route('student.calendar.index') }}"
+               class="flex items-center px-4 py-2 text-sm rounded-lg transition-colors duration-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/20">
+                <svg class="w-5 h-5 mr-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <div>
+                    <div class="font-medium">View Calendar</div>
+                    
+                </div>
+            </a>
+
+            <!-- Badges -->
+            <a href="{{ route('student.badges') }}"
+               class="flex items-center px-4 py-2 text-sm rounded-lg transition-colors duration-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/20">
+                <svg class="w-5 h-5 mr-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                </svg>
+                <div>
+                    <div class="font-medium">My Badges</div>
+                   
+                </div>
+            </a>
+
+            <!-- Sync Progress -->
+            <button onclick="syncAllProgress()" 
+                    class="w-full flex items-center px-4 py-2 text-sm rounded-lg transition-colors duration-200 hover:bg-emerald-50 dark:hover:bg-emerald-900/20">
+                <svg class="w-5 h-5 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                <div class="font-medium">Sync Progress</div>
+            </button>
+        </div>
+    </div>
+</div>
 @endauth
 
 <div class="h-6 border-l border-gray-200 dark:border-gray-700 mx-3"></div>
@@ -500,3 +579,4 @@
         </div>
     </div>
 </nav>
+
