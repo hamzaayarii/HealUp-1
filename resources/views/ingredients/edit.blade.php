@@ -34,7 +34,7 @@
 
         <!-- Form -->
         <div class="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-            <form action="{{ route('ingredients.update', $ingredient) }}" method="POST">
+            <form action="{{ route('ingredients.update', $ingredient) }}" method="POST" novalidate>
                 @csrf
                 @method('PUT')
                 

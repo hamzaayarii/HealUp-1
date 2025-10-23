@@ -28,7 +28,7 @@
 
         <!-- Form -->
         <div class="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-            <form action="{{ route('repas.store') }}" method="POST" id="repasForm">
+            <form action="{{ route('repas.store') }}" method="POST" id="repasForm" novalidate>
                 @csrf
                 
                 <!-- Meal Basic Information -->
@@ -42,9 +42,9 @@
                                name="nom" 
                                id="nom" 
                                value="{{ old('nom') }}" 
-                               class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
+                               class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('nom') border-red-500 @enderror" 
                                placeholder="e.g., Lunch with chicken" 
-                               required>
+                               {{ old('nom') ? '' : 'required' }}>
                     </div>
 
                     <!-- Meal Type -->
@@ -54,8 +54,8 @@
                         </label>
                         <select name="type_repas" 
                                 id="type_repas" 
-                                class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
-                                required>
+                                class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('type_repas') border-red-500 @enderror" 
+                                {{ old('type_repas') ? '' : 'required' }}>
                             <option value="">Select a type</option>
                             <option value="petit-dejeuner" {{ old('type_repas') == 'petit-dejeuner' ? 'selected' : '' }}>🌅 Breakfast</option>
                             <option value="dejeuner" {{ old('type_repas') == 'dejeuner' ? 'selected' : '' }}>☀️ Lunch</option>
@@ -73,8 +73,8 @@
                                name="date_consommation" 
                                id="date_consommation" 
                                value="{{ old('date_consommation', now()->format('Y-m-d\TH:i')) }}" 
-                               class="w-full md:w-1/2 rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
-                               required>
+                               class="w-full md:w-1/2 rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('date_consommation') border-red-500 @enderror" 
+                               {{ old('date_consommation') ? '' : 'required' }}>
                     </div>
                 </div>
 
@@ -96,8 +96,8 @@
                                         Ingredient *
                                     </label>
                                     <select name="ingredients[0][id]" 
-                                            class="ingredient-select w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
-                                            required>
+                                            class="ingredient-select w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('ingredients.0.id') border-red-500 @enderror" 
+                                            {{ old('ingredients.0.id') ? '' : 'required' }}>
                                         <option value="">Choose an ingredient</option>
                                         @foreach($ingredients as $ingredient)
                                             <option value="{{ $ingredient->id }}" 
@@ -116,12 +116,12 @@
                                     </label>
                                     <input type="number" 
                                            name="ingredients[0][quantite]" 
-                                           class="quantite-input w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
+                                           class="quantite-input w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('ingredients.0.quantite') border-red-500 @enderror" 
                                            min="1" 
                                            max="2000" 
                                            step="1" 
                                            placeholder="100" 
-                                           required>
+                                           {{ old('ingredients.0.quantite') ? '' : 'required' }}>
                                 </div>
                                 <div>
                                     <button type="button" 

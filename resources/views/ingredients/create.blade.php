@@ -28,7 +28,7 @@
 
         <!-- Form -->
         <div class="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-700">
-            <form action="{{ route('ingredients.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('ingredients.store') }}" method="POST" enctype="multipart/form-data" novalidate>
                 @csrf
                 
                 <!-- Basic Information -->
@@ -50,9 +50,9 @@
                                    name="nom" 
                                    id="nom" 
                                    value="{{ old('nom') }}"
-                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
+                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('nom') border-red-500 @enderror" 
                                    placeholder="e.g., Chicken Breast" 
-                                   required>
+                                   {{ old('nom') ? '' : 'required' }}>
                         </div>
 
                         <!-- Category -->
@@ -62,8 +62,8 @@
                             </label>
                             <select name="categorie" 
                                     id="categorie" 
-                                    class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
-                                    required>
+                                    class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('categorie') border-red-500 @enderror" 
+                                    {{ old('categorie') ? '' : 'required' }}>
                                 <option value="">Select a category</option>
                                 <option value="fruits" {{ old('categorie') == 'fruits' ? 'selected' : '' }}>🍎 Fruits</option>
                                 <option value="legumes" {{ old('categorie') == 'legumes' ? 'selected' : '' }}>🥕 Vegetables</option>
@@ -86,9 +86,9 @@
                                    value="{{ old('calories_pour_100g') }}"
                                    step="0.1"
                                    min="0"
-                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
+                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('calories_pour_100g') border-red-500 @enderror" 
                                    placeholder="165" 
-                                   required>
+                                   {{ old('calories_pour_100g') ? '' : 'required' }}>
                         </div>
                     </div>
                 </div>
@@ -114,9 +114,9 @@
                                    value="{{ old('proteines_pour_100g') }}"
                                    step="0.1"
                                    min="0"
-                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
+                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('proteines_pour_100g') border-red-500 @enderror" 
                                    placeholder="31.0" 
-                                   required>
+                                   {{ old('proteines_pour_100g') ? '' : 'required' }}>
                         </div>
 
                         <!-- Carbohydrates -->
@@ -130,9 +130,9 @@
                                    value="{{ old('glucides_pour_100g') }}"
                                    step="0.1"
                                    min="0"
-                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
+                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('glucides_pour_100g') border-red-500 @enderror" 
                                    placeholder="0.0" 
-                                   required>
+                                   {{ old('glucides_pour_100g') ? '' : 'required' }}>
                         </div>
 
                         <!-- Fats -->
@@ -146,9 +146,9 @@
                                    value="{{ old('lipides_pour_100g') }}"
                                    step="0.1"
                                    min="0"
-                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition" 
+                                   class="w-full rounded-xl border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition @error('lipides_pour_100g') border-red-500 @enderror" 
                                    placeholder="3.6" 
-                                   required>
+                                   {{ old('lipides_pour_100g') ? '' : 'required' }}>
                         </div>
                     </div>
                 </div>
