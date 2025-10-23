@@ -48,10 +48,20 @@ class AdviceController extends Controller
         ];
 
         // Generate AI advices
-        $response = Http::post('http://127.0.0.1:5000/predict_advice', $features);
+    try {
+        $response = Http::timeout(5)->post('http://127.0.0.1:5000/predict_advice', $features);
 
-        // AI returns an array of advices [{title, content}, ...]
-        $aiAdvices = $response->json() ?? [];
+        // Check if the response is successful and contains valid JSON
+        if ($response->successful()) {
+            $aiAdvices = $response->json() ?? [];
+        } else {
+            $aiAdvices = [];
+        }
+    } catch (\Exception $e) {
+        // If Flask server is down or connection fails, just leave aiAdvices empty
+        $aiAdvices = [];
+    }
+
 
         // Pass everything to view
         return view('advices.advices', compact('advices', 'chatSessions', 'aiAdvices'));

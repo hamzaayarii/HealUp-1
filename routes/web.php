@@ -135,6 +135,10 @@ Route::middleware([
 
     // Chat messages
     Route::post('/chat-sessions/{id}/messages', [ChatMessageController::class, 'store'])->name('chat.messages.store');
+    Route::get('/chat/messages/{id}/edit', [ChatMessageController::class, 'edit'])->name('chat.messages.edit');
+    Route::put('/chat/messages/{id}', [ChatMessageController::class, 'update'])->name('chat.messages.update');
+    Route::delete('/chat/messages/{id}', [ChatMessageController::class, 'destroy'])->name('chat.messages.destroy');
+
 
 });
 
