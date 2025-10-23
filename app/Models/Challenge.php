@@ -68,5 +68,18 @@ class Challenge extends Model
         return $this->belongsTo(Category::class);
     }
 
+// Ajoutez un accessor pour garantir que reward est toujours un integer
+public function getRewardAttribute($value)
+{
+    // Convertir en integer peu importe le type d'origine
+    return (int)$value;
+}
+
+// Et pour la durée aussi, au cas où
+public function getDurationAttribute($value)
+{
+    return (int)$value;
+}
+
 
 }
