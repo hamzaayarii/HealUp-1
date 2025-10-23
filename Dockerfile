@@ -29,10 +29,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    sqlite3 \
-    libsqlite3-dev \
     nginx \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
