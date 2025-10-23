@@ -95,13 +95,42 @@ COPY <<'EOF' /usr/local/bin/start.sh
 #!/bin/bash
 set -e
 
+echo "🚀 Starting application..."
+
+# Ensure storage directories exist with correct permissions
+mkdir -p /var/www/html/storage/logs
+mkdir -p /var/www/html/storage/framework/cache
+mkdir -p /var/www/html/storage/framework/sessions
+mkdir -p /var/www/html/storage/framework/views
+mkdir -p /var/www/html/bootstrap/cache
+
+# Set proper permissions
+chown -R www-data:www-data /var/www/html/storage
+chown -R www-data:www-data /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage
+chmod -R 775 /var/www/html/bootstrap/cache
+
 # Start PHP-FPM in background
 php-fpm -D
 
-# Run Laravel optimizations
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+# Wait a moment for PHP-FPM to start
+sleep 2
+
+# Run Laravel setup (with error handling)
+echo "📝 Running Laravel setup..."
+php artisan config:clear || true
+php artisan cache:clear || true
+
+# Run migrations (optional, uncomment if needed)
+# php artisan migrate --force || echo "⚠️ Migration failed"
+
+# Run optimizations
+php artisan config:cache || echo "⚠️ Config cache failed"
+php artisan route:cache || echo "⚠️ Route cache failed"
+php artisan view:cache || echo "⚠️ View cache failed"
+
+echo "✅ Laravel setup complete"
+echo "🌐 Starting nginx..."
 
 # Start nginx in foreground
 nginx -g "daemon off;"
