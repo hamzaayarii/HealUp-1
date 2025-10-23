@@ -134,5 +134,27 @@ class EventSeeder extends Seeder
         foreach ($events as $event) {
             Event::create($event);
         }
+
+        // Export events to JSON file for Python AI after seeding
+        $this->exportEventsToJson();
+    }
+
+    /**
+     * Export all events to python_ai/events.json for AI module
+     */
+    private function exportEventsToJson(): void
+    {
+        $events = Event::all();
+        $path = base_path('python_ai/events.json');
+        
+        // Ensure directory exists
+        $directory = dirname($path);
+        if (!is_dir($directory)) {
+            mkdir($directory, 0755, true);
+        }
+        
+        file_put_contents($path, $events->toJson(JSON_PRETTY_PRINT));
+        
+        $this->command->info('Events exported to python_ai/events.json for AI recommendations');
     }
 }

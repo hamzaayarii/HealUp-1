@@ -69,6 +69,7 @@ HealUp is built using modern, reliable technologies:
 
 ### Additional Features
 
+-   **Python AI Server** - Machine learning powered nutrition analysis and event recommendations
 -   **Two-Factor Authentication** - Enhanced security
 -   **Profile Photo Management** - Customizable user profiles
 -   **Real-time Notifications** - Stay updated on your progress
@@ -81,6 +82,7 @@ Before you begin, ensure you have the following installed:
 
 -   **PHP** >= 8.2
 -   **Composer** - Dependency management for PHP
+-   **Python** >= 3.8 - For AI server and machine learning features
 -   **Node.js** >= 18.x & **npm** - For frontend asset compilation
 -   **MySQL** >= 8.0 or **PostgreSQL** >= 13
 -   **Git** - Version control
@@ -90,8 +92,8 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Amine2026/HealUp.git
-cd HealUp
+git clone https://github.com/hamzaayarii/HealUp-1.git
+cd HealUp-1
 ```
 
 ### 2. Install Dependencies
@@ -123,27 +125,55 @@ php artisan key:generate
 # Run migrations
 php artisan migrate
 
-# Seed database with sample data (optional)
+# Seed database with sample data
 php artisan db:seed
 ```
 
-### 5. Build Assets
+### 5. Python AI Server Setup
 
 ```bash
-# Compile frontend assets
-npm run build
+# Setup Python AI dependencies and ML model
+cd python_ai
+python setup.py
 
-# Or for development with hot reload
-npm run dev
+# The setup script will:
+# - Install required Python packages (Flask, NumPy, scikit-learn, etc.)
+# - Create the machine learning model for advice prediction
+# - Setup events.json for recommendations
+
+cd ..
 ```
 
-### 6. Start the Application
+### 6. Build Assets & Start Services
 
 ```bash
-# Start Laravel development server
+# Compile frontend assets for development
+npm run dev
+
+# In a new terminal, start Laravel development server
 php artisan serve
 
-# Your application will be available at http://localhost:8000
+# In another terminal, start Python AI server
+cd python_ai
+python app.py
+
+# Your application will be available at:
+# - Frontend: http://localhost:8000
+# - AI Server: http://localhost:5000
+# - Vite Dev: http://localhost:5173
+```
+
+### 7. Verify Installation
+
+```bash
+# Check if all services are running correctly
+python check_env.py
+
+# This will verify:
+# - Laravel server is running
+# - Python AI server is responding
+# - All required files exist
+# - Dependencies are installed
 ```
 
 ## 🔧 Configuration

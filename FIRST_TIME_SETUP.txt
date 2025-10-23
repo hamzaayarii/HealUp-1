@@ -1,0 +1,32 @@
+HealUp - First Time Setup Guide
+==================================
+
+1. Clone and Install Laravel:
+   git clone https://github.com/hamzaayarii/HealUp-1.git
+   cd HealUp-1
+   composer install
+   npm install
+   cp .env.example .env
+   php artisan key:generate
+
+2. Setup Database & Seed:
+   php artisan migrate
+   php artisan db:seed
+
+3. Setup Python AI Server:
+   cd python_ai
+   python setup.py
+   cd ..
+
+4. Start All Services:
+   Terminal 1: php artisan serve
+   Terminal 2: npm run dev
+   Terminal 3: cd python_ai && python app.py
+
+5. Verify Everything Works:
+   python check_env.py
+
+URLs:
+- Frontend: http://localhost:8000
+- AI Server: http://localhost:5000
+- Vite Dev: http://localhost:5173
